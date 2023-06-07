@@ -1,16 +1,16 @@
 {
   "name": "@zullu_balti/chat",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "1.0.0",
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index-*.js",
-      "require": "./dist/index-*.js"
+      "import": "./dist/assets/index-*.js",
+      "require": "./dist/assets/index-*.js"
     }
   },
-  "main": "./dist/index-*.js",
-  "module": "./dist/index-*.js",
+  "main": "./dist/assets/index-*.js",
+  "module": "./dist/assets/index-*.js",
   "files": [ "dist" ],
   "scripts": {
     "dev": "vite",
