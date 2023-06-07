@@ -1,8 +1,6 @@
-import styles from "./assets/spinner.module.css";
-
 const Spinner = () => {
   return `
-      <div class="${styles["dot-flashing"]}">
+      <div class="dot-flashing">
         <span></span>
         <span></span>
         <span></span>  

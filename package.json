@@ -5,14 +5,15 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./src/Chat.js",
-      "require": "./src/Chat.js"
-    }
+      "import": "./dist/chat.es.js",
+      "require": "./dist/chat.umd.js"
+    },
+    "./dist/style.css": "./dist/style.css"
   },
-  "main": ".src/Chat.js",
-  "module": ".src/Chat.js",
+  "main": "./dist/chat.umd.js",
+  "module": "./dist/chat.es.js",
   "files": [
-    "src"
+    "dist"
   ],
   "scripts": {
     "dev": "vite",
