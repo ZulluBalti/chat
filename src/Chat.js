@@ -1,4 +1,4 @@
-import './style.css'
+import './assets/style.css'
 import renderer from './src/renderer'
 import events from './src/events'
 
