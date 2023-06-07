@@ -50,7 +50,7 @@ const events = () => {
       }, 300);
 
       try {
-        const res = await fetch(`http://localhost:4000/chat?q=${txt}`);
+        const res = await fetch(`/api/chat?q=${txt}`);
         const resJson = await res.json();
 
         addChat({ type: "bot", text: resJson.answer });
