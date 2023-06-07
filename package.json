@@ -5,15 +5,13 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/assets/index-*.js",
-      "require": "./dist/assets/index-*.js"
+      "import": "./src/Chat.js",
+      "require": "./src/Chat.js"
     }
   },
-  "main": "./dist/assets/index-*.js",
-  "module": "./dist/assets/index-*.js",
-  "files": [
-    "dist"
-  ],
+  "main": ".src/Chat.js",
+  "module": ".src/Chat.js",
+  "files": [ "src" ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -1,6 +1,3 @@
-import './style.css'
-import renderer from './src/renderer'
-import events from './src/events'
+import Chat from './src/Chat'
 
-document.body.insertAdjacentHTML("beforeend", renderer());
-events();
+Chat();
