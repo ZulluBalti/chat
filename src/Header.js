@@ -8,8 +8,8 @@ const Header = () => {
         <img src="${profile}" alt="Support Profile Picutre" />
       </div>
       <div>
-        <h2 class="chat-header__name">Andres Demola</h2>
-        <p class="chat-header__role">Support</p>
+        <h2 class="chat-header__name">Martin L.</h2>
+        <p class="chat-header__role">Poradca</p>
       </div>
       <div class="chat-header__logo">
         <a href="https://www.gchat.sk/" target="_blank"><img src="${logo}" alt="Logo" /></a>

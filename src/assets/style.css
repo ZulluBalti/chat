@@ -11,7 +11,7 @@
   font-family: "Mulish", sans-serif;
   position: fixed;
   bottom: 3em;
-  right: 3em;
+  left: 3em;
   font-size: 62.5%;
   max-width: 400px;
   z-index: 999999999;
@@ -20,7 +20,7 @@
 @media (max-width: 500px) {
   .chat-container {
     bottom: 1em;
-    right: 1em;
+    left: 1em;
     max-width: 380px;
   }
 }

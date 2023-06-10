@@ -1,9 +1,7 @@
 import { renderChat } from "./History";
 
 const events = () => {
-  console.log("EVENTS");
   const event = () => {
-    console.log("STARTED");
     const openIcon = document.querySelector(`.chat-icon__container`);
     const cancelIcon = document.querySelector(`.chat-cancel__container`);
     const mainChat = document.querySelector(`.chat-main`);
@@ -12,8 +10,7 @@ const events = () => {
     const chatTyping = document.querySelector(`.chat-typing`);
     const chats = document.querySelector(`.chats`);
     const chatHistory = [
-      { type: "bot", text: "Hi, I'm CP30, I'm a bot" },
-      { type: "bot", text: "I'm your assitance here to help you" },
+      { type: "bot", text: "Dobrý deň, ako Vám pomôžem?" },
     ];
 
     chats.innerHTML = renderChat(chatHistory);
