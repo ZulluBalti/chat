@@ -14,8 +14,7 @@ const Header = () => {
       <div class="chat-header__logo">
         <a href="https://www.gchat.sk/" target="_blank"><img src="${logo}" alt="Logo" /></a>
       <div>
-    </header>
-`
+    </header>`
 }
 
 export default Header;
