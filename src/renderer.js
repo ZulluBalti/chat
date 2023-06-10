@@ -11,14 +11,14 @@ const renderer = () => {
         ${Chat()}
       </div>
       <div class="chat-main hide fade">
-        <div class="chat-cancel__container">
-          ${Cancel()}
-        </div>
         <section>
           ${Header()}
           ${History()}
           ${Footer()}
         </section>
+        <div class="chat-cancel__container">
+          ${Cancel()}
+        </div>
       </div>
     </div>
   `
