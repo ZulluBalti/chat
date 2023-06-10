@@ -17,6 +17,14 @@
   z-index: 999999999;
 }
 
+@media (max-width: 500px) {
+  .chat-container {
+    bottom: 1em;
+    right: 1em;
+    max-width: 380px;
+  }
+}
+
 .chat-container svg {
   cursor: pointer;
 }
@@ -29,6 +37,12 @@
   display: flex;
   gap: 2.2em;
   transition: opacity 200ms;
+}
+
+@media (max-width: 500px) {
+  .chat-main {
+    gap: 0.8em;
+  }
 }
 
 .fade {

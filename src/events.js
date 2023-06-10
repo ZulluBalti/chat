@@ -42,6 +42,7 @@ const events = () => {
       const txt = textInput.value;
       if (!txt) return;
       loading = true;
+      textInput.value = "";
 
       addChat({ type: "human", text: txt });
       setTimeout(() => {
@@ -65,7 +66,6 @@ const events = () => {
     const handleInput = (e) => {
       if (e.ctrlKey && e.key === "Enter") {
         handleSubmit();
-        textInput.value = "";
       }
     };
 
