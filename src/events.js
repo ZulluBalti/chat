@@ -61,7 +61,7 @@ const events = () => {
     };
 
     const handleInput = (e) => {
-      if (e.ctrlKey && e.key === "Enter") {
+      if (e.key === "Enter") {
         handleSubmit();
       }
     };
