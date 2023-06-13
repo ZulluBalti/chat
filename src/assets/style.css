@@ -215,7 +215,7 @@
   border: none;
   outline: none;
   font-family: inherit;
-  /* font-size: 1.4em; */
+  font-size: 1.6em;
   overflow-y: auto;
   flex-grow: 1;
 }
