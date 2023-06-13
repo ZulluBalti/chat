@@ -51,7 +51,7 @@ const events = () => {
         const res = await fetch(`/api/chat?q=${txt}`);
         const resJson = await res.json();
 
-        addChat({ type: "bot", text: resJson.answer || 'Niečo zlyhalo, skúste to znova'});
+        addChat({ type: "bot", text: resJson.answer || 'Momentálne sme OFFLINE napíšte nám neskôr prosím.'});
       } catch (err) {
         console.error(err);
       }
