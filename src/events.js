@@ -48,7 +48,7 @@ const events = () => {
       }, 300);
 
       try {
-        const res = await fetch(`/api/chat?q=${txt}`);
+        const res = await fetch(`https://chat-server-flask-production.up.railway.app/chat?q=${txt}`);
         const resJson = await res.json();
 
         addChat({ type: "bot", text: resJson.answer || 'Momentálne sme OFFLINE napíšte nám neskôr prosím.'});
