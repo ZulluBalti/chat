@@ -62,6 +62,7 @@ const events = () => {
 
     const handleInput = (e) => {
       if (e.key === "Enter") {
+        e.preventDefault();
         handleSubmit();
       }
     };
