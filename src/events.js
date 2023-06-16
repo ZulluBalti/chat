@@ -9,9 +9,7 @@ const events = () => {
     const textSendBtn = document.querySelector(`.chat-footer__send`);
     const chatTyping = document.querySelector(`.chat-typing`);
     const chats = document.querySelector(`.chats`);
-    const chatHistory = [
-      { type: "bot", text: "Dobrý deň, ako Vám pomôžem?" },
-    ];
+    const chatHistory = [{ type: "bot", text: "Dobrý deň, ako Vám pomôžem?" }];
 
     chats.innerHTML = renderChat(chatHistory);
     let loading = false;
@@ -34,6 +32,21 @@ const events = () => {
       chats.scrollIntoView(false);
     };
 
+    const getConversation = () => {
+      const MAX_CONV = 4;
+
+      let conversation = "";
+      const len = chatHistory.length;
+
+      for (let i = len - 2; i > len - MAX_CONV && i > 0; i--) {
+        const itm = chatHistory[i];
+        conversation =
+          `${itm.type === "bot" ? "Martin" : "User"}: ${itm.text}\n` +
+          conversation;
+      }
+      return conversation;
+    };
+
     const handleSubmit = async () => {
       if (loading) return;
       const txt = textInput.value;
@@ -48,10 +61,25 @@ const events = () => {
       }, 300);
 
       try {
-        const res = await fetch(`https://chat-server-flask-production.up.railway.app/chat?q=${txt}`);
+        let conversation = getConversation();
+        // const URL = `https://chat-server-flask-production.up.railway.app/chat`;
+        const URL = `http://localhost:5000/chat`;
+
+        const res = await fetch(URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ conversation, question: txt }),
+        });
         const resJson = await res.json();
 
-        addChat({ type: "bot", text: resJson.answer || 'Momentálne sme OFFLINE napíšte nám neskôr prosím.'});
+        addChat({
+          type: "bot",
+          text:
+            resJson.answer ||
+            "Momentálne sme OFFLINE napíšte nám neskôr prosím.",
+        });
       } catch (err) {
         console.error(err);
       }
