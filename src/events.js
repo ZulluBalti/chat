@@ -64,7 +64,7 @@ const events = () => {
         let conversation = getConversation();
         let URL;
 
-        if (process.env.VITE_NODE_ENV === "development")
+        if (import.meta.env.VITE_NODE_ENV === "development")
           URL = `http://localhost:5000/chat`;
         else URL = `https://chat-server-flask-production.up.railway.app/chat`;
 

@@ -204,7 +204,7 @@
 }
 
 .chat-footer__input {
-  line-height: 1;
+  line-height: 1.25;
   resize: none;
   min-height: 2em;
   height: 3em;
