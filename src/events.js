@@ -9,7 +9,7 @@ const events = () => {
     const textSendBtn = document.querySelector(`.chat-footer__send`);
     const chatTyping = document.querySelector(`.chat-typing`);
     const chats = document.querySelector(`.chats`);
-    const chatHistory = [{ type: "bot", text: "Dobrý deň, ako Vám pomôžem?" }];
+    const chatHistory = [{ type: "bot", text: "Som AI poradca pre stránku Buongiorno. Opýtajte sa ma akúkoľvek otázku." }];
 
     chats.innerHTML = renderChat(chatHistory);
     let loading = false;
