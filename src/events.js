@@ -66,7 +66,8 @@ const events = () => {
 
         if (import.meta.env.VITE_NODE_ENV === "development")
           URL = `http://localhost:5000/chat`;
-        else URL = `https://chat-server-flask-production.up.railway.app/chat`;
+         else URL = `https://chatbot-express-server.vercel.app/ask`;
+        // else URL = `https://chat-server-flask-production.up.railway.app/chat`;
 
         const res = await fetch(URL, {
           method: "POST",
