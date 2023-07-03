@@ -88,7 +88,7 @@ const events = () => {
         addChat({
           type: "bot",
           text:
-            resJson.answer ||
+            resJson.answer?.content ||
             "Momentálne sme OFFLINE napíšte nám neskôr prosím.",
         });
       } catch (err) {
