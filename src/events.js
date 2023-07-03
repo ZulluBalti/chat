@@ -9,7 +9,12 @@ const events = () => {
     const textSendBtn = document.querySelector(`.chat-footer__send`);
     const chatTyping = document.querySelector(`.chat-typing`);
     const chats = document.querySelector(`.chats`);
-    const chatHistory = [{ type: "bot", text: "Som AI poradca pre stránku Buongiorno. Opýtajte sa ma akúkoľvek otázku." }];
+    const chatHistory = [
+      {
+        type: "bot",
+        text: "Som AI poradca pre stránku Buongiorno. Opýtajte sa ma akúkoľvek otázku.",
+      },
+    ];
 
     chats.innerHTML = renderChat(chatHistory);
     let loading = false;
@@ -35,14 +40,15 @@ const events = () => {
     const getConversation = () => {
       const MAX_CONV = 4;
 
-      let conversation = "";
+      let conversation = [];
       const len = chatHistory.length;
 
       for (let i = len - 2; i > len - MAX_CONV && i > 0; i--) {
         const itm = chatHistory[i];
-        conversation =
-          `${itm.type === "bot" ? "Martin" : "User"}: ${itm.text}\n` +
-          conversation;
+        conversation.unshift({
+          role: itm.type === "bot" ? "assistant" : "user",
+          content: itm.text,
+        });
       }
       return conversation;
     };
@@ -62,11 +68,12 @@ const events = () => {
 
       try {
         let conversation = getConversation();
+        conversation.push({ role: "user", content: txt });
         let URL;
 
         if (import.meta.env.VITE_NODE_ENV === "development")
           URL = `http://localhost:5000/chat`;
-         else URL = `https://chatbot-express-server.vercel.app/ask`;
+        else URL = `https://chatbot-express-server.vercel.app/ask`;
         // else URL = `https://chat-server-flask-production.up.railway.app/chat`;
 
         const res = await fetch(URL, {
@@ -74,7 +81,7 @@ const events = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ conversation, question: txt }),
+          body: JSON.stringify({ conversation }),
         });
         const resJson = await res.json();
 
