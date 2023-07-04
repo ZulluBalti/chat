@@ -4,7 +4,7 @@ const renderChat = (chats = []) => {
   const render = (itm) =>  `
     <div class="${itm.type}">
       <div class="chat-item">
-        <p class="chat-text">${itm.text}</p>
+        <p class="chat-text">${itm.text.replaceAll('\n', '<br />')}</p>
       </div>
     </div>`
 

@@ -72,7 +72,7 @@ const events = () => {
         let URL;
 
         if (import.meta.env.VITE_NODE_ENV === "development")
-          URL = `http://localhost:5000/chat`;
+          URL = `http://localhost:3000/chat`;
         else URL = `https://chatbot-express-server.vercel.app/ask`;
         // else URL = `https://chat-server-flask-production.up.railway.app/chat`;
 
