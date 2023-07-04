@@ -1,7 +1,7 @@
 {
   "name": "@zullu_balti/chat",
   "private": false,
-  "version": "5.0.9",
+  "version": "5.0.10",
   "type": "module",
   "exports": {
     ".": {
