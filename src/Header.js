@@ -1,19 +1,16 @@
-import logo from './assets/logo.png'
-import profile from './assets/profile-female.png'
+import Cancel from './icons/Cancel'
 
-const Header = () => {
+const Header = (props) => {
   return `
     <header class="chat-header">
-      <div class="chat-header__profile">
-        <img src="${profile}" alt="Support Profile Picutre" />
+      <div class="cancel__container">${Cancel()}</div>
+      <div class="relative avatar__container">
+        <img src="${props.avatar}" class="header__avatar" alt="Support Profile Picutre" />
+        <span class="online" />
       </div>
-      <div>
-        <h2 class="chat-header__name">Martina L.</h2>
-        <p class="chat-header__role">AI Poradca</p>
-      </div>
-      <div class="chat-header__logo">
-        <a href="https://www.gchat.sk/" target="_blank"><img src="${logo}" alt="Logo" /></a>
-      <div>
+      <h2 class="chat-header__name">Hello my name is ${props.name}</h2>
+      <h2 class="chat-header__name">I'm a ${props.project} digital assistant</h2>
+      <p class="chat-header__extra">Ask me any question you have about ${props.project}.</p>
     </header>`
 }
 

@@ -1,0 +1,97 @@
+.chat-confirm.ask-email {
+  position: relative;
+  overflow: hidden;
+}
+
+.chat-confirm__header {
+  border: 1px solid #c1c1c1;
+  border-radius: 1.1em 1.1em 0px 0px;
+  padding: 0.7em 0.4em;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 1.3em;
+}
+
+.chat-confirm__header p {
+  color: var(--gchat-color);
+  line-height: 1.20;
+  font-weight: bold;
+}
+
+
+.chat-confirm__input {
+  margin-top: 0.4em;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+  border: 1px solid #c1c1c1;
+  border-radius:  0px 0px 1.1em 1.1em;
+  padding: 1.4em;
+}
+
+.chat-confirm__input input {
+  font-size: 1.5em;
+  font-family: inherit;
+  padding: 1em 1.6em;
+  border: 1px solid #c1c1c1;
+  border-radius: 0.8em;
+  outline: none;
+}
+
+.chat-confirm__input input::placeholder {
+  color: black;
+}
+
+.chat-confirm__btn {
+  background: var(--gchat-color);
+  border: 1px solid rgba(0, 0, 0, 0.20);
+  border-radius: 0.8em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8em;
+  padding: 0.8em;
+  color: white;
+  font-weight: bold;
+  font-size: 1.6em;
+  cursor: pointer;
+}
+
+.chat-confirm__gdpr {
+  align-self: center;
+  font-size: 1.2em;
+  color: #C9C9C9;
+  margin-bottom: 1em;
+  cursor: pointer;
+}
+
+.gdpr-info {
+  width: 100%;
+  background: white;
+  border-radius: 1.1em 1.1em 0px 0px;
+  border: 1px solid #c1c1c1;
+  padding: 1.6em;
+}
+
+.gdpr-info header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5em;
+}
+
+.gdpr-info h2 {
+  font-size: 2em;
+}
+
+.gdpr-info p {
+  line-height: 1.25;
+  font-size: 1.4em;
+}
+
+.gdpr-info a {
+  text-decoration: none;
+  color: cyan;
+}
+

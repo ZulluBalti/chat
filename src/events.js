@@ -1,34 +1,90 @@
 import { renderChat } from "./History";
+import axios from './axios'
 
-const events = () => {
+const wait = sec => new Promise((resolve) => setTimeout(() => resolve(), sec * 1000))
+
+const events = (props) => {
+  const lead = { name: "", phone: "", email: "" }
+
   const event = () => {
     const openIcon = document.querySelector(`.chat-icon__container`);
-    const cancelIcon = document.querySelector(`.chat-cancel__container`);
+    const chatIcon = document.querySelector(`.chat-icon__container .chat-icon`);
+    const closeIcon = document.querySelector(`.open__content .close`);
+    const cancelIcon = document.querySelector(`.cancel__container`);
+    const askNameCon = document.querySelector('.chat-confirm.ask-name');
+    const askEmailCon = document.querySelector('.chat-confirm.ask-email');
+    const addNameForm = document.getElementById(`add-name__form`);
+    const gdprBtn = document.getElementById(`gdpr-btn`);
+    const gdprInfo = document.querySelector(`.gdpr-info`);
+    const gdprClose = document.getElementById(`gdpr-close`);
+    const addEmailForm = document.getElementById(`add-email__form`);
     const mainChat = document.querySelector(`.chat-main`);
     const textInput = document.querySelector(`.chat-footer__input`);
     const textSendBtn = document.querySelector(`.chat-footer__send`);
     const chatTyping = document.querySelector(`.chat-typing`);
+    const prevPreQuestion = document.querySelector(`.q-left`);
+    const nextPreQuestion = document.querySelector(`.q-right`);
+    const preQuestions = document.querySelector(`.g-questions`);
+    const qcarousel = document.querySelector('.question-carousel');
+
     const chats = document.querySelector(`.chats`);
-    const chatHistory = [
-      {
-        type: "bot",
-        text: "Som AI poradca pre stránku Buongiorno. Opýtajte sa ma akúkoľvek otázku.",
-      },
-    ];
+    const chatHistory = [];
 
     chats.innerHTML = renderChat(chatHistory);
     let loading = false;
+    let simulated = false;
 
-    const toggle = () => {
+    const simulateChat = () => {
+      const forNoneAuthUser = async () => {
+        if (props.firstTextInChat) {
+          chatTyping.classList.toggle("hide") // add
+          await wait(0.5);
+          addChat({ type: 'bot', text: props.firstTextInChat })
+          chatTyping.classList.toggle("hide") // rmeove
+        }
+
+        if (props.secondTextInChat) {
+          chatTyping.classList.toggle("hide") // add
+          await wait(0.5);
+          addChat({ type: 'bot', text: props.secondTextInChat })
+          chatTyping.classList.toggle("hide") // remove
+        }
+
+
+        await wait(0.2);
+        if (props.leadName) {
+          askNameCon.classList.toggle('hide')
+          askNameCon.scrollIntoView(false);
+        } else if (props.leadPhone || props.leadEmail) {
+          showEmailContainer();
+        }
+      }
+
+      const forAuthUser = async (user) => {
+        chatTyping.classList.toggle("hide")
+        await wait(0.5);
+        chatTyping.classList.toggle("hide")
+        addChat({ type: 'bot', text: `Welcome back ${user ? `, ${user}` : ""}` })
+        enableChat();
+      }
+
+      if (props.token) forAuthUser(props.userName)
+      else forNoneAuthUser();
+    }
+
+    const toggle = async () => {
       openIcon.classList.toggle("fade");
       mainChat.classList.toggle("fade");
-      setTimeout(() => {
-        openIcon.classList.toggle("hide");
-        mainChat.classList.toggle("hide");
-        if (!mainChat.classList.contains("hide")) {
-          textInput.focus();
-        }
-      }, 200);
+      await wait(0.2);
+      if (!simulated)
+        simulateChat();
+
+      simulated = true;
+      openIcon.classList.toggle("hide");
+      mainChat.classList.toggle("hide");
+      if (!mainChat.classList.contains("hide")) {
+        textInput.focus();
+      }
     };
 
     const addChat = (item) => {
@@ -53,36 +109,17 @@ const events = () => {
       return conversation;
     };
 
-    const handleSubmit = async () => {
-      if (loading) return;
-      const txt = textInput.value;
-      if (!txt) return;
+    const ask = async (txt) => {
       loading = true;
-      textInput.value = "";
-
       addChat({ type: "human", text: txt });
-      setTimeout(() => {
-        if (loading) chatTyping.classList.remove("hide");
-        chatTyping.parentElement.scrollBy(0, 100);
-      }, 300);
+      await wait(0.3);
+      chatTyping.classList.remove("hide");
+      chatTyping.parentElement.scrollBy(0, 100);
 
       try {
         let conversation = getConversation();
         conversation.push({ role: "user", content: txt });
-        let URL;
-
-        if (import.meta.env.VITE_NODE_ENV === "development")
-          URL = `http://localhost:3000/chat`;
-        else URL = `https://chatbot-express-server.vercel.app/ask`;
-        // else URL = `https://chat-server-flask-production.up.railway.app/chat`;
-
-        const res = await fetch(URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ conversation }),
-        });
+        const res = await axios.post(`/projects/ask`, { conversation });
         const resJson = await res.json();
 
         addChat({
@@ -93,10 +130,23 @@ const events = () => {
         });
       } catch (err) {
         console.error(err);
+        addChat({
+          type: "bot",
+          text: "Momentálne sme OFFLINE napíšte nám neskôr prosím.",
+        });
       }
 
       chatTyping.classList.add("hide");
       loading = false;
+    }
+
+    const handleSubmit = () => {
+      if (loading) return;
+      const txt = textInput.value;
+      if (!txt) return;
+      textInput.value = "";
+
+      ask(txt);
     };
 
     const handleInput = (e) => {
@@ -106,10 +156,123 @@ const events = () => {
       }
     };
 
+    const closeOpenBar = (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      chatIcon.classList.remove('open')
+      chatIcon.classList.add('close')
+    }
+
+    const showEmailContainer = () => {
+      askEmailCon.classList.remove('hide')
+      askEmailCon.scrollIntoView(false)
+    }
+
+    const handleAddName = async e => {
+      e.preventDefault();
+      const name = e.target.querySelector('input').value;
+      lead.name = name;
+
+      askNameCon.classList.add('hide');
+      addChat({ type: 'human', text: name });
+      await wait(0.2)
+      chatTyping.classList.toggle("hide")
+      await wait(0.2)
+      chatTyping.classList.toggle("hide")
+      addChat({ type: 'bot', text: `Nice to meet you ${name}` });
+
+      if (!props.leadEmail && !props.leadPhone) {
+        await handleLeadSubmit();
+
+        addChat({ type: 'bot', text: `Thank you for providng all the info. Now you can use the AI` });
+        return enableChat();
+      }
+
+      await wait(0.2)
+      chatTyping.classList.toggle("hide")
+      addChat({ type: 'bot', text: `Please enter your contact details in case you need support via email or phone.` });
+
+      showEmailContainer();
+    }
+
+    const enableChat = () => {
+      const model = document.querySelector('.chat-footer__model');
+      const lock = document.querySelector('.chat-footer__lock');
+
+      model.classList.toggle('hide');
+      lock.classList.toggle('hide');
+      qcarousel.classList.toggle('hide')
+    }
+
+    const handleLeadSubmit = async () => {
+      try {
+        const res = await axios.post(`/leads/${props.projectId}`, lead)
+        const token = res.data.token;
+        axios.defaults.headers.post['authorization'] = `Bearer ${token}`;
+        localStorage.setItem("gchat-token", token)
+        localStorage.setItem("gchat-lead-name", lead.name)
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    const handleAddEmail = async e => {
+      e.preventDefault();
+
+      lead.email = document.getElementById('lead-email').value;
+      lead.phone = document.getElementById('lead-phone').value;
+      const btn = document.getElementById('lead-submit-txt');
+      btn.textContent = "Submiting...";
+
+      await handleLeadSubmit();
+
+      askEmailCon.classList.toggle('hide')
+      chatTyping.classList.toggle("hide")
+      await wait(0.2)
+      chatTyping.classList.toggle("hide")
+      addChat({ type: 'bot', text: `Thank you for providng all the info. Now you can use the AI` });
+
+      enableChat();
+    };
+
+    const toggleGdpr = () => {
+      gdprInfo.classList.toggle('hide')
+      askEmailCon.classList.toggle('hide')
+    }
+
+    const handlePrevQ = () => {
+      const { width } = preQuestions.getBoundingClientRect();
+      preQuestions.scrollLeft -= preQuestions.clientWidth;
+    }
+
+    const handleNextQ = () => {
+      const { width } = preQuestions.getBoundingClientRect();
+      preQuestions.scrollLeft += width;
+    }
+
+    const selectQuestion = (e) => {
+      if (loading) return;
+      const questionPr = e.target.closest('.g-question__con')
+      const question = questionPr.querySelector('.g-question')
+      ask(question.textContent)
+      questionPr.remove();
+      // check if there's none left
+      const questions = Array.from(document.querySelectorAll('.g-question__con'));
+      if (questions.length === 0) qcarousel.classList.add('hide')
+    }
+
     openIcon.addEventListener("click", toggle);
+    closeIcon.addEventListener("click", closeOpenBar)
     cancelIcon.addEventListener("click", toggle);
     textSendBtn.addEventListener("click", handleSubmit);
     textInput.addEventListener("keydown", handleInput);
+    addNameForm.addEventListener("submit", handleAddName);
+    addEmailForm.addEventListener("submit", handleAddEmail);
+    gdprBtn.addEventListener('click', toggleGdpr)
+    gdprClose.addEventListener('click', toggleGdpr)
+    prevPreQuestion.addEventListener('click', handlePrevQ);
+    nextPreQuestion.addEventListener('click', handleNextQ);
+    preQuestions.addEventListener('click', selectQuestion);
   };
 
   if (document.readyState === "loading")

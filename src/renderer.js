@@ -1,24 +1,23 @@
-import Chat from './icons/Chat'
-import Cancel from './icons/Cancel'
+import Chat from './Chat'
 import Header from './Header'
 import Footer from './Footer';
 import { History } from './History';
+import QuestionCarousel from './QuestionCarousel';
 
-const renderer = () => {
+
+const renderer = (config) => {
   return `
     <div class="chat-container">
-      <div class="chat-icon__container">
-        ${Chat()}
+      <div class="chat-icon__container gradient-bg">
+         ${Chat(config)}
       </div>
       <div class="chat-main hide fade">
         <section>
-          ${Header()}
-          ${History()}
+          ${Header(config)}
+          ${History(config)}
+          ${config.questions?.length > 0 ? QuestionCarousel(config) : ""}
           ${Footer()}
         </section>
-        <div class="chat-cancel__container">
-          ${Cancel()}
-        </div>
       </div>
     </div>
   `
