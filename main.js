@@ -49,5 +49,4 @@ const Chat = async (project) => {
   events(config);
 }
 
-Chat('64c130a36941019927672360')
-// export default Chat;
+export default Chat;
