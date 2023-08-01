@@ -9,7 +9,7 @@ import './src/assets/footer.css';
 
 const getSettings = async (project) => {
   try {
-    const res = await axios.get(`/projects/${project}/chat-settings`);
+    const res = await axios.get(`/ux/${project}/chat-settings`);
     return res.data.data.settings;
   }catch(err) {
    console.log(err)
