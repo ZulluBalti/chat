@@ -33,6 +33,7 @@
 }
 
 #chat-container.close {
+  box-shadow: none;
   background: none;
   border-radius: 0;
 }
