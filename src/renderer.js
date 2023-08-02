@@ -7,7 +7,7 @@ import QuestionCarousel from './QuestionCarousel';
 
 const renderer = (config) => {
   return `
-    <div class="chat-container no-bg" id="chat-container">
+    <div class="chat-container close" id="chat-container">
       <div class="chat-icon__container gradient-bg">
          ${ChatIndicator(config)}
       </div>

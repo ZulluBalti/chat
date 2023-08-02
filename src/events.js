@@ -99,7 +99,7 @@ const events = (props) => {
       if (!mainChat.classList.contains("hide")) {
         textInput.focus();
       }
-      container.classList.toggle('no-bg');
+      container.classList.toggle('close');
     };
 
     const addChat = (item) => {

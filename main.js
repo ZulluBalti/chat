@@ -44,11 +44,11 @@ const Chat = async (project) => {
   const root = document.querySelector(':root');
   root.style.setProperty('--gchat-color', config.color);
   root.style.setProperty('--gchat-accent-color', config.accentColor);
-  root.style.setProperty('--gchat-height', window.innerHeight);
+  root.style.setProperty('--gchat-height', `${window.innerHeight}px`);
 
   document.body.insertAdjacentHTML("beforeend", renderer(config));
-  const size = window.innerWidth > 500 ? "3em" : "0"
-  document.getElementById('chat-container').style[config.position] = size;
+  const container = document.getElementById('chat-container');
+  container.classList.add(config.position)
 
   events(config);
 }

@@ -20,13 +20,41 @@
   background: linear-gradient(180deg, #F7F7FC 0%, #FFF 0.01%, #F7F7FC 100%);
 }
 
-#chat-container.no-bg {
+#chat-container.left {
+  left: 3em;
+}
+
+#chat-container.right {
+  right: 3em;
+}
+
+#chat-container.close {
   background: none;
 }
 
 @media (max-width: 500px) {
   #chat-container {
     bottom: 0em;
+  }
+
+  #chat-container.left {
+    left: 0em;
+  }
+
+  #chat-container.right {
+    right: 0em;
+  }
+
+  #chat-container.close {
+    bottom: 1em;
+  }
+
+  #chat-container.left.close {
+    left: 1em;
+  }
+
+  #chat-container.right.close {
+    right: 1em;
   }
 }
 
