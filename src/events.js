@@ -12,6 +12,7 @@ const events = (props) => {
   };
 
   const event = () => {
+    let scrollTop = 0;
     const root = document.querySelector(':root');
     const container = document.getElementById(`chat-container`);
     const openIcon = document.querySelector(`.chat-icon__container`);
@@ -89,6 +90,12 @@ const events = (props) => {
     };
 
     const toggle = async () => {
+      if (container.classList.contains("close")) {
+        scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      } else {
+        document.documentElement.scrollTop = document.body.scrollTop = 1000;
+      }
+
       openIcon.classList.toggle("fade");
       mainChat.classList.toggle("fade");
       await wait(0.2);
@@ -291,7 +298,7 @@ const events = (props) => {
 
     const handlePrevQ = () => {
       const { width } = preQuestions.getBoundingClientRect();
-      preQuestions.scrollLeft -= preQuestions.clientWidth;
+      preQuestions.scrollLeft -= width;
     };
 
     const handleNextQ = () => {
