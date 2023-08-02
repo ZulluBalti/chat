@@ -94,7 +94,8 @@ const events = (props) => {
         if (container.classList.contains("close")) {
           scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
         } else {
-          document.documentElement.scrollTop = document.body.scrollTop = `${scrollTop}px`;
+          console.log({scrollTop})
+          document.documentElement.scrollTop = document.body.scrollTop = scrollTop;
         }
       }
 
