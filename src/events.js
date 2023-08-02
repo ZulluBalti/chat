@@ -116,8 +116,7 @@ const events = (props) => {
         if (container.classList.contains("close")) {
           document.body.classList.remove("gchat-no-scroll");
           document.querySelector("html").classList.remove("gchat-no-scroll");
-          document.documentElement.scrollTop = document.body.scrollTop =
-            scrollTop;
+          window.scrollTo({top: scrollTop, behavior: "instant"});
         } else {
           document.body.classList.add("gchat-no-scroll");
           document.querySelector("html").classList.add("gchat-no-scroll");
