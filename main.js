@@ -40,6 +40,7 @@ const Chat = async (project) => {
   const auth = isLoggedIn();
   config.token = auth.token;
   config.userName = auth.name;
+  if (!config.enabled) return;
 
   document.body.insertAdjacentHTML("beforeend", renderer(config));
   const container = document.getElementById('chat-container');
