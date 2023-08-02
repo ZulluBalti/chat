@@ -93,10 +93,7 @@ const events = (props) => {
       if (window.innerWidth < 500) {
         if (container.classList.contains("close")) {
           scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        } else {
-          console.log({scrollTop})
-          document.documentElement.scrollTop = document.body.scrollTop = scrollTop;
-        }
+        } 
       }
 
       openIcon.classList.toggle("fade");
@@ -115,12 +112,14 @@ const events = (props) => {
       chatIcon.classList.remove("open");
       chatIcon.classList.add("close");
       if (window.innerWidth < 500) {
-        if (!container.classList.contains("close")) {
-          document.body.classList.add('gchat-no-scroll')
-          document.querySelector('html').classList.add('gchat-no-scroll')
-        } else {
+        if (container.classList.contains("close")) {
           document.body.classList.remove('gchat-no-scroll')
           document.querySelector('html').classList.remove('gchat-no-scroll')
+          document.documentElement.scrollTop = document.body.scrollTop = scrollTop;
+        } else {
+          document.body.classList.add('gchat-no-scroll')
+          document.querySelector('html').classList.add('gchat-no-scroll')
+        }
         }
       }
     };
