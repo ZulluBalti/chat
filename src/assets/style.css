@@ -21,7 +21,7 @@
 
 @media (max-width: 500px) {
   #chat-container {
-    bottom: 1em;
+    bottom: 0em;
   }
 }
 

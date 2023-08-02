@@ -46,11 +46,11 @@ const Chat = async (project) => {
   root.style.setProperty('--gchat-accent-color', config.accentColor);
 
   document.body.insertAdjacentHTML("beforeend", renderer(config));
-  const size = window.innerWidth > 500 ? "3em" : "1em"
+  const size = window.innerWidth > 500 ? "3em" : "0"
   document.getElementById('chat-container').style[config.position] = size;
 
   events(config);
 }
 
-// Chat("64c8b9d4738a40224d0e1279");
-export default Chat;
+Chat("64c8b9d4738a40224d0e1279");
+// export default Chat;

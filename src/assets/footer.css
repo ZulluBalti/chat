@@ -20,6 +20,7 @@
 
 #chat-container .chat-footer a {
   color: white;
+  text-decoration: none;
 }
 
 #chat-container .chat-footer__lock {
@@ -53,7 +54,7 @@
 }
 
 #chat-container .chat-footer__input::-webkit-scrollbar-thumb,
-#chat-container .chat-history::-webkit-scrollbar-thumb {
+#chat-container .chat-main__conv::-webkit-scrollbar-thumb {
   background: #cdcdcd;
   border-radius: 10px;
 }

@@ -12,8 +12,10 @@ const renderer = (config) => {
          ${ChatIndicator(config)}
       </div>
       <div class="chat-main hide fade">
-        ${Header(config)}
-        ${History(config)}
+        <div class="chat-main__conv">
+          ${Header(config)}
+          ${History(config)}
+        </div>
         ${config.questions?.length > 0 ? QuestionCarousel(config) : ""}
         ${Footer()}
       </div>

@@ -49,10 +49,6 @@
   border: 2px solid white;
 }
 
-#chat-container .open__content h2 {
-  /* font-size: 16px; */
-}
-
 #chat-container .close__content h2 {
   font-size: 12px;
   line-height: 1.25;

@@ -31,7 +31,7 @@
   gap: 1.2em;
   border: 1px solid #c1c1c1;
   border-radius:  0px 0px 1.1em 1.1em;
-  padding: 1.4em;
+  padding: 1em;
 }
 
 #chat-container .chat-confirm__input input {

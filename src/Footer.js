@@ -13,7 +13,7 @@ const Footer = () => {
           ${Send()}
         </div>
       </div>
-      <p>Powered by <a href="https://gchat.sk/" target="_blank">G CHAT</a></p>
+      <a href="https://gchat.sk/" target="_blank"><p>Powered by G CHAT</p></a>
       <div class="chat-footer__model"></div>
     </footer>
 `

@@ -190,6 +190,8 @@ const events = (props) => {
 
       await wait(0.2)
       chatTyping.classList.toggle("hide")
+      await wait(0.2)
+      chatTyping.classList.toggle("hide")
       addChat({ type: 'bot', text: `Please enter your contact details in case you need support via email or phone.` });
 
       showEmailContainer();
