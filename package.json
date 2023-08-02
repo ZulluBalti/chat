@@ -19,7 +19,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "publish": "git add .  && git commit && git push && yarn run build && npm version $1 && npm publish"
+    "publish": "yarn run build && npm version $1 && git add . && git commit && git push && npm publish"
   },
   "devDependencies": {
     "vite": "^4.3.9"
