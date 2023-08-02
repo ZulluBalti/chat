@@ -332,8 +332,7 @@ const events = (props) => {
     prevPreQuestion.addEventListener("click", handlePrevQ);
     nextPreQuestion.addEventListener("click", handleNextQ);
     preQuestions.addEventListener("click", selectQuestion);
-    document.addEventListener("touchmove", updateHeight);
-    document.addEventListener("scroll", updateHeight);
+    window.addEventListener("resize", updateHeight);
     setCSSVariables();
   };
 

@@ -85,6 +85,6 @@
 }
 
 .gchat-no-scroll {
-  height: 100vh !important;
+  height: var(--gchat-height) !important;
   overflow: hidden !important;
 }
