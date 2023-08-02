@@ -12,6 +12,7 @@ const events = (props) => {
   };
 
   const event = () => {
+    const root = document.querySelector(':root');
     const container = document.getElementById(`chat-container`);
     const openIcon = document.querySelector(`.chat-icon__container`);
     const chatIcon = document.querySelector(`.chat-icon__container .chat-icon`);
@@ -309,7 +310,9 @@ const events = (props) => {
       if (questions.length === 0) qcarousel.classList.add("hide");
     };
 
-    const updateHeight = () => {
+    const setCssVariables = () => {
+      root.style.setProperty('--gchat-color', props.color);
+      root.style.setProperty('--gchat-accent-color', props.accentColor);
       root.style.setProperty('--gchat-height', `${window.innerHeight}px`);
     }
 
@@ -325,8 +328,9 @@ const events = (props) => {
     prevPreQuestion.addEventListener("click", handlePrevQ);
     nextPreQuestion.addEventListener("click", handleNextQ);
     preQuestions.addEventListener("click", selectQuestion);
-    document.addEventListener("touchmove", updateHeight);
-    document.addEventListener("scroll", updateHeight);
+    document.addEventListener("touchmove", setCssVariables);
+    document.addEventListener("scroll", setCssVariables);
+    setCssVariables();
   };
 
   if (document.readyState === "loading")

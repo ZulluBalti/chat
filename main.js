@@ -41,11 +41,6 @@ const Chat = async (project) => {
   config.token = auth.token;
   config.userName = auth.name;
 
-  const root = document.querySelector(':root');
-  root.style.setProperty('--gchat-color', config.color);
-  root.style.setProperty('--gchat-accent-color', config.accentColor);
-  root.style.setProperty('--gchat-height', `${window.innerHeight}px`);
-
   document.body.insertAdjacentHTML("beforeend", renderer(config));
   const container = document.getElementById('chat-container');
   container.classList.add(config.position)
