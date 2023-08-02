@@ -107,8 +107,10 @@ const events = (props) => {
       if (window.innerWidth < 500) {
         if (!container.classList.contains("close")) {
           document.body.classList.add('gchat-no-scroll')
+          document.querySelector('html').classList.add('gchat-no-scroll')
         } else {
           document.body.classList.remove('gchat-no-scroll')
+          document.querySelector('html').classList.remove('gchat-no-scroll')
         }
       }
     };

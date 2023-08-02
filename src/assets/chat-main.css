@@ -36,6 +36,7 @@
   position: absolute;
   top: 1em;
   right: 1em;
+  z-index: 9999999999;
 }
 
 #chat-container .avatar__container {

@@ -87,4 +87,5 @@
 .gchat-no-scroll {
   height: var(--gchat-height) !important;
   overflow: hidden !important;
+  position: fixed;
 }
