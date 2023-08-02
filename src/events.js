@@ -11,9 +11,9 @@ const events = (props) => {
     email: "",
   };
 
-  const event = () => {
+  const myEvent = () => {
     let scrollTop = 0;
-    const root = document.querySelector(':root');
+    const root = document.querySelector(":root");
     const container = document.getElementById(`chat-container`);
     const openIcon = document.querySelector(`.chat-icon__container`);
     const chatIcon = document.querySelector(`.chat-icon__container .chat-icon`);
@@ -92,8 +92,9 @@ const events = (props) => {
     const toggle = async () => {
       if (window.innerWidth < 500) {
         if (container.classList.contains("close")) {
-          scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        } 
+          scrollTop =
+            document.documentElement.scrollTop || document.body.scrollTop;
+        }
       }
 
       openIcon.classList.toggle("fade");
@@ -113,13 +114,13 @@ const events = (props) => {
       chatIcon.classList.add("close");
       if (window.innerWidth < 500) {
         if (container.classList.contains("close")) {
-          document.body.classList.remove('gchat-no-scroll')
-          document.querySelector('html').classList.remove('gchat-no-scroll')
-          document.documentElement.scrollTop = document.body.scrollTop = scrollTop;
+          document.body.classList.remove("gchat-no-scroll");
+          document.querySelector("html").classList.remove("gchat-no-scroll");
+          document.documentElement.scrollTop = document.body.scrollTop =
+            scrollTop;
         } else {
-          document.body.classList.add('gchat-no-scroll')
-          document.querySelector('html').classList.add('gchat-no-scroll')
-        }
+          document.body.classList.add("gchat-no-scroll");
+          document.querySelector("html").classList.add("gchat-no-scroll");
         }
       }
     };
@@ -243,7 +244,7 @@ const events = (props) => {
       });
 
       localStorage.setItem("conversation", JSON.stringify(chatHistory));
-      await wait(2)
+      await wait(2);
       showEmailContainer();
     };
 
@@ -322,20 +323,20 @@ const events = (props) => {
     };
 
     const setCSSVariables = () => {
-      root.style.setProperty('--gchat-color', props.color);
-      root.style.setProperty('--gchat-accent-color', props.accentColor);
+      root.style.setProperty("--gchat-color", props.color);
+      root.style.setProperty("--gchat-accent-color", props.accentColor);
       updateHeight();
-    }
+    };
 
     const updateHeight = () => {
-      root.style.setProperty('--gchat-height', `${window.innerHeight}px`);
-    }
+      root.style.setProperty("--gchat-height", `${window.innerHeight}px`);
+    };
 
     const disableSafariZoom = () => {
-      const el = document.querySelector('head')
-      const markup = `<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">`
-      el.insertAdjacentHTML("beforeend", markup)
-    }
+      const el = document.querySelector("head");
+      const markup = `<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">`;
+      el.insertAdjacentHTML("beforeend", markup);
+    };
 
     openIcon.addEventListener("click", toggle);
     closeIcon.addEventListener("click", closeOpenBar);
@@ -355,8 +356,8 @@ const events = (props) => {
   };
 
   if (document.readyState === "loading")
-    document.addEventListener("DOMContentLoaded", event);
-  else event();
+    document.addEventListener("DOMContentLoaded", myEvent);
+  else myEvent();
 };
 
 export default events;
