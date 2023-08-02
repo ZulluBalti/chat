@@ -83,7 +83,7 @@
   background: linear-gradient(164deg, var(--gchat-accent-color) 0%, var(--gchat-color) 100%);
 }
 
-.no-scroll {
+.gchat-no-scroll {
   height: 100vh !important;
   overflow: hidden !important;
 }
