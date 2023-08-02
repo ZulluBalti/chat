@@ -100,6 +100,9 @@ const events = (props) => {
         textInput.focus();
       }
       container.classList.toggle('close');
+
+      chatIcon.classList.remove("open");
+      chatIcon.classList.add("close");
     };
 
     const addChat = (item) => {
