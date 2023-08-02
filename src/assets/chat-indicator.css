@@ -29,7 +29,7 @@
 
 @media (max-width: 500px) {
   #chat-container .chat-icon.open {
-    width: calc(100% - 2em);
+    width: calc(100vw - 2em);
   }
 }
 
