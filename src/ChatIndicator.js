@@ -9,7 +9,7 @@ const Chat = (config) => {
           <span class="online"></span>
         </div>
         <div class="close__content">
-          <h2>Start <br />Chat</h2>
+          <h2>Start <br />AI Chat</h2>
         </div>
         <div class="open__content">
           <h2>Just ask ${name}</h2>

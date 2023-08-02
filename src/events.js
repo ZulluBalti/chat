@@ -320,6 +320,12 @@ const events = (props) => {
       root.style.setProperty('--gchat-height', `${window.innerHeight}px`);
     }
 
+    const disableSafariZoom = () => {
+      const el = document.querySelector('head')
+      const markup = `<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">`
+      el.insertAdjacentHTML("beforeend", markup)
+    }
+
     openIcon.addEventListener("click", toggle);
     closeIcon.addEventListener("click", closeOpenBar);
     cancelIcon.addEventListener("click", toggle);
@@ -334,6 +340,7 @@ const events = (props) => {
     preQuestions.addEventListener("click", selectQuestion);
     window.addEventListener("resize", updateHeight);
     setCSSVariables();
+    disableSafariZoom();
   };
 
   if (document.readyState === "loading")

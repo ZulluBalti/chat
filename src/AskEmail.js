@@ -8,7 +8,7 @@ const AskEmail = (props) => {
       <section class="chat-confirm ask-email hide">
         <div class="chat-confirm__header">
           <span>${Question()}</span>
-          <p >Start a chat by typing your contact details in case of communication via email / phone.</p>
+          <p>Start a chat by typing your contact details in case of communication via email / phone.</p>
         </div>
         <form id="add-email__form" class="chat-confirm__input">
           ${props.leadEmail ? '<input type="email" id="lead-email" placeholder="Your e-mail..." />' : ''}
