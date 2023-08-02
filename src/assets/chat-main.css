@@ -115,7 +115,8 @@
   font-weight: 500;
   font-size: 1.4em;
   padding: 0.7em;
-  margin-left: 0.6em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
   pointer-events: none;
 }
 
