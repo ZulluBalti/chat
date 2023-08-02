@@ -68,6 +68,10 @@
   row-gap: 0.5rem;
 }
 
+#chat-container .open__content > h2 {
+  font-weight: 800;
+}
+
 #chat-container .open__content .actions {
   grid-row: 1/-1;
   grid-column: 2/3;

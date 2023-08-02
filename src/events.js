@@ -12,6 +12,7 @@ const events = (props) => {
   };
 
   const event = () => {
+    const container = document.getElementById(`chat-container`);
     const openIcon = document.querySelector(`.chat-icon__container`);
     const chatIcon = document.querySelector(`.chat-icon__container .chat-icon`);
     const closeIcon = document.querySelector(`.open__content .close`);
@@ -98,6 +99,7 @@ const events = (props) => {
       if (!mainChat.classList.contains("hide")) {
         textInput.focus();
       }
+      container.classList.toggle('no-bg');
     };
 
     const addChat = (item) => {
