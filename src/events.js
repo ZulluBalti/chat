@@ -202,6 +202,8 @@ const events = (props) => {
       model.classList.toggle('hide');
       lock.classList.toggle('hide');
       qcarousel.classList.toggle('hide')
+      textInput.removeAttribute('disabled')
+      textInput.focus();
     }
 
     const handleLeadSubmit = async () => {

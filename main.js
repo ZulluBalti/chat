@@ -6,6 +6,8 @@ import './src/assets/style.css'
 import './src/assets/ask-name.css';
 import './src/assets/carousel.css';
 import './src/assets/footer.css';
+import './src/assets/chat-indicator.css';
+import './src/assets/chat-main.css';
 
 const getSettings = async (project) => {
   try {
@@ -38,15 +40,17 @@ const Chat = async (project) => {
   const auth = isLoggedIn();
   config.token = auth.token;
   config.userName = auth.name;
-  console.log({config})
 
   const root = document.querySelector(':root');
   root.style.setProperty('--gchat-color', config.color);
   root.style.setProperty('--gchat-accent-color', config.accentColor);
 
   document.body.insertAdjacentHTML("beforeend", renderer(config));
+  const size = window.innerWidth > 500 ? "3em" : "1em"
+  document.getElementById('chat-container').style[config.position] = size;
 
   events(config);
 }
 
-export default Chat;
+Chat("64c8b9d4738a40224d0e1279");
+// export default Chat;

@@ -6,7 +6,7 @@ const Footer = () => {
     <footer class="chat-footer">
       <div class="chat-footer__content">
         <div class="relative">
-          <textarea class="chat-footer__input" placeholder="Type here..." rows="1"></textarea>
+          <textarea class="chat-footer__input" placeholder="Type here..." rows="1" disabled="disabled"></textarea>
           <span class="chat-footer__lock">${Lock()}</span>
         </div>
         <div class="chat-footer__send">

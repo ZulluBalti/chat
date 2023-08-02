@@ -1,4 +1,3 @@
-import './assets/chat.css';
 
 const Chat = (config) => {
   const {avatar, name} = config;
