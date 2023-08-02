@@ -90,10 +90,12 @@ const events = (props) => {
     };
 
     const toggle = async () => {
-      if (container.classList.contains("close")) {
-        scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-      } else {
-        document.documentElement.scrollTop = document.body.scrollTop = 1000;
+      if (window.innerWidth < 500) {
+        if (container.classList.contains("close")) {
+          scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        } else {
+          document.documentElement.scrollTop = document.body.scrollTop = `${scrollTop}px`;
+        }
       }
 
       openIcon.classList.toggle("fade");
