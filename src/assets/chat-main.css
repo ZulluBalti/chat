@@ -99,7 +99,7 @@
 
  #chat-container .human {
   text-align: right;
-  margin-bottom: 1em;
+  margin: 1em 0;
 }
 
  #chat-container .human > .chat-item {

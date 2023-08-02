@@ -105,14 +105,10 @@ const events = (props) => {
       chatIcon.classList.add("close");
       if (window.innerWidth < 500) {
         if (!container.classList.contains("close")) {
-          document.addEventListener("touchmove", prevent);
+          document.body.classList.add('gchat-no-scroll')
         } else {
-          document.removeEventListener("touchmove", prevent);
+          document.body.classList.remove('gchat-no-scroll')
         }
-      }
-
-      function prevent(e) {
-        e.preventDefault();
       }
     };
 
