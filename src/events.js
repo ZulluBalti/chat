@@ -309,6 +309,10 @@ const events = (props) => {
       if (questions.length === 0) qcarousel.classList.add("hide");
     };
 
+    const updateHeight = () => {
+      root.style.setProperty('--gchat-height', `${window.innerHeight}px`);
+    }
+
     openIcon.addEventListener("click", toggle);
     closeIcon.addEventListener("click", closeOpenBar);
     cancelIcon.addEventListener("click", toggle);
@@ -321,6 +325,8 @@ const events = (props) => {
     prevPreQuestion.addEventListener("click", handlePrevQ);
     nextPreQuestion.addEventListener("click", handleNextQ);
     preQuestions.addEventListener("click", selectQuestion);
+    document.addEventListener("touchmove", updateHeight);
+    document.addEventListener("scroll", updateHeight);
   };
 
   if (document.readyState === "loading")
