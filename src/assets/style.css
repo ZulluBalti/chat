@@ -17,6 +17,7 @@
   position: fixed;
   bottom: 3em;
   z-index: 999999999;
+  background: linear-gradient(180deg, #F7F7FC 0%, #FFF 0.01%, #F7F7FC 100%);
 }
 
 @media (max-width: 500px) {

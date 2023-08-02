@@ -5,6 +5,10 @@
   padding: 0.8em 0;
 }
 
+#chat-container .question-carousel svg {
+  stroke: var(--gchat-color);
+}
+
 #chat-container .question-carousel.hide {
   display: none;
 }

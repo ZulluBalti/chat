@@ -44,6 +44,7 @@ const Chat = async (project) => {
   const root = document.querySelector(':root');
   root.style.setProperty('--gchat-color', config.color);
   root.style.setProperty('--gchat-accent-color', config.accentColor);
+  root.style.setProperty('--gchat-height', window.innerHeight);
 
   document.body.insertAdjacentHTML("beforeend", renderer(config));
   const size = window.innerWidth > 500 ? "3em" : "0"
