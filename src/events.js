@@ -63,7 +63,7 @@ const events = (props) => {
           }
         }
 
-        await wait(0.5);
+        await wait(2);
         if (!conversation && props.leadName) {
           askNameCon.classList.toggle("hide");
           askNameCon.scrollIntoView(false);
@@ -99,10 +99,21 @@ const events = (props) => {
       if (!mainChat.classList.contains("hide")) {
         textInput.focus();
       }
-      container.classList.toggle('close');
+      container.classList.toggle("close");
 
       chatIcon.classList.remove("open");
       chatIcon.classList.add("close");
+      if (window.innerWidth < 500) {
+        if (!container.classList.contains("close")) {
+          document.addEventListener("touchmove", prevent);
+        } else {
+          document.removeEventListener("touchmove", prevent);
+        }
+      }
+
+      function prevent(e) {
+        e.preventDefault();
+      }
     };
 
     const addChat = (item) => {
@@ -224,6 +235,7 @@ const events = (props) => {
       });
 
       localStorage.setItem("conversation", JSON.stringify(chatHistory));
+      await wait(2)
       showEmailContainer();
     };
 

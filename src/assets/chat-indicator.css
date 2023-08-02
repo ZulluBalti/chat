@@ -34,6 +34,7 @@
 }
 
 #chat-container .chat-icon.close {
+  margin-bottom: 8em;
   grid-template-columns: 25px 1fr;
   padding: 0.5rem;
   align-items: center;
