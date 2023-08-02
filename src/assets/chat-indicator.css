@@ -23,8 +23,14 @@
 
 
 #chat-container .chat-icon.open {
-  max-width: 320px;
+  width: 320px;
   padding: 1rem;
+}
+
+@media (max-width: 500px) {
+  #chat-container .chat-icon.open {
+    width: calc(100% - 2em);
+  }
 }
 
 #chat-container .chat-icon.close {
