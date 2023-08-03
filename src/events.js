@@ -17,7 +17,7 @@ const events = (props) => {
     const container = document.getElementById(`chat-container`);
     const openIcon = document.querySelector(`.chat-icon__container`);
     const chatIcon = document.querySelector(`.chat-icon__container .chat-icon`);
-    const closeIcon = document.querySelector(`.open__content .close`);
+    const closeIcon = document.querySelector(`.chat-icon__default .close`);
     const cancelIcon = document.querySelector(`.cancel__container`);
     const askNameCon = document.querySelector(".chat-confirm.ask-name");
     const askEmailCon = document.querySelector(".chat-confirm.ask-email");
@@ -251,7 +251,7 @@ const events = (props) => {
 
       model.classList.toggle("hide");
       lock.classList.toggle("hide");
-      qcarousel.classList.toggle("hide");
+      qcarousel?.classList?.toggle("hide");
       textInput.removeAttribute("disabled");
       textInput.focus();
       chats.scrollIntoView(false);
@@ -343,9 +343,9 @@ const events = (props) => {
     addEmailForm.addEventListener("submit", handleAddEmail);
     gdprBtn.addEventListener("click", toggleGdpr);
     gdprClose.addEventListener("click", toggleGdpr);
-    prevPreQuestion.addEventListener("click", handlePrevQ);
-    nextPreQuestion.addEventListener("click", handleNextQ);
-    preQuestions.addEventListener("click", selectQuestion);
+    prevPreQuestion?.addEventListener("click", handlePrevQ);
+    nextPreQuestion?.addEventListener("click", handleNextQ);
+    preQuestions?.addEventListener("click", selectQuestion);
     window.addEventListener("resize", updateHeight);
     setCSSVariables();
     disableSafariZoom();
