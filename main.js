@@ -26,8 +26,10 @@ const isLoggedIn = () => {
   const decoded = jwtDecode(token);
   const expire = new Date(decoded.exp * 1000).getTime()
   const now = new Date().getTime();
-  if (now < expire)
+  if (now < expire) {
+    axios.defaults.headers.post["authorization"] = `Bearer ${token}`;
     return {name, token};
+  }
 
   localStorage.removeItem('gchat-token');
   localStorage.removeItem('gchat-lead-name');
