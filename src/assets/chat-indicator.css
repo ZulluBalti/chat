@@ -104,14 +104,14 @@
   grid-column: 3/4;
 }
 
-#chat-container  h2 {
+#chat-container .chat-icon  h2 {
   font-weight: 800;
   color: white;
   align-self: center;
   font-size: 2.2em;
 }
 
-#chat-container  p {
+#chat-container .chat-icon p {
   color: white;
   align-self: start;
   font-size: 1.4em;

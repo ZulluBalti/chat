@@ -10,11 +10,13 @@ import './src/assets/chat-indicator.css';
 import './src/assets/chat-main.css';
 
 const getSettings = async (project) => {
+  if (!project) return null;
   try {
     const res = await axios.get(`/ux/${project}/chat-settings`);
     return res.data.data.settings;
   }catch(err) {
-   console.log(err)
+    console.log(err)
+    return null
   }
 } 
 
@@ -39,7 +41,9 @@ const isLoggedIn = () => {
 
 const Chat = async (project) => {
   const config = await getSettings(project);  
+  if (!config) return;
   config.projectId = project; 
+
   const auth = isLoggedIn();
   config.token = auth.token;
   config.userName = auth.name;
