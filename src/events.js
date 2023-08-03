@@ -6,7 +6,7 @@ const wait = (sec) =>
 
 const events = (props) => {
   const lead = {
-    name: localStorage.getItem("leadName") || "",
+    name: localStorage.getItem("gchat-lead-name") || "",
     phone: "",
     email: "",
   };
@@ -44,7 +44,7 @@ const events = (props) => {
 
     const simulateChat = () => {
       const forNoneAuthUser = async () => {
-        const conversation = JSON.parse(localStorage.getItem("conversation"));
+        const conversation = JSON.parse(localStorage.getItem("gchat-conversation"));
         if (conversation) {
           conversation.forEach((itm) => addChat(itm));
         } else {
@@ -209,7 +209,7 @@ const events = (props) => {
       e.preventDefault();
       const name = e.target.querySelector("input").value;
       lead.name = name;
-      localStorage.setItem("leadNaem", name);
+      localStorage.setItem("gchat-lead-name", name);
 
       askNameCon.classList.add("hide");
       addChat({ type: "human", text: name });
@@ -242,7 +242,7 @@ const events = (props) => {
         text: `Please enter your contact details in case you need support via email or phone.`,
       });
 
-      localStorage.setItem("conversation", JSON.stringify(chatHistory));
+      localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));
       await wait(2);
       showEmailContainer();
     };
@@ -265,7 +265,6 @@ const events = (props) => {
         const token = res.data.token;
         axios.defaults.headers.post["authorization"] = `Bearer ${token}`;
         localStorage.setItem("gchat-token", token);
-        localStorage.setItem("gchat-lead-name", lead.name);
       } catch (err) {
         console.log(err);
       }

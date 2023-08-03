@@ -31,6 +31,7 @@ const isLoggedIn = () => {
 
   localStorage.removeItem('gchat-token');
   localStorage.removeItem('gchat-lead-name');
+  localStorage.removeItem('gchat-conversation');
   return {};
 }
 
