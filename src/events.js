@@ -157,12 +157,10 @@ const events = (props) => {
         let conversation = getConversation();
         conversation.push({ role: "user", content: txt });
         const res = await axios.post(`/projects/ask`, { conversation });
-        const resJson = await res.json();
-
         addChat({
           type: "bot",
           text:
-            resJson.answer?.content ||
+            res?.data.answer?.content ||
             "Momentálne sme OFFLINE napíšte nám neskôr prosím.",
         });
       } catch (err) {
