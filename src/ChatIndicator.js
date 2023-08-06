@@ -11,6 +11,11 @@ const Forward = () => `<span class="forward">
               </svg>
             </span>`;
 
+const ForwardDesktop = () => `<span class="forward">
+              <svg width="67" height="72" viewBox="0 0 67 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M25.3403 18.0758L41.7417 36.0756L25.0122 53.7709" stroke="white" stroke-width="2"/>
+</svg></span>`;
+
 const Chat = (config) => {
   const { avatar, name } = config;
 
@@ -25,7 +30,7 @@ const Chat = (config) => {
       <div class="chat-icon open">
         <div class="chat-icon__close-mobile">
           ${UserProfile()}
-          <h2>SPUSTIŤ<br />AI Chat</h2>
+          <h2>SPUSTIŤ<br />AI CHAT</h2>
         </div>
 
         <div class="chat-icon__close-desktop">
@@ -43,7 +48,7 @@ const Chat = (config) => {
           <p>Chcete sa porozprávať s našim digitálnym AI asistentom? ${name} Vám odpovie na akúkoľvek otázku.</p>
           <div class="actions">
             ${CloseIcon()}
-            ${Forward()}
+            ${ForwardDesktop()}
           </div>
         </div>
       </div>

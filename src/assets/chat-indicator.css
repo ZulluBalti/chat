@@ -9,9 +9,9 @@
   display: none;
 }
 
-#chat-container .open .chat-icon__default, 
+#chat-container .open .chat-icon__default,
 #chat-container .close .chat-icon__close-desktop {
-  width: 410px;
+  width: 450px;
   display: grid;
   grid-template-columns: 60px 1fr auto;
   grid-template-rows: auto auto;
@@ -75,7 +75,6 @@
   }
 }
 
-
 #chat-container .chat__avatar {
   width: 100%;
   height: 100%;
@@ -88,7 +87,7 @@
   right: 0.5rem;
   width: 8px;
   height: 8px;
-  background: #4BA65A;
+  background: #4ba65a;
   border-radius: 50%;
   border: 2px solid white;
 }
@@ -104,7 +103,7 @@
   grid-column: 3/4;
 }
 
-#chat-container .chat-icon  h2 {
+#chat-container .chat-icon h2 {
   font-weight: 800;
   color: white;
   align-self: center;
