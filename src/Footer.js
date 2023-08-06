@@ -6,7 +6,7 @@ const Footer = () => {
     <footer class="chat-footer">
       <div class="chat-footer__content">
         <div class="relative">
-          <textarea class="chat-footer__input" placeholder="Type here..." rows="1" disabled="disabled"></textarea>
+          <textarea class="chat-footer__input" placeholder="Začnite písať . . ." rows="1" disabled="disabled"></textarea>
           <span class="chat-footer__lock">${Lock()}</span>
         </div>
         <div class="chat-footer__send">
@@ -16,7 +16,7 @@ const Footer = () => {
       <a href="https://gchat.sk/" target="_blank"><p>Powered by G CHAT</p></a>
       <div class="chat-footer__model"></div>
     </footer>
-`
-}
+`;
+};
 
 export default Footer;

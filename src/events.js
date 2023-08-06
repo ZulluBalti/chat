@@ -44,7 +44,9 @@ const events = (props) => {
 
     const simulateChat = () => {
       const forNoneAuthUser = async () => {
-        const conversation = JSON.parse(localStorage.getItem("gchat-conversation"));
+        const conversation = JSON.parse(
+          localStorage.getItem("gchat-conversation")
+        );
         if (conversation) {
           conversation.forEach((itm) => addChat(itm));
         } else {
@@ -80,7 +82,7 @@ const events = (props) => {
         chatTyping.classList.toggle("hide");
         addChat({
           type: "bot",
-          text: `Welcome back ${user ? `, ${user}` : ""}`,
+          text: `Vitaj späť ${user ? `, ${user}` : ""}`,
         });
         enableChat();
       };
@@ -116,7 +118,7 @@ const events = (props) => {
         if (container.classList.contains("close")) {
           document.body.classList.remove("gchat-no-scroll");
           document.querySelector("html").classList.remove("gchat-no-scroll");
-          window.scrollTo({top: scrollTop, behavior: "instant"});
+          window.scrollTo({ top: scrollTop, behavior: "instant" });
         } else {
           document.body.classList.add("gchat-no-scroll");
           document.querySelector("html").classList.add("gchat-no-scroll");
@@ -215,7 +217,7 @@ const events = (props) => {
       chatTyping.classList.toggle("hide");
       await wait(1.5);
       chatTyping.classList.toggle("hide");
-      addChat({ type: "bot", text: `Nice to meet you ${name}` });
+      addChat({ type: "bot", text: `Rád Vás spoznávam ${name}` });
 
       if (!props.leadEmail && !props.leadPhone) {
         await handleLeadSubmit();
@@ -226,7 +228,7 @@ const events = (props) => {
         chatTyping.classList.toggle("hide");
         addChat({
           type: "bot",
-          text: `Thank you for providng all the info. Now you can use the AI`,
+          text: `Ďakujem za poskytnutie všetkých informácií. Teraz môžete používať AI`,
         });
         return enableChat();
       }
@@ -237,7 +239,7 @@ const events = (props) => {
       chatTyping.classList.toggle("hide");
       addChat({
         type: "bot",
-        text: `Please enter your contact details in case you need support via email or phone.`,
+        text: `Zadajte prosím ešte Vaše kontaktné údaje pre prípad, ak by ste potrebovali podporu cez email, alebo telefón.`,
       });
 
       localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));
@@ -284,7 +286,7 @@ const events = (props) => {
       chatTyping.classList.toggle("hide");
       addChat({
         type: "bot",
-        text: `Thank you for providng all the info. Now you can use the AI`,
+        text: `Ďakujem za poskytnutie všetkých informácií. Teraz môžete používať AI`,
       });
 
       enableChat();

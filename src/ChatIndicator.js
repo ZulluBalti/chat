@@ -25,12 +25,12 @@ const Chat = (config) => {
       <div class="chat-icon open">
         <div class="chat-icon__close-mobile">
           ${UserProfile()}
-          <h2>Start <br />AI Chat</h2>
+          <h2>SPUSTIŤ<br />AI Chat</h2>
         </div>
 
         <div class="chat-icon__close-desktop">
           ${UserProfile()}
-          <h2>Just ask ${name}</h2>
+          <h2>Opýtajte sa ${name}</h2>
           <p>Som k dispozícii 24 hodín denne</p>
           <div class="actions">
             ${Forward()}
@@ -39,8 +39,8 @@ const Chat = (config) => {
 
         <div class="chat-icon__default">
           ${UserProfile()}
-          <h2>Just ask ${name}</h2>
-          <p>Want to talk to our digital AI assistant? ${name} can answer any question you may have.</p>
+          <h2>Opýtajte sa ${name}</h2>
+          <p>Chcete sa porozprávať s našim digitálnym AI asistentom? ${name} Vám odpovie na akúkoľvek otázku.</p>
           <div class="actions">
             ${CloseIcon()}
             ${Forward()}

@@ -2,24 +2,31 @@ import ChatConfirm from "./icons/ChatConfirm";
 import Question from "./icons/Question";
 import Close from "./icons/Close";
 
-
 const AskEmail = (props) => {
   return `
       <section class="chat-confirm ask-email hide">
         <div class="chat-confirm__header">
           <span>${Question()}</span>
-          <p>Start a chat by typing your contact details in case of communication via email / phone.</p>
+          <p>Spustite chat napísaním Vašich kontaktných údajov pre prípad komunikácie cez e-mail / telefón.</p>
         </div>
         <form id="add-email__form" class="chat-confirm__input">
-          ${props.leadEmail ? '<input type="email" id="lead-email" placeholder="Your e-mail..." />' : ''}
-          ${props.leadPhone ? '<input type="text" id="lead-phone" placeholder="Your phone number..." />' : ''}
-          <span id="gdpr-btn" class="chat-confirm__gdpr">My data and GDPR</span>
-          <button class="chat-confirm__btn"><span id="lead-submit-txt">Active AI Chat</span> ${ChatConfirm()}</button>
+          ${
+            props.leadEmail
+              ? '<input type="email" id="lead-email" placeholder="Váš e-mail . . ." />'
+              : ""
+          }
+          ${
+            props.leadPhone
+              ? '<input type="text" id="lead-phone" placeholder="Vaše telefónne číslo . . ." />'
+              : ""
+          }
+          <span id="gdpr-btn" class="chat-confirm__gdpr">Moje dáta a GDPR</span>
+          <button class="chat-confirm__btn"><span id="lead-submit-txt">Spustiť AI chat</span> ${ChatConfirm()}</button>
         </form>
       </section>
       <div class="gdpr-info hide">
         <header>
-          <h2>My data and GDPR</h2>
+          <h2>Moje dáta a GDPR</h2>
           <span id="gdpr-close">${Close()}</span>
         </header>
         <p>
