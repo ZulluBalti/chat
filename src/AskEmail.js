@@ -17,7 +17,12 @@ const AskEmail = (props) => {
           }
           ${
             props.leadPhone
-              ? '<input type="text"  minLength="8" maxLength="15" id="lead-phone" placeholder="Vaše telefónne číslo . . ." required/>'
+              ? `<input type="text"  
+                  minLength="${props.minPhoneLength}" 
+                  maxLength="${props.maxPhoneLength}" 
+                  id="lead-phone" 
+                  placeholder="Vaše telefónne číslo . . ." 
+                  required/>`
               : ""
           }
           <span id="gdpr-btn" class="chat-confirm__gdpr">Moje dáta a GDPR</span>

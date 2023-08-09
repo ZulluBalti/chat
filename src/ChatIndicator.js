@@ -11,7 +11,7 @@ const Forward = () => `
 </svg>`;
 
 const Chat = (config) => {
-  const { avatar, name } = config;
+  const { avatar, name, openTitle, openSubTitle } = config;
 
   const UserProfile = () => {
     return `<div class="relative chat-avatar__con">
@@ -38,8 +38,8 @@ const Chat = (config) => {
 
         <div class="chat-icon__default">
           ${UserProfile()}
-          <h2>Opýtajte sa ${name}</h2>
-          <p>Chcete sa porozprávať s našim digitálnym AI asistentom? ${name} Vám odpovie na akúkoľvek otázku.</p>
+          <h2>${openTitle}</h2>
+          <p>${openSubTitle}</p>
           <div class="actions">
             ${CloseIcon()}
             ${Forward()}
