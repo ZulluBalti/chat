@@ -73,6 +73,9 @@ const events = (props) => {
           askNameCon.scrollIntoView(false);
         } else if (props.leadPhone || props.leadEmail) {
           showEmailContainer();
+        } else {
+          enableChat();
+          localStorage.setItem("gchat-visited", "true");
         }
       };
 
@@ -87,7 +90,14 @@ const events = (props) => {
         enableChat();
       };
 
-      if (props.token) forAuthUser(props.userName);
+      if (
+        props.token ||
+        (props.visited &&
+          !props.leadName &&
+          !props.leadPhone &&
+          !props.leadEmail)
+      )
+        forAuthUser(props.userName);
       else forNoneAuthUser();
     };
 
@@ -158,7 +168,9 @@ const events = (props) => {
       try {
         let conversation = getConversation();
         conversation.push({ role: "user", content: txt });
-        const res = await axios.post(`/projects/ask`, { conversation });
+        const res = await axios.post(`/projects/ask/${props.projectId}`, {
+          conversation,
+        });
         addChat({
           type: "bot",
           text:
@@ -270,11 +282,26 @@ const events = (props) => {
       }
     };
 
+    const validatePhone = (number) => {
+      return number.includes("+");
+    };
+
     const handleAddEmail = async (e) => {
       e.preventDefault();
+      const error = document.querySelector(".chat-confirm__error");
+      error.classList.add("remove");
+      error.textContent = "";
 
       lead.email = document.getElementById("lead-email").value;
       lead.phone = document.getElementById("lead-phone").value;
+      // validation
+      if (props.leadPhone) {
+        if (!validatePhone(props.leadPhone)) {
+          error.classList.add("hide");
+          error.textContent = "Invalid phone number";
+          return;
+        }
+      }
       const btn = document.getElementById("lead-submit-txt");
       btn.textContent = "Submiting...";
 

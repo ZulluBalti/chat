@@ -14,17 +14,16 @@
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.22);
 }
 
-#chat-container .chat-confirm__header svg{
+#chat-container .chat-confirm__header svg {
   stroke: var(--gchat-color);
 }
 
 #chat-container .chat-confirm__header p {
   color: var(--gchat-color);
-  line-height: 1.20;
+  line-height: 1.2;
   font-weight: bold;
   pointer-events: none;
 }
-
 
 #chat-container .chat-confirm__input {
   margin-top: 0.4em;
@@ -32,7 +31,7 @@
   flex-direction: column;
   gap: 1.2em;
   border: 1px solid #c1c1c1;
-  border-radius:  0px 0px 1.1em 1.1em;
+  border-radius: 0px 0px 1.1em 1.1em;
   padding: 1em;
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.22);
 }
@@ -54,7 +53,7 @@
 
 #chat-container .chat-confirm__btn {
   background: var(--gchat-color);
-  border: 1px solid rgba(0, 0, 0, 0.20);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.8em;
   display: flex;
   justify-content: center;
@@ -71,9 +70,14 @@
   align-self: center;
   font-size: 1.2em;
   font-weight: bold;
-  color: #C9C9C9;
+  color: #c9c9c9;
   margin-bottom: 1em;
   cursor: pointer;
+}
+
+#chat-container .chat-confirm__error {
+  font-size: 1.2em;
+  color: red;
 }
 
 #chat-container .gdpr-info {
@@ -103,4 +107,3 @@
 #chat-container .gdpr-info a {
   color: inherit;
 }
-

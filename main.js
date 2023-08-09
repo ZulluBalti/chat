@@ -23,7 +23,8 @@ const getSettings = async (project) => {
 const isLoggedIn = () => {
   const token = localStorage.getItem("gchat-token");
   const name = localStorage.getItem("gchat-lead-name");
-  if (!token) return {};
+  const visited = localStorage.getItem("gchat-visited");
+  if (!token) return { visited };
 
   const decoded = jwtDecode(token);
   const expire = new Date(decoded.exp * 1000).getTime();
@@ -47,6 +48,7 @@ const Chat = async (project) => {
   const auth = isLoggedIn();
   config.token = auth.token;
   config.userName = auth.name;
+  config.visited = auth.visited;
   if (!config.enabled) return;
 
   document.body.insertAdjacentHTML("beforeend", renderer(config));
@@ -56,5 +58,5 @@ const Chat = async (project) => {
   events(config);
 };
 
-//Chat("64d0ad4cd3416f0d3be4032e");
-export default Chat;
+Chat("64d0ad4cd3416f0d3be4032e");
+//export default Chat;
