@@ -5,16 +5,10 @@ const CloseIcon = () => `<span class="close">
               </svg>
             </span>`;
 
-const Forward = () => `<span class="forward">
-              <svg xmlns="http://www.w3.org/2000/svg" width="42" height="48" viewBox="0 0 42 48" fill="none">
-                <path d="M15.893 11.8446L26.1659 23.6416L15.6779 35.2477" stroke="white" stroke-width="2"/>
-              </svg>
-            </span>`;
-
-const ForwardDesktop = () => `<span class="forward">
-              <svg width="67" height="72" viewBox="0 0 67 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M25.3403 18.0758L41.7417 36.0756L25.0122 53.7709" stroke="white" stroke-width="2"/>
-</svg></span>`;
+const Forward = () => `
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="38" viewBox="0 0 20 38" fill="none">
+  <path d="M1.34032 1.07576L17.7417 19.0756L1.01222 36.7709" stroke="white" stroke-width="2"/>
+</svg>`;
 
 const Chat = (config) => {
   const { avatar, name } = config;
@@ -48,7 +42,7 @@ const Chat = (config) => {
           <p>Chcete sa porozprávať s našim digitálnym AI asistentom? ${name} Vám odpovie na akúkoľvek otázku.</p>
           <div class="actions">
             ${CloseIcon()}
-            ${ForwardDesktop()}
+            ${Forward()}
           </div>
         </div>
       </div>

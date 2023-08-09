@@ -32,12 +32,13 @@
   }
 
   #chat-container .close .chat-icon__close-desktop {
-    width: 330px;
+    width: 350px;
     display: grid;
-    grid-template-columns: 45px 1fr 40px;
+    grid-template-columns: 45px 1fr auto;
     align-items: center;
-    row-gap: 0;
-    padding: 1em;
+    row-gap: 1em;
+    column-gap: 1.4em;
+    padding: 1.8em;
   }
 
   #chat-container .close .chat-icon__close-desktop h2 {
@@ -99,8 +100,11 @@
 
 #chat-container .chat-icon__default .actions,
 #chat-container .chat-icon__close-desktop > .actions {
+  align-self: center;
+  justify-self: center;
   grid-row: 1/-1;
   grid-column: 3/4;
+  padding: 0 0.5em 0 2em;
 }
 
 #chat-container .chat-icon h2 {

@@ -82,7 +82,7 @@ const events = (props) => {
         chatTyping.classList.toggle("hide");
         addChat({
           type: "bot",
-          text: `Vitaj späť ${user ? `, ${user}` : ""}`,
+          text: `Vitaj späť${user ? `, ${user}` : ""}`,
         });
         enableChat();
       };
