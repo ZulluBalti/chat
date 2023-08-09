@@ -283,21 +283,20 @@ const events = (props) => {
     };
 
     const validatePhone = (number) => {
-      return number.includes("+");
+      let n = number.replace("+", "").replace(" ", "");
+      return Number(n);
     };
 
     const handleAddEmail = async (e) => {
       e.preventDefault();
       const error = document.querySelector(".chat-confirm__error");
-      error.classList.add("remove");
       error.textContent = "";
 
       lead.email = document.getElementById("lead-email").value;
       lead.phone = document.getElementById("lead-phone").value;
       // validation
       if (props.leadPhone) {
-        if (!validatePhone(props.leadPhone)) {
-          error.classList.add("hide");
+        if (!validatePhone(lead.phone)) {
           error.textContent = "Invalid phone number";
           return;
         }

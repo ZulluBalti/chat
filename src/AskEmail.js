@@ -17,12 +17,12 @@ const AskEmail = (props) => {
           }
           ${
             props.leadPhone
-              ? '<input type="text"  id="lead-phone" placeholder="Vaše telefónne číslo . . ." required/>'
+              ? '<input type="text"  minLength="8" maxLength="15" id="lead-phone" placeholder="Vaše telefónne číslo . . ." required/>'
               : ""
           }
           <span id="gdpr-btn" class="chat-confirm__gdpr">Moje dáta a GDPR</span>
           <button class="chat-confirm__btn"><span id="lead-submit-txt">Spustiť AI chat</span> ${ChatConfirm()}</button>
-          <small class="hide chat-confirm__error"></small>
+          <small class="chat-confirm__error"></small>
         </form>
       </section>
       <div class="gdpr-info hide">
