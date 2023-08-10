@@ -1,5 +1,6 @@
 import { renderChat } from "./History";
 import axios from "./axios";
+import isEmail from "validator/es/lib/isEmail";
 
 const wait = (sec) =>
   new Promise((resolve) => setTimeout(() => resolve(), sec * 1000));
@@ -42,6 +43,11 @@ const events = (props) => {
     let loading = false;
     let simulated = false;
 
+    const toggleTyping = () => {
+      chatTyping.classList.toggle("hide");
+      chatTyping.scrollIntoView(false);
+    };
+
     const simulateChat = () => {
       const forNoneAuthUser = async () => {
         const conversation = JSON.parse(
@@ -52,18 +58,18 @@ const events = (props) => {
         } else {
           if (props.firstTextInChat) {
             await wait(0.5);
-            chatTyping.classList.toggle("hide"); // add
+            toggleTyping();
             await wait(2);
             addChat({ type: "bot", text: props.firstTextInChat });
-            chatTyping.classList.toggle("hide"); // rmeove
+            toggleTyping();
           }
 
           if (props.secondTextInChat) {
             await wait(0.5);
-            chatTyping.classList.toggle("hide"); // add
+            toggleTyping();
             await wait(2);
             addChat({ type: "bot", text: props.secondTextInChat });
-            chatTyping.classList.toggle("hide"); // remove
+            toggleTyping();
           }
         }
 
@@ -80,9 +86,9 @@ const events = (props) => {
       };
 
       const forAuthUser = async (user) => {
-        chatTyping.classList.toggle("hide");
+        toggleTyping();
         await wait(1);
-        chatTyping.classList.toggle("hide");
+        toggleTyping();
         addChat({
           type: "bot",
           text: `Vitaj späť${user ? `, ${user}` : ""}`,
@@ -162,7 +168,7 @@ const events = (props) => {
       loading = true;
       addChat({ type: "human", text: txt });
       await wait(0.3);
-      chatTyping.classList.remove("hide");
+      toggleTyping();
       chatTyping.parentElement.scrollBy(0, 100);
 
       try {
@@ -185,7 +191,7 @@ const events = (props) => {
         });
       }
 
-      chatTyping.classList.add("hide");
+      toggleTyping();
       loading = false;
     };
 
@@ -226,29 +232,29 @@ const events = (props) => {
       askNameCon.classList.add("hide");
       addChat({ type: "human", text: name });
       await wait(0.5);
-      chatTyping.classList.toggle("hide");
+      toggleTyping();
       await wait(1.5);
-      chatTyping.classList.toggle("hide");
+      toggleTyping();
       addChat({ type: "bot", text: `Rád Vás spoznávam ${name}` });
 
       if (!props.leadEmail && !props.leadPhone) {
         await handleLeadSubmit();
 
         await wait(0.5);
-        chatTyping.classList.toggle("hide");
+        toggleTyping();
         await wait(2);
-        chatTyping.classList.toggle("hide");
+        toggleTyping();
         addChat({
           type: "bot",
-          text: `Ďakujem za poskytnutie všetkých informácií. Teraz môžete používať AI`,
+          text: props.thankTxt,
         });
         return enableChat();
       }
 
       await wait(0.5);
-      chatTyping.classList.toggle("hide");
+      toggleTyping();
       await wait(2);
-      chatTyping.classList.toggle("hide");
+      toggleTyping();
       addChat({
         type: "bot",
         text: `Zadajte prosím ešte Vaše kontaktné údaje pre prípad, ak by ste potrebovali podporu cez email, alebo telefón.`,
@@ -268,6 +274,7 @@ const events = (props) => {
       qcarousel?.classList?.toggle("hide");
       textInput.removeAttribute("disabled");
       textInput.focus();
+      textInput.setAttribute("placeholder", "Začnite písať . . .");
       chats.scrollIntoView(false);
     };
 
@@ -283,8 +290,16 @@ const events = (props) => {
     };
 
     const validatePhone = (number) => {
-      let n = number.replace("+", "").replace(" ", "");
-      return Number(n);
+      const min = props.minPhoneLength;
+      const max = props.maxPhoneLength;
+
+      if (number[0] === "+") number = number.replace("+", "");
+      let n = number.replaceAll(" ", "");
+      if (n.length < min)
+        return [null, `Phone number should be at least ${min} characters`];
+      if (n.length > max)
+        return [null, `Phone number can be at most ${min} characters`];
+      return [Number(n)];
     };
 
     const handleAddEmail = async (e) => {
@@ -296,8 +311,15 @@ const events = (props) => {
       lead.phone = document.getElementById("lead-phone").value;
       // validation
       if (props.leadPhone) {
-        if (!validatePhone(lead.phone)) {
-          error.textContent = "Invalid phone number";
+        const [valid, msg] = validatePhone(lead.phone);
+        if (!valid) {
+          error.textContent = msg || "Invalid phone number";
+          return;
+        }
+      }
+      if (props.leadEmail) {
+        if (!isEmail(lead.email)) {
+          error.textContent = "Invalid email address";
           return;
         }
       }
@@ -307,12 +329,12 @@ const events = (props) => {
       await handleLeadSubmit();
 
       askEmailCon.classList.toggle("hide");
-      chatTyping.classList.toggle("hide");
+      toggleTyping();
       await wait(2);
-      chatTyping.classList.toggle("hide");
+      toggleTyping();
       addChat({
         type: "bot",
-        text: `Ďakujem za poskytnutie všetkých informácií. Teraz môžete používať AI`,
+        text: props.thankTxt,
       });
 
       enableChat();

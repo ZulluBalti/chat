@@ -29,8 +29,8 @@ const Chat = (config) => {
 
         <div class="chat-icon__close-desktop">
           ${UserProfile()}
-          <h2>Opýtajte sa ${name}</h2>
-          <p>Som k dispozícii 24 hodín denne</p>
+          <h2>${config.closeTitle}</h2>
+          <p>${config.closeSubTitle}</p>
           <div class="actions">
             ${Forward()}
           </div>

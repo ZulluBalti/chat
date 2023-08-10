@@ -12,14 +12,12 @@ const AskEmail = (props) => {
         <form id="add-email__form" class="chat-confirm__input">
           ${
             props.leadEmail
-              ? '<input  type="email" id="lead-email" placeholder="Váš e-mail . . ." required />'
+              ? '<input  type="text" id="lead-email" placeholder="Váš e-mail . . ." required />'
               : ""
           }
           ${
             props.leadPhone
               ? `<input type="text"  
-                  minLength="${props.minPhoneLength}" 
-                  maxLength="${props.maxPhoneLength}" 
                   id="lead-phone" 
                   placeholder="Vaše telefónne číslo . . ." 
                   required/>`
