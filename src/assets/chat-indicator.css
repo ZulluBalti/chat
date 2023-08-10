@@ -121,6 +121,10 @@
   line-height: 1.2;
 }
 
+#chat-container .chat-icon .chat-icon__close-desktop > p {
+  font-size: 1.3em;
+}
+
 #chat-container .actions path {
   stroke: white;
 }
