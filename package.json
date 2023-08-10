@@ -1,6 +1,6 @@
 {
   "name": "@zullu_balti/chat",
-  "version": "6.0.54",
+  "version": "6.0.55",
   "type": "module",
   "exports": {
     ".": {
