@@ -58,5 +58,5 @@ const Chat = async (project) => {
   events(config);
 };
 
-Chat("64d0ad4cd3416f0d3be4032e");
-// export default Chat;
+// Chat("64d0ad4cd3416f0d3be4032e");
+export default Chat;
