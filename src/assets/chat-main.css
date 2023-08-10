@@ -64,6 +64,7 @@
 }
 #chat-container .chat-header__name {
   font-size: 1.8em;
+  line-height: 21px;
   margin-bottom: 0.25em;
   pointer-events: none;
 }
