@@ -235,7 +235,7 @@ const events = (props) => {
       toggleTyping();
       await wait(1.5);
       toggleTyping();
-      addChat({ type: "bot", text: `Rád Vás spoznávam ${name}` });
+      addChat({ type: "bot", text: props.firstTextAfterName });
 
       if (!props.leadEmail && !props.leadPhone) {
         await handleLeadSubmit();
@@ -257,7 +257,7 @@ const events = (props) => {
       toggleTyping();
       addChat({
         type: "bot",
-        text: `Zadajte prosím ešte Vaše kontaktné údaje pre prípad, ak by ste potrebovali podporu cez email, alebo telefón.`,
+        text: props.secondTextAfterName,
       });
 
       localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));

@@ -1,39 +1,27 @@
-#chat-container .chat-confirm.ask-email {
+#chat-container .relative {
   position: relative;
-  overflow: hidden;
 }
 
-#chat-container .chat-confirm__header {
-  border: 1px solid #c1c1c1;
-  border-radius: 1.1em 1.1em 0px 0px;
-  padding: 0.7em 0.4em;
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  font-size: 1.3em;
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.22);
-}
-
-#chat-container .chat-confirm__header svg {
+#chat-container .chat-confirm svg {
   stroke: var(--gchat-color);
 }
 
-#chat-container .chat-confirm__header p {
-  color: var(--gchat-color);
-  line-height: 1.2;
-  font-weight: bold;
-  pointer-events: none;
-}
-
-#chat-container .chat-confirm__input {
+#chat-container .chat-confirm__form {
   margin-top: 0.4em;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2em;
+  display: grid;
+  grid-template-columns: 1fr 3.6em;
+  gap: 1em;
   border: 1px solid #c1c1c1;
   border-radius: 0px 0px 1.1em 1.1em;
   padding: 1em;
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.22);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+#chat-container .chat-confirm__input {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
 }
 
 #chat-container .chat-confirm__input input {
@@ -64,6 +52,12 @@
   font-weight: bold;
   font-size: 1.6em;
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+#chat-container .chat-confirm__btn:active {
+  box-shadow: none;
 }
 
 #chat-container .chat-confirm__gdpr {
@@ -106,4 +100,28 @@
 
 #chat-container .gdpr-info a {
   color: inherit;
+}
+
+#chat-container .chat-confim__popup {
+  position: absolute;
+  display: none;
+  bottom: 105%;
+  right: 50%;
+  width: 19em;
+  text-align: right;
+  background: var(--gchat-color);
+
+  line-height: 1.2;
+  font-weight: 500;
+  pointer-events: none;
+  color: white;
+  padding: 0.8em;
+  border-radius: 0.8em;
+  font-size: 1.3em;
+  opacity: 0.9;
+}
+
+#chat-container .chat-confim__icon:hover + .chat-confim__popup,
+#chat-container .chat-confim__popup:hover {
+  display: inline-block;
 }

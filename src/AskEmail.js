@@ -4,28 +4,30 @@ import Close from "./icons/Close";
 
 const AskEmail = (props) => {
   return `
-      <section class="chat-confirm ask-email hide">
-        <div class="chat-confirm__header">
-          <span>${Question()}</span>
-          <p>Spustite chat napísaním Vašich kontaktných údajov pre prípad komunikácie cez e-mail / telefón.</p>
-        </div>
-        <form id="add-email__form" class="chat-confirm__input">
-          ${
-            props.leadEmail
-              ? '<input  type="text" id="lead-email" placeholder="Váš e-mail . . ." required />'
-              : ""
-          }
-          ${
-            props.leadPhone
-              ? `<input type="text"  
-                  id="lead-phone" 
-                  placeholder="Vaše telefónne číslo . . ." 
-                  required/>`
-              : ""
-          }
-          <span id="gdpr-btn" class="chat-confirm__gdpr">Moje dáta a GDPR</span>
-          <button class="chat-confirm__btn"><span id="lead-submit-txt">Spustiť AI chat</span> ${ChatConfirm()}</button>
-          <small class="chat-confirm__error"></small>
+      <section class="chat-confirm ask-email relative hide">
+        <form id="add-email__form" class="chat-confirm__form">
+          <div class="chat-confirm__input">
+            ${
+              props.leadEmail
+                ? '<input  type="text" id="lead-email" placeholder="Váš e-mail . . ." required />'
+                : ""
+            }
+            ${
+              props.leadPhone
+                ? `<input type="text"  
+                    id="lead-phone" 
+                    placeholder="Vaše telefónne číslo . . ." 
+                    required/>`
+                : ""
+            }
+            <span id="gdpr-btn" class="chat-confirm__gdpr">Moje dáta a GDPR</span>
+            <button class="chat-confirm__btn"><span id="lead-submit-txt">Spustiť AI chat</span> ${ChatConfirm()}</button>
+            <small class="chat-confirm__error"></small>
+          </div>
+          <div class="relative">
+            <span class="chat-confim__icon">${Question()}</span>
+            <p class="chat-confim__popup">Spustite chat napísaním Vašich kontaktných údajov pre prípad komunikácie cez e-mail / telefón.</p>
+          </div>
         </form>
       </section>
       <div class="gdpr-info hide">
