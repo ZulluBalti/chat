@@ -173,7 +173,7 @@ const events = (props) => {
 
       try {
         let conversation = getConversation();
-        conversation.push({ role: "user", text: txt });
+        conversation.push({ role: "user", content: txt });
         const res = await axios.post(`/projects/ask/${props.projectId}`, {
           conversation,
         });
