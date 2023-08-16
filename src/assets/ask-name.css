@@ -10,21 +10,23 @@
   margin-top: 0.4em;
   display: grid;
   grid-template-columns: 1fr 3.6em;
+  /* grid-template-rows: 3.6em auto;*/
   gap: 1em;
   border: 1px solid #c1c1c1;
-  border-radius: 0px 0px 1.1em 1.1em;
+  border-radius: 1.1em;
   padding: 1em;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
-#chat-container .chat-confirm__input {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2em;
+#chat-container .chat-confirm__info {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  place-self: center;
 }
 
-#chat-container .chat-confirm__input input {
+#chat-container .chat-confirm__form input {
+  width: 100%;
   font-size: 1.5em;
   font-family: inherit;
   padding: 1em 1.6em;
@@ -37,6 +39,10 @@
 
 #chat-container .chat-confirm__input input::placeholder {
   color: black;
+}
+
+#chat-container .span-2-col {
+  grid-column: 1/-1;
 }
 
 #chat-container .chat-confirm__btn {
@@ -52,8 +58,6 @@
   font-weight: bold;
   font-size: 1.6em;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 #chat-container .chat-confirm__btn:active {
@@ -61,7 +65,7 @@
 }
 
 #chat-container .chat-confirm__gdpr {
-  align-self: center;
+  place-self: center;
   font-size: 1.2em;
   font-weight: bold;
   color: #c9c9c9;
@@ -105,8 +109,8 @@
 #chat-container .chat-confim__popup {
   position: absolute;
   display: none;
-  bottom: 105%;
-  right: 50%;
+  bottom: 90%;
+  right: 2em;
   width: 19em;
   text-align: right;
   background: var(--gchat-color);

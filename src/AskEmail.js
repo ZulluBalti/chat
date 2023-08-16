@@ -3,31 +3,31 @@ import Question from "./icons/Question";
 import Close from "./icons/Close";
 
 const AskEmail = (props) => {
+  const e = props.leadEmail;
+  const p = props.leadPhone;
   return `
       <section class="chat-confirm ask-email relative hide">
         <form id="add-email__form" class="chat-confirm__form">
-          <div class="chat-confirm__input">
+            <div class="chat-confirm__info">
+              <span class="chat-confim__icon">${Question()}</span>
+              <p class="chat-confim__popup">Spustite chat napísaním Vašich kontaktných údajov pre prípad komunikácie cez e-mail / telefón.</p>
+            </div>
             ${
-              props.leadEmail
-                ? '<input  type="text" id="lead-email" placeholder="Váš e-mail . . ." required />'
+              e
+                ? '<input type="text" id="lead-email" placeholder="Váš e-mail . . ." required />'
                 : ""
             }
             ${
-              props.leadPhone
-                ? `<input type="text"  
-                    id="lead-phone" 
+              p
+                ? `<input type="text"  id="lead-phone" 
+                    class="${e ? "span-2-col" : ""}"
                     placeholder="Vaše telefónne číslo . . ." 
                     required/>`
                 : ""
             }
-            <span id="gdpr-btn" class="chat-confirm__gdpr">Moje dáta a GDPR</span>
-            <button class="chat-confirm__btn"><span id="lead-submit-txt">Spustiť AI chat</span> ${ChatConfirm()}</button>
+            <span id="gdpr-btn" class="span-2-col chat-confirm__gdpr">Moje dáta a GDPR</span>
+            <button class="chat-confirm__btn span-2-col"><span id="lead-submit-txt">Spustiť AI chat</span> ${ChatConfirm()}</button>
             <small class="chat-confirm__error"></small>
-          </div>
-          <div class="relative">
-            <span class="chat-confim__icon">${Question()}</span>
-            <p class="chat-confim__popup">Spustite chat napísaním Vašich kontaktných údajov pre prípad komunikácie cez e-mail / telefón.</p>
-          </div>
         </form>
       </section>
       <div class="gdpr-info hide">
