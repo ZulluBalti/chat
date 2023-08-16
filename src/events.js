@@ -231,13 +231,11 @@ const events = (props) => {
 
       askNameCon.classList.add("hide");
       addChat({ type: "human", text: name });
-      if (props.firstTextAfterName) {
-        await wait(0.5);
-        toggleTyping();
-        await wait(1.5);
-        toggleTyping();
-        addChat({ type: "bot", text: props.firstTextAfterName });
-      }
+      await wait(0.5);
+      toggleTyping();
+      await wait(1.5);
+      toggleTyping();
+      addChat({ type: "bot", text: `Rád Vás spoznávam "${lead.name}".` });
 
       if (!props.leadEmail && !props.leadPhone) {
         await handleLeadSubmit();
