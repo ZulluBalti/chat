@@ -231,11 +231,13 @@ const events = (props) => {
 
       askNameCon.classList.add("hide");
       addChat({ type: "human", text: name });
-      await wait(0.5);
-      toggleTyping();
-      await wait(1.5);
-      toggleTyping();
-      addChat({ type: "bot", text: props.firstTextAfterName });
+      if (props.firstTextAfterName) {
+        await wait(0.5);
+        toggleTyping();
+        await wait(1.5);
+        toggleTyping();
+        addChat({ type: "bot", text: props.firstTextAfterName });
+      }
 
       if (!props.leadEmail && !props.leadPhone) {
         await handleLeadSubmit();
@@ -251,15 +253,16 @@ const events = (props) => {
         return enableChat();
       }
 
-      await wait(0.5);
-      toggleTyping();
-      await wait(2);
-      toggleTyping();
-      addChat({
-        type: "bot",
-        text: props.secondTextAfterName,
-      });
-
+      if (props.secondTextAfterName) {
+        await wait(0.5);
+        toggleTyping();
+        await wait(2);
+        toggleTyping();
+        addChat({
+          type: "bot",
+          text: props.secondTextAfterName,
+        });
+      }
       localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));
       await wait(2);
       showEmailContainer();
