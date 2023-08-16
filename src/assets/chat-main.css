@@ -110,7 +110,7 @@
 }
 
 #chat-container .human > .chat-item {
-  border: 1.5px solid #888;
+  border: 1px solid #888;
   color: #353535;
   text-align: left;
   background: white;

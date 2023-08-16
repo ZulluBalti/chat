@@ -158,7 +158,7 @@ const events = (props) => {
         const itm = chatHistory[i];
         conversation.unshift({
           role: itm.type === "bot" ? "assistant" : "user",
-          content: itm.text,
+          text: itm.text,
         });
       }
       return conversation;
@@ -173,7 +173,7 @@ const events = (props) => {
 
       try {
         let conversation = getConversation();
-        conversation.push({ role: "user", content: txt });
+        conversation.push({ role: "user", text: txt });
         const res = await axios.post(`/projects/ask/${props.projectId}`, {
           conversation,
         });
