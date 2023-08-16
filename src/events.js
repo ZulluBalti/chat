@@ -235,7 +235,7 @@ const events = (props) => {
       toggleTyping();
       await wait(1.5);
       toggleTyping();
-      addChat({ type: "bot", text: `Rád Vás spoznávam "${lead.name}".` });
+      addChat({ type: "bot", text: `Rád Vás spoznávam ${lead.name}.` });
 
       if (!props.leadEmail && !props.leadPhone) {
         await handleLeadSubmit();
