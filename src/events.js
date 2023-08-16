@@ -158,7 +158,7 @@ const events = (props) => {
         const itm = chatHistory[i];
         conversation.unshift({
           role: itm.type === "bot" ? "assistant" : "user",
-          text: itm.text,
+          content: itm.text,
         });
       }
       return conversation;
