@@ -7,7 +7,7 @@ const AskName = () => {
   <form class="chat-confirm__form relative" id="add-name__form">
     <div class="chat-confirm__info">
       <span class="chat-confim__icon">${Question()}</span>
-      <p class="chat-confim__popup">Pre pokračovanie napíšte, ako Vás má AI volať.</p>
+      <p class="chat-confim__popup">${props.namePopup}</p>
     </div>
     <input required="true" type="text" placeholder="Napíšte Vaše meno . . ." />
     <button class="chat-confirm__btn span-2-col">Potvrdiť ${ChatConfirm()}</button>

@@ -251,14 +251,14 @@ const events = (props) => {
         return enableChat();
       }
 
-      if (props.secondTextAfterName) {
+      if (props.textAfterName) {
         await wait(0.5);
         toggleTyping();
         await wait(2);
         toggleTyping();
         addChat({
           type: "bot",
-          text: props.secondTextAfterName,
+          text: props.textAfterName,
         });
       }
       localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));

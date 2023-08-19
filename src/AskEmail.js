@@ -10,7 +10,7 @@ const AskEmail = (props) => {
         <form id="add-email__form" class="chat-confirm__form">
             <div class="chat-confirm__info">
               <span class="chat-confim__icon">${Question()}</span>
-              <p class="chat-confim__popup">Spustite chat napísaním Vašich kontaktných údajov pre prípad komunikácie cez e-mail / telefón.</p>
+              <p class="chat-confim__popup">${props.emailPopup}</p>
             </div>
             ${
               e
