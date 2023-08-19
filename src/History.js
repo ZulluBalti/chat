@@ -22,7 +22,7 @@ const History = (props) => {
           <div class="chat-text">${Spinner()}</div>
         </div>
       </div>
-      ${AskName()}
+      ${AskName(props)}
       ${AskEmail(props)}
     </div>
 `;

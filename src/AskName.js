@@ -1,7 +1,7 @@
 import ChatConfirm from "./icons/ChatConfirm";
 import Question from "./icons/Question";
 
-const AskName = () => {
+const AskName = (props) => {
   return `
 <section class="chat-confirm ask-name hide">
   <form class="chat-confirm__form relative" id="add-name__form">
