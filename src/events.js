@@ -308,10 +308,9 @@ const events = (props) => {
       const error = document.querySelector(".chat-confirm__error");
       error.textContent = "";
 
-      lead.email = document.getElementById("lead-email").value;
-      lead.phone = document.getElementById("lead-phone").value;
       // validation
       if (props.leadPhone) {
+        lead.phone = document.getElementById("lead-phone").value;
         const [valid, msg] = validatePhone(lead.phone);
         if (!valid) {
           error.textContent = msg || "Invalid phone number";
@@ -319,6 +318,7 @@ const events = (props) => {
         }
       }
       if (props.leadEmail) {
+        lead.email = document.getElementById("lead-email").value;
         if (!isEmail(lead.email)) {
           error.textContent = "Invalid email address";
           return;
