@@ -21,6 +21,8 @@
 #chat-container .chat-footer a {
   color: white;
   text-decoration: none;
+  position: relative;
+  z-index: 9;
 }
 
 #chat-container .chat-footer__lock {
