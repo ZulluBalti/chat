@@ -18,7 +18,7 @@ const events = (props) => {
     const container = document.getElementById(`chat-container`);
     const openIcon = document.querySelector(`.chat-icon__container`);
     const chatIcon = document.querySelector(`.chat-icon__container .chat-icon`);
-    const closeIcon = document.querySelector(`.chat-icon__default .chat-action-close`);
+    const closeIcon = document.querySelector(`.chat-icon__default .chat-actions-close`);
     const cancelIcon = document.querySelector(`.cancel__container`);
     const askNameCon = document.querySelector(".chat-confirm.ask-name");
     const askEmailCon = document.querySelector(".chat-confirm.ask-email");

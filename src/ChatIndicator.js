@@ -1,4 +1,4 @@
-const CloseIcon = () => `<span class="chat-action-close"> 
+const CloseIcon = () => `<span class="chat-actions-close"> 
               <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
                 <path d="M10.1429 1L1 10.1429" stroke="#108D76" stroke-linecap="round"/>
                 <path d="M1.0007 0.999939L10.1436 10.1428" stroke="#108D76" stroke-linecap="round"/>
