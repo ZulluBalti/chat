@@ -53,7 +53,7 @@ const Chat = async (project) => {
 
   document.body.insertAdjacentHTML("beforeend", renderer(config));
   const container = document.getElementById("chat-container");
-  container.classList.add(config.position);
+  container.classList.add(`chat-${config.position}`);
 
   events(config);
 };

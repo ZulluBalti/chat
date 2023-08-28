@@ -23,15 +23,15 @@
   overflow: hidden;
 }
 
-#chat-container.left {
+#chat-container.chat-left {
   left: 3em;
 }
 
-#chat-container.right {
+#chat-container.chat-right {
   right: 3em;
 }
 
-#chat-container.close {
+#chat-container.chat-close {
   box-shadow: none;
   background: none;
   border-radius: 0;
@@ -42,23 +42,23 @@
     bottom: 0em;
   }
 
-  #chat-container.left {
+  #chat-container.chat-left {
     left: 0em;
   }
 
-  #chat-container.right {
+  #chat-container.chat-right {
     right: 0em;
   }
 
-  #chat-container.close {
+  #chat-container.chat-close {
     bottom: 1em;
   }
 
-  #chat-container.left.close {
+  #chat-container.chat-left.chat-close {
     left: 1em;
   }
 
-  #chat-container.right.close {
+  #chat-container.chat-right.chat-close {
     right: 1em;
   }
 }

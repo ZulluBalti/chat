@@ -18,7 +18,7 @@ const events = (props) => {
     const container = document.getElementById(`chat-container`);
     const openIcon = document.querySelector(`.chat-icon__container`);
     const chatIcon = document.querySelector(`.chat-icon__container .chat-icon`);
-    const closeIcon = document.querySelector(`.chat-icon__default .close`);
+    const closeIcon = document.querySelector(`.chat-icon__default .chat-action-close`);
     const cancelIcon = document.querySelector(`.cancel__container`);
     const askNameCon = document.querySelector(".chat-confirm.ask-name");
     const askEmailCon = document.querySelector(".chat-confirm.ask-email");
@@ -109,7 +109,7 @@ const events = (props) => {
 
     const toggle = async () => {
       if (window.innerWidth < 500) {
-        if (container.classList.contains("close")) {
+        if (container.classList.contains("chat-close")) {
           scrollTop =
             document.documentElement.scrollTop || document.body.scrollTop;
         }
@@ -126,12 +126,12 @@ const events = (props) => {
       if (!mainChat.classList.contains("hide")) {
         textInput.focus();
       }
-      container.classList.toggle("close");
+      container.classList.toggle("chat-close");
 
-      chatIcon.classList.remove("open");
-      chatIcon.classList.add("close");
+      chatIcon.classList.remove("chat-icon-open");
+      chatIcon.classList.add("chat-icon-close");
       if (window.innerWidth < 500) {
-        if (container.classList.contains("close")) {
+        if (container.classList.contains("chat-close")) {
           document.body.classList.remove("gchat-no-scroll");
           document.querySelector("html").classList.remove("gchat-no-scroll");
           window.scrollTo({ top: scrollTop, behavior: "instant" });
@@ -214,8 +214,8 @@ const events = (props) => {
     const closeOpenBar = (e) => {
       e.preventDefault();
       e.stopPropagation();
-      chatIcon.classList.remove("open");
-      chatIcon.classList.add("close");
+      chatIcon.classList.remove("chat-icon-open");
+      chatIcon.classList.add("chat-icon-close");
     };
 
     const showEmailContainer = () => {
