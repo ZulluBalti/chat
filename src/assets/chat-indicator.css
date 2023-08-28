@@ -47,7 +47,7 @@
 }
 
 @media (max-width: 500px) {
-  #chat-container .open .chat-icon__default {
+  #chat-container .chat-icon-open .chat-icon__default {
     width: calc(100vw - 2em);
   }
 
