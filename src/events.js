@@ -11,6 +11,7 @@ const events = (props) => {
     phone: "",
     email: "",
   };
+  let free_q = parseInt(localStorage.getItem("gchat-free_q") || 0);
 
   const myEvent = () => {
     let scrollTop = 0;
@@ -53,6 +54,7 @@ const events = (props) => {
         const conversation = JSON.parse(
           localStorage.getItem("gchat-conversation")
         );
+
         if (conversation) {
           conversation.forEach((itm) => addChat(itm));
         } else {
@@ -77,7 +79,7 @@ const events = (props) => {
         if (!conversation && props.leadName) {
           askNameCon.classList.toggle("hide");
           askNameCon.scrollIntoView(false);
-        } else if (props.leadPhone || props.leadEmail) {
+        } else if ((props.leadPhone || props.leadEmail) && free_q >= props.free_limit) {
           showEmailContainer();
         } else {
           enableChat();
@@ -174,8 +176,10 @@ const events = (props) => {
       try {
         let conversation = getConversation();
         conversation.push({ role: "user", content: txt });
+
         const res = await axios.post(`/projects/ask/${props.projectId}`, {
           conversation,
+          free_q
         });
         addChat({
           type: "bot",
@@ -193,6 +197,14 @@ const events = (props) => {
 
       toggleTyping();
       loading = false;
+
+      if (free_q >= props.free_limit && !props.token) {
+        disableChat();
+        showEmailContainer();
+      } else {
+        free_q++;
+        localStorage.setItem("gchat-free_q", free_q);
+      }
     };
 
     const handleSubmit = () => {
@@ -263,7 +275,21 @@ const events = (props) => {
       }
       localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));
       await wait(2);
-      showEmailContainer();
+      if (free_q >= props.free_limit)
+        showEmailContainer();
+      else enableChat();
+    };
+
+    const disableChat = () => {
+      const model = document.querySelector(".chat-footer__model");
+      const lock = document.querySelector(".chat-footer__lock");
+
+      model.classList.toggle("hide");
+      lock.classList.toggle("hide");
+      qcarousel?.classList?.toggle("hide");
+      textInput.setAttribute("disabled", "disabled");
+      textInput.setAttribute("placeholder", "Písanie je uzamknuté");
+      chats.scrollIntoView(false);
     };
 
     const enableChat = () => {
@@ -285,6 +311,7 @@ const events = (props) => {
         const token = res.data.token;
         axios.defaults.headers.post["authorization"] = `Bearer ${token}`;
         localStorage.setItem("gchat-token", token);
+        props.token = token;
       } catch (err) {
         console.log(err);
       }
