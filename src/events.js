@@ -230,7 +230,18 @@ const events = (props) => {
       chatIcon.classList.add("chat-icon-close");
     };
 
-    const showEmailContainer = () => {
+    const showEmailContainer = async () => {
+      if (props.textAfterName) {
+        await wait(0.5);
+        toggleTyping();
+        await wait(2);
+        toggleTyping();
+        addChat({
+          type: "bot",
+          text: props.textAfterName,
+        });
+      }
+      await wait(2);
       askEmailCon.classList.remove("hide");
       askEmailCon.scrollIntoView(false);
     };
@@ -247,7 +258,7 @@ const events = (props) => {
       toggleTyping();
       await wait(1.5);
       toggleTyping();
-      addChat({ type: "bot", text: `Rád Vás spoznávam ${lead.name}.` });
+      addChat({ type: "bot", text: `Rád Vás spoznávam ${lead.name}. Ako by som Vám mohol pomôcť?` });
 
       if (!props.leadEmail && !props.leadPhone) {
         await handleLeadSubmit();
@@ -263,21 +274,11 @@ const events = (props) => {
         return enableChat();
       }
 
-      if (props.textAfterName) {
-        await wait(0.5);
-        toggleTyping();
-        await wait(2);
-        toggleTyping();
-        addChat({
-          type: "bot",
-          text: props.textAfterName,
-        });
-      }
       localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));
-      await wait(2);
-      if (free_q >= props.free_limit)
+      if (free_q >= props.free_limit) {
         showEmailContainer();
-      else enableChat();
+      } else enableChat();
+
     };
 
     const disableChat = () => {
