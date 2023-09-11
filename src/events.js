@@ -284,7 +284,6 @@ const events = (props) => {
       }
 
       localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));
-      console.log(free_q, props.free_limit)
       if (free_q >= props.free_limit) { 
         showEmailContainer();
       } else enableChat();
@@ -317,7 +316,7 @@ const events = (props) => {
 
     const handleLeadSubmit = async () => {
       try {
-        const res = await axios.post(`/ leads / ${props.projectId} `, lead);
+        const res = await axios.post(`/leads/${props.projectId}`, lead);
         const token = res.data.token;
         axios.defaults.headers.post["authorization"] = `Bearer ${token} `;
         localStorage.setItem("gchat-token", token);
