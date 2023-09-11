@@ -40,6 +40,7 @@
 @media (max-width: 500px) {
   #chat-container {
     bottom: 0em;
+    border-radius: 1.6em 1.6em 0 0;
   }
 
   #chat-container.chat-left {

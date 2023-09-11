@@ -9,8 +9,8 @@ const AskEmail = (props) => {
       <section class="chat-confirm ask-email relative hide">
         <form id="add-email__form" class="chat-confirm__form">
             <div class="chat-confirm__info">
-              <span class="chat-confim__icon">${Question()}</span>
-              <p class="chat-confim__popup">${props.emailPopup}</p>
+              <span class="chat-confirm__icon">${Question()}</span>
+              <p class="chat-confirm__popup">${props.emailPopup}</p>
             </div>
             ${
               e
@@ -26,7 +26,7 @@ const AskEmail = (props) => {
                 : ""
             }
             <span id="gdpr-btn" class="span-2-col chat-confirm__gdpr">Moje dáta a GDPR</span>
-            <button class="chat-confirm__btn span-2-col"><span id="lead-submit-txt">Spustiť AI chat</span> ${ChatConfirm()}</button>
+            <button class="chat-confirm__btn span-2-col"><span id="lead-submit-txt">Odoslať</span> ${ChatConfirm()}</button>
             <small class="chat-confirm__error"></small>
         </form>
       </section>

@@ -28,6 +28,8 @@ const events = (props) => {
     const gdprInfo = document.querySelector(`.gdpr-info`);
     const gdprClose = document.getElementById(`gdpr-close`);
     const addEmailForm = document.getElementById(`add-email__form`);
+    const emailPopup = document.querySelector(`#add-email__form .chat-confirm__icon`);
+    const namePopup = document.querySelector(`#add-name__form .chat-confirm__icon`);
     const mainChat = document.querySelector(`.chat-main`);
     const textInput = document.querySelector(`.chat-footer__input`);
     const textSendBtn = document.querySelector(`.chat-footer__send`);
@@ -79,7 +81,7 @@ const events = (props) => {
         if (!conversation && props.leadName) {
           askNameCon.classList.toggle("hide");
           askNameCon.scrollIntoView(false);
-        } else if ((props.leadPhone || props.leadEmail) && free_q >= props.free_limit) {
+        } else if ((props.leadPhone || props.leadEmail) && free_q  + 1 >= props.free_limit) {
           showEmailContainer();
         } else {
           enableChat();
@@ -198,7 +200,7 @@ const events = (props) => {
       toggleTyping();
       loading = false;
 
-      if (free_q >= props.free_limit && !props.token) {
+      if (free_q + 1 >= props.free_limit && !props.token) {
         disableChat();
         showEmailContainer();
       } else {
@@ -230,6 +232,7 @@ const events = (props) => {
       chatIcon.classList.add("chat-icon-close");
     };
 
+
     const showEmailContainer = async () => {
       if (props.textAfterName) {
         await wait(0.5);
@@ -241,10 +244,16 @@ const events = (props) => {
           text: props.textAfterName,
         });
       }
-      await wait(2);
+      await wait(1);
       askEmailCon.classList.remove("hide");
       askEmailCon.scrollIntoView(false);
     };
+
+    const greet = (name) => {
+      const say = (male, female) => props.gender === "male" ? male : female;
+
+      return `Rád${say("", "a")} Vás spoznávam ${name}. Ako by som Vám ${say("mohol", "mohla")} pomôcť?`;
+    }
 
     const handleAddName = async (e) => {
       e.preventDefault();
@@ -258,7 +267,7 @@ const events = (props) => {
       toggleTyping();
       await wait(1.5);
       toggleTyping();
-      addChat({ type: "bot", text: `Rád Vás spoznávam ${lead.name}. Ako by som Vám mohol pomôcť?` });
+      addChat({ type: "bot", text: greet(lead.name) });
 
       if (!props.leadEmail && !props.leadPhone) {
         await handleLeadSubmit();
@@ -275,10 +284,10 @@ const events = (props) => {
       }
 
       localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));
-      if (free_q >= props.free_limit) {
+      console.log(free_q, props.free_limit)
+      if (free_q >= props.free_limit) { 
         showEmailContainer();
       } else enableChat();
-
     };
 
     const disableChat = () => {
@@ -308,9 +317,9 @@ const events = (props) => {
 
     const handleLeadSubmit = async () => {
       try {
-        const res = await axios.post(`/leads/${props.projectId}`, lead);
+        const res = await axios.post(`/ leads / ${props.projectId} `, lead);
         const token = res.data.token;
-        axios.defaults.headers.post["authorization"] = `Bearer ${token}`;
+        axios.defaults.headers.post["authorization"] = `Bearer ${token} `;
         localStorage.setItem("gchat-token", token);
         props.token = token;
       } catch (err) {
@@ -325,9 +334,9 @@ const events = (props) => {
       if (number[0] === "+") number = number.replace("+", "");
       let n = number.replaceAll(" ", "");
       if (n.length < min)
-        return [null, `Phone number should be at least ${min} characters`];
+        return [null, `Telefónne číslo by malo mať aspoň ${min} znakov`];
       if (n.length > max)
-        return [null, `Phone number can be at most ${min} characters`];
+        return [null, `Telefónne číslo môže mať maximálne ${max} znakov`];
       return [Number(n)];
     };
 
@@ -341,19 +350,19 @@ const events = (props) => {
         lead.phone = document.getElementById("lead-phone").value;
         const [valid, msg] = validatePhone(lead.phone);
         if (!valid) {
-          error.textContent = msg || "Invalid phone number";
+          error.textContent = msg || "Neplatné telefónne číslo";
           return;
         }
       }
       if (props.leadEmail) {
-        lead.email = document.getElementById("lead-email").value;
+        lead.email = document.getElementById("lead-email").value?.trim?.();
         if (!isEmail(lead.email)) {
-          error.textContent = "Invalid email address";
+          error.textContent = "Neplatná emailová adresa";
           return;
         }
       }
       const btn = document.getElementById("lead-submit-txt");
-      btn.textContent = "Submiting...";
+      btn.textContent = "Odovzdáva sa...";
 
       await handleLeadSubmit();
 
@@ -404,14 +413,28 @@ const events = (props) => {
     };
 
     const updateHeight = () => {
-      root.style.setProperty("--gchat-height", `${window.innerHeight}px`);
+      root.style.setProperty("--gchat-height", `${window.innerHeight} px`);
     };
 
     const disableSafariZoom = () => {
       const el = document.querySelector("head");
-      const markup = `<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">`;
+      const markup = `<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />`;
       el.insertAdjacentHTML("beforeend", markup);
     };
+
+    const toggleInfoPopup = (e) => {
+      e.stopPropagation();
+      const parent = e.target.closest('.chat-confirm__info')
+      const el = parent.querySelector('.chat-confirm__popup')
+      el.classList.toggle("show-chat__popup")
+    }
+
+    const closeInfoPopups = () => {
+      const nameEl = namePopup.closest('.chat-confirm__info').querySelector('.chat-confirm__popup')
+      nameEl.classList.remove("show-chat__popup")
+      const emailEl = emailPopup.closest('.chat-confirm__info').querySelector('.chat-confirm__popup')
+      emailEl.classList.remove("show-chat__popup")
+    }
 
     openIcon.addEventListener("click", toggle);
     closeIcon.addEventListener("click", closeOpenBar);
@@ -425,6 +448,9 @@ const events = (props) => {
     prevPreQuestion?.addEventListener("click", handlePrevQ);
     nextPreQuestion?.addEventListener("click", handleNextQ);
     preQuestions?.addEventListener("click", selectQuestion);
+    emailPopup.addEventListener("click", toggleInfoPopup);
+    namePopup.addEventListener("click", toggleInfoPopup);
+    window.addEventListener("click", closeInfoPopups);
     window.addEventListener("resize", updateHeight);
     setCSSVariables();
     disableSafariZoom();

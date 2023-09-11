@@ -106,7 +106,7 @@
   color: inherit;
 }
 
-#chat-container .chat-confim__popup {
+#chat-container .chat-confirm__popup {
   position: absolute;
   display: none;
   bottom: 90%;
@@ -124,7 +124,8 @@
   opacity: 0.9;
 }
 
-#chat-container .chat-confim__icon:hover + .chat-confim__popup,
-#chat-container .chat-confim__popup:hover {
+/* #chat-container .chat-confirm__icon:hover + .chat-confirm__popup, */
+/* #chat-container .chat-confirm__popup:hover { */
+#chat-container .chat-confirm__popup.show-chat__popup {
   display: inline-block;
 }

@@ -9,7 +9,7 @@
   transition: opacity 200ms;
 
   width: min(100vw, 380px);
-  height: min(80vh, 1200px);
+  height: min(82vh, 1200px);
   position: relative;
 }
 
@@ -41,7 +41,6 @@
   right: 1em;
   z-index: 9999999999;
   padding: 1em;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
 
 #chat-container .avatar__container {
