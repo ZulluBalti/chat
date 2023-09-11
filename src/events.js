@@ -413,7 +413,7 @@ const events = (props) => {
     };
 
     const updateHeight = () => {
-      root.style.setProperty("--gchat-height", `${window.innerHeight} px`);
+      root.style.setProperty("--gchat-height", `${window.innerHeight}px`);
     };
 
     const disableSafariZoom = () => {
