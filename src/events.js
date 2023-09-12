@@ -200,7 +200,7 @@ const events = (props) => {
       toggleTyping();
       loading = false;
 
-      if (free_q + 1 >= props.free_limit && !props.token) {
+      if ((props.leadPhone || props.leadEmail) && free_q + 1 >= props.free_limit && !props.token) {
         disableChat();
         showEmailContainer();
       } else {
@@ -284,7 +284,7 @@ const events = (props) => {
       }
 
       localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));
-      if (free_q >= props.free_limit) { 
+      if ((props.leadPhone || props.leadEmail) && free_q >= props.free_limit) { 
         showEmailContainer();
       } else enableChat();
     };
