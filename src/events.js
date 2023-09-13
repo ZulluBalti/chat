@@ -96,7 +96,7 @@ const events = (props) => {
         addChat({
           type: "bot",
           // text: `Vitaj späť${user ? `, ${user}` : ""}`,
-          text: props.welcomeBack.replace(/%USER%/gi, user),
+          text: props.welcomeBack?.replace?.(/%USER%/gi, user),
         });
         enableChat();
       };
@@ -269,7 +269,7 @@ const events = (props) => {
       await wait(1.5);
       toggleTyping();
       // addChat({ type: "bot", text: greet(lead.name) });
-      addChat({ type: "bot", text: props.greet.replace(/%NAME%/gi, name)});
+      addChat({ type: "bot", text: props.greet?.replace?.(/%NAME%/gi, name)});
 
       if (!props.leadEmail && !props.leadPhone) {
         await handleLeadSubmit();
