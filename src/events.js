@@ -95,7 +95,8 @@ const events = (props) => {
         toggleTyping();
         addChat({
           type: "bot",
-          text: `Vitaj späť${user ? `, ${user}` : ""}`,
+          // text: `Vitaj späť${user ? `, ${user}` : ""}`,
+          text: props.welcomeBack.replace(/%USER%/gi, user),
         });
         enableChat();
       };
@@ -187,13 +188,13 @@ const events = (props) => {
           type: "bot",
           text:
             res?.data.answer?.content ||
-            "Momentálne sme OFFLINE napíšte nám neskôr prosím.",
+            props.errorMsg
         });
       } catch (err) {
         console.error(err);
         addChat({
           type: "bot",
-          text: "Momentálne sme OFFLINE napíšte nám neskôr prosím.",
+          text: props.errorMsg
         });
       }
 
@@ -267,7 +268,8 @@ const events = (props) => {
       toggleTyping();
       await wait(1.5);
       toggleTyping();
-      addChat({ type: "bot", text: greet(lead.name) });
+      // addChat({ type: "bot", text: greet(lead.name) });
+      addChat({ type: "bot", text: props.greet.replace(/%NAME%/gi, name)});
 
       if (!props.leadEmail && !props.leadPhone) {
         await handleLeadSubmit();
