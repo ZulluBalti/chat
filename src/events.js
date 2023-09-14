@@ -335,9 +335,9 @@ const events = (props) => {
       if (number[0] === "+") number = number.replace("+", "");
       let n = number.replaceAll(" ", "");
       if (n.length < min)
-        return [null, `Telefónne číslo by malo mať aspoň ${min} znakov`];
+        return [null, props.minPhoneError];
       if (n.length > max)
-        return [null, `Telefónne číslo môže mať maximálne ${max} znakov`];
+        return [null, props.maxPhoneError];
       return [Number(n)];
     };
 
@@ -351,19 +351,19 @@ const events = (props) => {
         lead.phone = document.getElementById("lead-phone").value;
         const [valid, msg] = validatePhone(lead.phone);
         if (!valid) {
-          error.textContent = msg || "Neplatné telefónne číslo";
+          error.textContent = msg || props.invalidPhone;
           return;
         }
       }
       if (props.leadEmail) {
         lead.email = document.getElementById("lead-email").value?.trim?.();
         if (!isEmail(lead.email)) {
-          error.textContent = "Neplatná emailová adresa";
+          error.textContent = props.invalidEmail;
           return;
         }
       }
       const btn = document.getElementById("lead-submit-txt");
-      btn.textContent = "Odovzdáva sa...";
+      btn.textContent = props.emailSubmitingBtn;
 
       await handleLeadSubmit();
 

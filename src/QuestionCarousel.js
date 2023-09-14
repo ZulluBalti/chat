@@ -11,7 +11,7 @@ const QuestionCarousel = (props) => {
   return `
     <div class="question-carousel hide">
       <span class="q-left">${Angle()}</span>
-      <div class="g-questions">${props.questions.map(question).join("")}</div>
+      <div class="g-questions">${props.questions.map(itm => itm.trim()).filter(itm => !!itm).map(question).join("")}</div>
       <span class="q-right">${Angle()}</span>
     </div>
 `
