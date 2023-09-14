@@ -2,6 +2,12 @@ import ChatConfirm from "./icons/ChatConfirm";
 import Question from "./icons/Question";
 import Close from "./icons/Close";
 
+function decodeHTML(input){
+  var e = document.createElement('div');
+  e.innerHTML = input;
+  return e.childNodes[0].nodeValue;
+}
+
 const AskEmail = (props) => {
   const e = props.leadEmail;
   const p = props.leadPhone;
@@ -12,38 +18,29 @@ const AskEmail = (props) => {
               <span class="chat-confirm__icon">${Question()}</span>
               <p class="chat-confirm__popup">${props.emailPopup}</p>
             </div>
-            ${
-              e
-                ? '<input type="text" id="lead-email" placeholder="Váš e-mail . . ." required />'
-                : ""
-            }
-            ${
-              p
-                ? `<input type="text"  id="lead-phone" 
+            ${e
+      ? `<input type="text" id="lead-email" placeholder="${props.emailPlaceholder}" required />`
+      : ""
+    }
+            ${p
+      ? `<input type="text"  id="lead-phone" 
                     class="${e ? "span-2-col" : ""}"
-                    placeholder="Vaše telefónne číslo . . ." 
+                    placeholder="${props.phonePlaceholder}" 
                     required/>`
-                : ""
-            }
-            <span id="gdpr-btn" class="span-2-col chat-confirm__gdpr">Moje dáta a GDPR</span>
-            <button class="chat-confirm__btn span-2-col"><span id="lead-submit-txt">Odoslať</span> ${ChatConfirm()}</button>
+      : ""
+    }
+            <span id="gdpr-btn" class="span-2-col chat-confirm__gdpr">${props.gdprInfo}</span>
+            <button class="chat-confirm__btn span-2-col"><span id="lead-submit-txt">${props.emailSubmitBtn}</span> ${ChatConfirm()}</button>
             <small class="chat-confirm__error"></small>
         </form>
       </section>
       <div class="gdpr-info hide">
         <header>
-          <h2>Moje dáta a GDPR</h2>
+          <h2>${props.gdprTitle}</h2>
           <span id="gdpr-close">${Close()}</span>
         </header>
         <p>
-          Osobné údaje spracúva spoločnosť gchat.sk, (ďalej len 
-          "G CHAT") ako sprostredkovateľ osobných údajov pre majiteľa webovej stránky, 
-          ktorý je prevádzkovateľom osobných údajov. GCHAT spracúva osobné údaje v súlade s GDPR. 
-          Informácie o tom, ako GCHAT chráni a spracúva osobné údaje, nájdete na 
-          <a href="https://www.gchat.sk/gdpr" target="_blank">www.gchat.sk/gdpr</a>. 
-          Spracúvanie vašich osobných údajov je nevyhnutné na poskytovanie zákazníckej podpory. 
-          Ak máte akékoľvek otázky týkajúce sa spracúvania vašich osobných údajov alebo chcete požiadať o 
-          vymazanie vašich osobných údajov, obráťte sa na vlastníka webovej stránky.
+          ${decodeHTML(props.gdpr)}
         </p>
       </div>
 `;

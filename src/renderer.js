@@ -17,7 +17,7 @@ const renderer = (config) => {
           ${History(config)}
         </div>
         ${config.questions?.length > 0 ? QuestionCarousel(config) : ""}
-        ${Footer()}
+        ${Footer(config)}
       </div>
     </div>
   `

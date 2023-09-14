@@ -9,8 +9,8 @@ const AskName = (props) => {
       <span class="chat-confirm__icon">${Question()}</span>
       <p class="chat-confirm__popup">${props.namePopup}</p>
     </div>
-    <input required="true" type="text" placeholder="Napíšte Vaše meno . . ." />
-    <button class="chat-confirm__btn span-2-col">Potvrdiť ${ChatConfirm()}</button>
+    <input required="true" type="text" placeholder="${props.namePlaceholder}" />
+    <button class="chat-confirm__btn span-2-col">${props.nameSubmitBtn} ${ChatConfirm()}</button>
   </form>
 </section>
 `;

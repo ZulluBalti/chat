@@ -299,7 +299,7 @@ const events = (props) => {
       lock.classList.toggle("hide");
       qcarousel?.classList?.toggle("hide");
       textInput.setAttribute("disabled", "disabled");
-      textInput.setAttribute("placeholder", "Písanie je uzamknuté");
+      textInput.setAttribute("placeholder", props.chatLockPlaceholder);
       chats.scrollIntoView(false);
     };
 
@@ -312,7 +312,7 @@ const events = (props) => {
       qcarousel?.classList?.toggle("hide");
       textInput.removeAttribute("disabled");
       textInput.focus();
-      textInput.setAttribute("placeholder", "Začnite písať . . .");
+      textInput.setAttribute("placeholder", props.chatOpenPlaceholder);
       chats.scrollIntoView(false);
     };
 

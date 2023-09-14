@@ -1,12 +1,12 @@
 import Lock from "./icons/Lock";
 import Send from "./icons/Send";
 
-const Footer = () => {
+const Footer = (props) => {
   return `
     <footer class="chat-footer">
       <div class="chat-footer__content">
         <div class="relative">
-          <textarea class="chat-footer__input" placeholder="Písanie je uzamknuté" rows="1" disabled="disabled"></textarea>
+          <textarea class="chat-footer__input" placeholder="${props.chatLockPlaceholder}" rows="1" disabled="disabled"></textarea>
           <span class="chat-footer__lock">${Lock()}</span>
         </div>
         <div class="chat-footer__send">
