@@ -33,6 +33,7 @@
   padding: 1.2em 1.6em;
 }
 
+#chat-container .reset__container,
 #chat-container .cancel__container {
   background: white;
   border-radius: 50%;
@@ -41,6 +42,24 @@
   right: 1em;
   z-index: 9999999999;
   padding: 1em;
+}
+
+#chat-container .reset__container {
+  background: var(--gchat-color);
+  border-radius: 1em;
+  left: 1em;
+  right: unset;
+  color: white;
+  font-weight: bold;
+  padding: 0.5em 0.2em 0.5em 0.7em;
+  display: flex;
+  gap: 0.4em;
+  align-items: center;
+  cursor: pointer;
+}
+
+#chat-container .reset__container.hide {
+  display: none;
 }
 
 #chat-container .avatar__container {

@@ -58,7 +58,8 @@ const Chat = async (project) => {
   events(config);
 };
 
-if (import.meta.env.DEV) 
-  Chat("64f0d59d874d7b28556ad1c4");
+if (import.meta.env.DEV)
+  Chat("64d92f2cba3cfb9068d528b2");
+  // Chat("64f0d59d874d7b28556ad1c4");
 
 export default Chat;

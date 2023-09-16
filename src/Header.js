@@ -1,8 +1,10 @@
 import Cancel from "./icons/Cancel";
+import Reset from "./icons/Reset";
 
 const Header = (props) => {
   return `
     <header class="chat-header">
+      <div class="reset__container hide"><span>${props.resetTxt || "Rest chat"}</span> ${Reset()}</div>
       <div class="cancel__container">${Cancel()}</div>
       <div class="relative avatar__container">
         <img src="${

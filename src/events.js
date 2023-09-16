@@ -1,6 +1,7 @@
 import { renderChat } from "./History";
 import axios from "./axios";
 import isEmail from "validator/es/lib/isEmail";
+import { renderQ } from "./QuestionCarousel";
 
 const wait = (sec) =>
   new Promise((resolve) => setTimeout(() => resolve(), sec * 1000));
@@ -38,9 +39,10 @@ const events = (props) => {
     const nextPreQuestion = document.querySelector(`.q-right`);
     const preQuestions = document.querySelector(`.g-questions`);
     const qcarousel = document.querySelector(".question-carousel");
+    const reset = document.querySelector("#chat-container .reset__container");
 
     const chats = document.querySelector(`.chats`);
-    const chatHistory = [];
+    let chatHistory = [];
 
     chats.innerHTML = renderChat(chatHistory);
     let loading = false;
@@ -81,7 +83,7 @@ const events = (props) => {
         if (!conversation && props.leadName) {
           askNameCon.classList.toggle("hide");
           askNameCon.scrollIntoView(false);
-        } else if ((props.leadPhone || props.leadEmail) && free_q  + 1 >= props.free_limit) {
+        } else if ((props.leadPhone || props.leadEmail) && free_q + 1 >= props.free_limit) {
           showEmailContainer();
         } else {
           enableChat();
@@ -269,7 +271,7 @@ const events = (props) => {
       await wait(1.5);
       toggleTyping();
       // addChat({ type: "bot", text: greet(lead.name) });
-      addChat({ type: "bot", text: props.greet?.replace?.(/%NAME%/gi, name)});
+      addChat({ type: "bot", text: props.greet?.replace?.(/%NAME%/gi, name) });
 
       if (!props.leadEmail && !props.leadPhone) {
         await handleLeadSubmit();
@@ -286,7 +288,7 @@ const events = (props) => {
       }
 
       localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));
-      if ((props.leadPhone || props.leadEmail) && free_q >= props.free_limit) { 
+      if ((props.leadPhone || props.leadEmail) && free_q >= props.free_limit) {
         showEmailContainer();
       } else enableChat();
     };
@@ -301,6 +303,7 @@ const events = (props) => {
       textInput.setAttribute("disabled", "disabled");
       textInput.setAttribute("placeholder", props.chatLockPlaceholder);
       chats.scrollIntoView(false);
+      reset.classList.add("hide")
     };
 
     const enableChat = () => {
@@ -314,6 +317,7 @@ const events = (props) => {
       textInput.focus();
       textInput.setAttribute("placeholder", props.chatOpenPlaceholder);
       chats.scrollIntoView(false);
+      reset.classList.remove("hide")
     };
 
     const handleLeadSubmit = async () => {
@@ -437,6 +441,17 @@ const events = (props) => {
       emailEl.classList.remove("show-chat__popup")
     }
 
+    const resetHistory = () => {
+      if (loading) return;
+      chatHistory = [];
+      addChat({ type: "bot", text: props.resetMsg || "Chat has been reset, Now you can start a new conversation" })
+      const container = qcarousel.querySelector('.g-questions');
+      const html = renderQ(props.questions);
+      container.innerHTML = html;
+      if (qcarousel.classList.contains('hide'))
+        qcarousel.classList.remove('hide')
+    }
+
     openIcon.addEventListener("click", toggle);
     closeIcon.addEventListener("click", closeOpenBar);
     cancelIcon.addEventListener("click", toggle);
@@ -451,6 +466,7 @@ const events = (props) => {
     preQuestions?.addEventListener("click", selectQuestion);
     emailPopup.addEventListener("click", toggleInfoPopup);
     namePopup.addEventListener("click", toggleInfoPopup);
+    reset.addEventListener("click", resetHistory);
     window.addEventListener("click", closeInfoPopups);
     window.addEventListener("resize", updateHeight);
     setCSSVariables();

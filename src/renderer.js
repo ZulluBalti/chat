@@ -2,7 +2,7 @@ import ChatIndicator from './ChatIndicator'
 import Header from './Header'
 import Footer from './Footer';
 import { History } from './History';
-import QuestionCarousel from './QuestionCarousel';
+import { QuestionCarousel } from './QuestionCarousel';
 
 
 const renderer = (config) => {
