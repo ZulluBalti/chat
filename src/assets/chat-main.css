@@ -24,6 +24,8 @@
 #chat-container .chat-main__conv {
   flex-grow: 1;
   overflow-y: auto;
+  background: linear-gradient(180deg, #F7F7FC 0%, #FFF 0.01%, #F7F7FC 100%);
+  background-attachment: fixed;
 }
 
 /** * HEADER * **/
