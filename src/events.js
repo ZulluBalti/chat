@@ -252,12 +252,6 @@ const events = (props) => {
       askEmailCon.scrollIntoView(false);
     };
 
-    const greet = (name) => {
-      const say = (male, female) => props.gender === "male" ? male : female;
-
-      return `Rád${say("", "a")} Vás spoznávam ${name}. Ako by som Vám ${say("mohol", "mohla")} pomôcť?`;
-    }
-
     const handleAddName = async (e) => {
       e.preventDefault();
       const name = e.target.querySelector("input").value;
@@ -270,7 +264,6 @@ const events = (props) => {
       toggleTyping();
       await wait(1.5);
       toggleTyping();
-      // addChat({ type: "bot", text: greet(lead.name) });
       addChat({ type: "bot", text: props.greet?.replace?.(/%NAME%/gi, name) });
 
       if (!props.leadEmail && !props.leadPhone) {
@@ -450,6 +443,7 @@ const events = (props) => {
       container.innerHTML = html;
       if (qcarousel.classList.contains('hide'))
         qcarousel.classList.remove('hide')
+      localStorage.removeItem("gchat-conversation")
     }
 
     openIcon.addEventListener("click", toggle);
