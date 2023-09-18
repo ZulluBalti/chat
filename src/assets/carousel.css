@@ -1,9 +1,15 @@
 #chat-container .question-carousel {
-  background: white;
+  background:  linear-gradient(180deg,#F7F7FC 0%,#FFF .01%,#F7F7FC 100%);
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   padding: 0.8em 0;
+}
+
+@media (max-width: 500px) {
+  #chat-container .question-carousel {
+    padding: 0.8em 0; 
+  }
 }
 
 #chat-container .question-carousel svg {

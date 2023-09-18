@@ -15,7 +15,6 @@
 
 @media (max-width: 500px) {
   #chat-container .chat-main {
-    gap: 0.8em;
     height: var(--gchat-height);
     width: 100vw;
   }
