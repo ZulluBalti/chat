@@ -97,7 +97,6 @@ const events = (props) => {
         toggleTyping();
         addChat({
           type: "bot",
-          // text: `Vitaj späť${user ? `, ${user}` : ""}`,
           text: props.welcomeBack?.replace?.(/%USER%/gi, user),
         });
         enableChat();
@@ -290,7 +289,7 @@ const events = (props) => {
       const model = document.querySelector(".chat-footer__model");
       const lock = document.querySelector(".chat-footer__lock");
 
-      model.classList.add("hide");
+      model.classList.remove("hide");
       lock.classList.add("hide");
       qcarousel?.classList?.add("hide");
       textInput.setAttribute("disabled", "disabled");
@@ -303,7 +302,7 @@ const events = (props) => {
       const model = document.querySelector(".chat-footer__model");
       const lock = document.querySelector(".chat-footer__lock");
 
-      model.classList.remove("hide");
+      model.classList.add("hide");
       lock.classList.remove("hide");
       qcarousel?.classList?.remove("hide");
       textInput.removeAttribute("disabled");
