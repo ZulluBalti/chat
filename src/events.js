@@ -290,7 +290,7 @@ const events = (props) => {
       const lock = document.querySelector(".chat-footer__lock");
 
       model.classList.remove("hide");
-      lock.classList.add("hide");
+      lock.classList.remove("hide");
       qcarousel?.classList?.add("hide");
       textInput.setAttribute("disabled", "disabled");
       textInput.setAttribute("placeholder", props.chatLockPlaceholder);
@@ -303,7 +303,7 @@ const events = (props) => {
       const lock = document.querySelector(".chat-footer__lock");
 
       model.classList.add("hide");
-      lock.classList.remove("hide");
+      lock.classList.add("hide");
       qcarousel?.classList?.remove("hide");
       textInput.removeAttribute("disabled");
       textInput.focus();
