@@ -290,9 +290,9 @@ const events = (props) => {
       const model = document.querySelector(".chat-footer__model");
       const lock = document.querySelector(".chat-footer__lock");
 
-      model.classList.toggle("hide");
-      lock.classList.toggle("hide");
-      qcarousel?.classList?.toggle("hide");
+      model.classList.add("hide");
+      lock.classList.add("hide");
+      qcarousel?.classList?.add("hide");
       textInput.setAttribute("disabled", "disabled");
       textInput.setAttribute("placeholder", props.chatLockPlaceholder);
       chats.scrollIntoView(false);
@@ -303,9 +303,9 @@ const events = (props) => {
       const model = document.querySelector(".chat-footer__model");
       const lock = document.querySelector(".chat-footer__lock");
 
-      model.classList.toggle("hide");
-      lock.classList.toggle("hide");
-      qcarousel?.classList?.toggle("hide");
+      model.classList.remove("hide");
+      lock.classList.remove("hide");
+      qcarousel?.classList?.remove("hide");
       textInput.removeAttribute("disabled");
       textInput.focus();
       textInput.setAttribute("placeholder", props.chatOpenPlaceholder);
