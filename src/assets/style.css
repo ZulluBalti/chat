@@ -1,5 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;800&display=swap");
 
+.gchat-no-scroll {
+  height: var(--gchat-height) !important;
+  overflow: hidden !important;
+  position: fixed;
+  -webkit-overflow-scrolling: touch;
+}
+
 .chat-container *:not(svg, svg  *) {
   all: revert;
 }
@@ -83,8 +90,3 @@
   background: linear-gradient(164deg, var(--gchat-accent-color) 0%, var(--gchat-color) 100%);
 }
 
-.gchat-no-scroll {
-  height: var(--gchat-height) !important;
-  overflow: hidden !important;
-  position: fixed;
-}
