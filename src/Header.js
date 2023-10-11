@@ -10,7 +10,6 @@ const Header = (props) => {
         <img src="${
           props.avatar
         }" class="header__avatar" alt="Support Profile Picutre" />
-        <span class="online" />
       </div>
       <h2 class="chat-header__name">${props.welcomeTitle}</h2>
       <p class="chat-header__extra">${props.welcomeSubTitle}</p>

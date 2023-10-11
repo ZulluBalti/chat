@@ -69,11 +69,11 @@
     line-height: 1.25;
   }
 
-  #chat-container .chat-icon-close .online {
-    width: 5px;
-    height: 5px;
-    right: 0.3rem;
-  }
+  /* #chat-container .chat-icon-close .online { */
+  /*   width: 5px; */
+  /*   height: 5px; */
+  /*   right: 0.3rem; */
+  /* } */
 }
 
 #chat-container .chat__avatar {
@@ -82,16 +82,16 @@
   border-radius: 50%;
 }
 
-#chat-container .online {
-  position: absolute;
-  bottom: 0rem;
-  right: 0.5rem;
-  width: 8px;
-  height: 8px;
-  background: #4ba65a;
-  border-radius: 50%;
-  border: 2px solid white;
-}
+/* #chat-container .online { */
+/*   position: absolute; */
+/*   bottom: 0rem; */
+/*   right: 0.5rem; */
+/*   width: 8px; */
+/*   height: 8px; */
+/*   background: #4ba65a; */
+/*   border-radius: 50%; */
+/*   border: 2px solid white; */
+/* } */
 
 #chat-container .chat-icon__default > .chat-avatar__con,
 #chat-container .chat-icon__close-desktop > .chat-avatar__con {
