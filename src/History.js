@@ -1,3 +1,4 @@
+import AskAdditional from "./AskAdditional";
 import AskEmail from "./AskEmail";
 import AskName from "./AskName";
 import Spinner from "./Spinner";
@@ -24,6 +25,7 @@ const History = (props) => {
       </div>
       ${AskName(props)}
       ${AskEmail(props)}
+      ${AskAdditional(props)}
     </div>
 `;
 };
