@@ -289,6 +289,7 @@ const events = (props) => {
 
       if (!props.leadEmail && !props.leadPhone && !props.leadInfo) {
         await handleLeadSubmit(askNameCon);
+        return;
       }
 
       localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));
@@ -360,7 +361,7 @@ const events = (props) => {
         localStorage.setItem("gchat-token", token);
         props.token = token;
 
-        parentForm.classList.toggle("hide");
+        parentForm.classList.add("hide");
         toggleTyping();
         await wait(2);
         toggleTyping();
