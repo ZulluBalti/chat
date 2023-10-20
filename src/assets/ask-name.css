@@ -44,6 +44,7 @@
   color: white;
   cursor: pointer;
   font-weight: bold;
+  border-radius: 1em;
 }
 
 #chat-container .buy-btn {

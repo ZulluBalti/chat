@@ -261,6 +261,11 @@ const events = (props) => {
     };
 
     const showAddContainer = async () => {
+      toggleTyping();
+      await wait(1);
+      toggleTyping();
+      await wait(1);
+      addChat({ type: "bot", text: props.textBeforeInfo })
       await wait(1);
       askAddCon.classList.remove("hide");
       askAddCon.scrollIntoView(true);
@@ -309,7 +314,7 @@ const events = (props) => {
       const where = document.getElementById("gchat-where").value;
       const capital = document.getElementById("gchat-capital").value;
 
-      lead.info = `${what}\n${where}\n${capital}`;
+      lead.info = `${lead.action}\n${what}\n${where}\n${capital}`;
       localStorage.setItem("gchat-lead-info", lead.info);
 
       sellerForm.classList.add("hide");
@@ -404,6 +409,7 @@ const events = (props) => {
           return;
         }
       }
+
       if (props.leadEmail) {
         lead.email = document.getElementById("lead-email").value?.trim?.();
         if (!isEmail(lead.email)) {
@@ -411,9 +417,11 @@ const events = (props) => {
           return;
         }
       }
+
       const btn = document.getElementById("lead-submit-txt");
       btn.textContent = props.emailSubmitingBtn;
 
+      addChat({ type: "human", text: lead.email || lead.phone })
       await handleLeadSubmit(askEmailCon);
     };
 
@@ -491,7 +499,8 @@ const events = (props) => {
 
     const handleSellBtn = (e) => {
       const type = e.target.id;
-      console.log(type);
+      lead.action = type.replace('gchat-', '');
+      addChat({ type: "human", text: lead.action })
       showAddForm();
       e.target.closest('.ask-additional-btns').classList.add('hide')
     }
@@ -503,9 +512,9 @@ const events = (props) => {
     textInput.addEventListener("keydown", handleInput);
     addNameForm.addEventListener("submit", handleAddName);
     addEmailForm.addEventListener("submit", handleAddEmail);
+    sellerForm.addEventListener("submit", handleAdditionalSubmit);
     sellBtn.addEventListener("click", handleSellBtn);
     buyBtn.addEventListener("click", handleSellBtn);
-    sellerForm.addEventListener("submit", handleAdditionalSubmit);
     gdprBtn.addEventListener("click", toggleGdpr);
     gdprClose.addEventListener("click", toggleGdpr);
     prevPreQuestion?.addEventListener("click", handlePrevQ);
