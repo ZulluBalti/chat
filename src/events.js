@@ -12,6 +12,7 @@ const events = (props) => {
     phone: "",
     email: "",
     info: localStorage.getItem("gchat-lead-info") || "",
+    nodeId: null,
   };
   let free_q = parseInt(localStorage.getItem("gchat-free_q") || 0);
 
@@ -21,22 +22,30 @@ const events = (props) => {
     const container = document.getElementById(`chat-container`);
     const openIcon = document.querySelector(`.chat-icon__container`);
     const chatIcon = document.querySelector(`.chat-icon__container .chat-icon`);
-    const closeIcon = document.querySelector(`.chat-icon__default .chat-actions-close`);
+    const closeIcon = document.querySelector(
+      `.chat-icon__default .chat-actions-close`,
+    );
     const cancelIcon = document.querySelector(`.cancel__container`);
     const askNameCon = document.querySelector(".chat-confirm.ask-name");
     const askEmailCon = document.querySelector(".chat-confirm.ask-email");
     const askAddCon = document.querySelector(".chat-confirm.ask-additional");
     const addNameForm = document.getElementById(`add-name__form`);
     const sellerForm = document.getElementById(`seller_form`);
-    const sellBtn = document.getElementById('gchat-sell');
-    const buyBtn = document.getElementById('gchat-buy');
+    const sellBtn = document.getElementById("gchat-sell");
+    const buyBtn = document.getElementById("gchat-buy");
     const gdprBtn = document.getElementById(`gdpr-btn`);
     const gdprInfo = document.querySelector(`.gdpr-info`);
     const gdprClose = document.getElementById(`gdpr-close`);
     const addEmailForm = document.getElementById(`add-email__form`);
-    const emailPopup = document.querySelector(`#add-email__form .chat-confirm__icon`);
-    const namePopup = document.querySelector(`#add-name__form .chat-confirm__icon`);
-    const infoPopup = document.querySelector(`#seller_form .chat-confirm__icon`);
+    const emailPopup = document.querySelector(
+      `#add-email__form .chat-confirm__icon`,
+    );
+    const namePopup = document.querySelector(
+      `#add-name__form .chat-confirm__icon`,
+    );
+    const infoPopup = document.querySelector(
+      `#seller_form .chat-confirm__icon`,
+    );
     const mainChat = document.querySelector(`.chat-main`);
     const textInput = document.querySelector(`.chat-footer__input`);
     const textSendBtn = document.querySelector(`.chat-footer__send`);
@@ -61,7 +70,9 @@ const events = (props) => {
 
     const simulateChat = () => {
       const forNoneAuthUser = async () => {
-        const conversation = JSON.parse(localStorage.getItem("gchat-conversation"));
+        const conversation = JSON.parse(
+          localStorage.getItem("gchat-conversation"),
+        );
 
         if (conversation) {
           conversation.forEach((itm) => addChat(itm));
@@ -87,9 +98,16 @@ const events = (props) => {
         if (!conversation && props.leadName) {
           askNameCon.classList.toggle("hide");
           askNameCon.scrollIntoView(true);
-        } else if (props.leadInfo && free_q + 1 >= props.free_limit && !lead.info) {
+        } else if (
+          props.leadInfo &&
+          free_q + 1 >= props.free_limit &&
+          !lead.info
+        ) {
           showAddContainer();
-        } else if ((props.leadPhone || props.leadEmail) && free_q + 1 >= props.free_limit) {
+        } else if (
+          (props.leadPhone || props.leadEmail) &&
+          free_q + 1 >= props.free_limit
+        ) {
           showEmailContainer();
         } else {
           enableChat();
@@ -190,19 +208,18 @@ const events = (props) => {
 
         const res = await axios.post(`/projects/ask/${props.projectId}`, {
           conversation,
-          free_q
+          free_q,
         });
         addChat({
           type: "bot",
-          text:
-            res?.data.answer?.content ||
-            props.errorMsg
+          text: res?.data.answer?.content || props.errorMsg,
         });
+        lead.nodeId = res?.data.nodeId;
       } catch (err) {
         console.error(err);
         addChat({
           type: "bot",
-          text: props.errorMsg
+          text: props.errorMsg,
         });
       }
 
@@ -211,10 +228,8 @@ const events = (props) => {
 
       if (free_q + 1 >= props.free_limit && !props.token) {
         disableChat();
-        if (props.leadInfo)
-          showAddContainer();
-        else if (props.leadPhone || props.leadEmail)
-          showEmailContainer();
+        if (props.leadInfo) showAddContainer();
+        else if (props.leadPhone || props.leadEmail) showEmailContainer();
       } else {
         free_q++;
         localStorage.setItem("gchat-free_q", free_q);
@@ -265,7 +280,7 @@ const events = (props) => {
       await wait(1);
       toggleTyping();
       await wait(1);
-      addChat({ type: "bot", text: props.textBeforeInfo })
+      addChat({ type: "bot", text: props.textBeforeInfo });
       await wait(1);
       askAddCon.classList.remove("hide");
       askAddCon.scrollIntoView(true);
@@ -291,7 +306,6 @@ const events = (props) => {
       toggleTyping();
       addChat({ type: "bot", text: props.greet?.replace?.(/%NAME%/gi, name) });
 
-
       if (!props.leadEmail && !props.leadPhone && !props.leadInfo) {
         await handleLeadSubmit(askNameCon);
         return;
@@ -299,8 +313,7 @@ const events = (props) => {
 
       localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));
       if (free_q + 1 >= props.free_limit) {
-        if (props.leadInfo)
-          return showAddContainer();
+        if (props.leadInfo) return showAddContainer();
         else if (props.leadPhone || props.leadEmail)
           return showEmailContainer();
       }
@@ -326,7 +339,10 @@ const events = (props) => {
       }
 
       localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));
-      if ((props.leadPhone || props.leadEmail) && free_q + 1 >= props.free_limit) {
+      if (
+        (props.leadPhone || props.leadEmail) &&
+        free_q + 1 >= props.free_limit
+      ) {
         showEmailContainer();
       } else enableChat();
     };
@@ -341,7 +357,7 @@ const events = (props) => {
       textInput.setAttribute("disabled", "disabled");
       textInput.setAttribute("placeholder", props.chatLockPlaceholder);
       chats.scrollIntoView(true);
-      reset.classList.add("hide")
+      reset.classList.add("hide");
     };
 
     const enableChat = () => {
@@ -355,7 +371,7 @@ const events = (props) => {
       textInput.focus();
       textInput.setAttribute("placeholder", props.chatOpenPlaceholder);
       chats.scrollIntoView(true);
-      reset.classList.remove("hide")
+      reset.classList.remove("hide");
     };
 
     const handleLeadSubmit = async (parentForm) => {
@@ -376,7 +392,7 @@ const events = (props) => {
         });
 
         enableChat();
-        chats.scrollIntoView(false)
+        chats.scrollIntoView(false);
       } catch (err) {
         console.log(err);
       }
@@ -388,10 +404,8 @@ const events = (props) => {
 
       if (number[0] === "+") number = number.replace("+", "");
       let n = number.replaceAll(" ", "");
-      if (n.length < min)
-        return [null, props.minPhoneError];
-      if (n.length > max)
-        return [null, props.maxPhoneError];
+      if (n.length < min) return [null, props.minPhoneError];
+      if (n.length > max) return [null, props.maxPhoneError];
       return [Number(n)];
     };
 
@@ -421,7 +435,7 @@ const events = (props) => {
       const btn = document.getElementById("lead-submit-txt");
       btn.textContent = props.emailSubmitingBtn;
 
-      addChat({ type: "human", text: lead.email || lead.phone })
+      addChat({ type: "human", text: lead.email || lead.phone });
       await handleLeadSubmit(askEmailCon);
     };
 
@@ -448,7 +462,7 @@ const events = (props) => {
       questionPr.remove();
       // check if there's none left
       const questions = Array.from(
-        document.querySelectorAll(".g-question__con")
+        document.querySelectorAll(".g-question__con"),
       );
       if (questions.length === 0) qcarousel.classList.add("hide");
     };
@@ -471,39 +485,49 @@ const events = (props) => {
 
     const toggleInfoPopup = (e) => {
       e.stopPropagation();
-      const parent = e.target.closest('.chat-confirm__info')
-      const el = parent.querySelector('.chat-confirm__popup')
-      el.classList.toggle("show-chat__popup")
-    }
+      const parent = e.target.closest(".chat-confirm__info");
+      const el = parent.querySelector(".chat-confirm__popup");
+      el.classList.toggle("show-chat__popup");
+    };
 
     const closeInfoPopups = () => {
-      const nameEl = namePopup.closest('.chat-confirm__info').querySelector('.chat-confirm__popup')
-      nameEl.classList.remove("show-chat__popup")
-      const emailEl = emailPopup.closest('.chat-confirm__info').querySelector('.chat-confirm__popup')
-      emailEl.classList.remove("show-chat__popup")
-      const infoEl = infoPopup.closest('.chat-confirm__info').querySelector('.chat-confirm__popup')
-      infoEl.classList.remove("show-chat__popup")
-    }
+      const nameEl = namePopup
+        .closest(".chat-confirm__info")
+        .querySelector(".chat-confirm__popup");
+      nameEl.classList.remove("show-chat__popup");
+      const emailEl = emailPopup
+        .closest(".chat-confirm__info")
+        .querySelector(".chat-confirm__popup");
+      emailEl.classList.remove("show-chat__popup");
+      const infoEl = infoPopup
+        .closest(".chat-confirm__info")
+        .querySelector(".chat-confirm__popup");
+      infoEl.classList.remove("show-chat__popup");
+    };
 
     const resetHistory = () => {
       if (loading) return;
       chatHistory = [];
-      addChat({ type: "bot", text: props.resetMsg || "Chat has been reset, Now you can start a new conversation" })
-      const container = qcarousel.querySelector('.g-questions');
+      addChat({
+        type: "bot",
+        text:
+          props.resetMsg ||
+          "Chat has been reset, Now you can start a new conversation",
+      });
+      const container = qcarousel.querySelector(".g-questions");
       const html = renderQ(props.questions);
       container.innerHTML = html;
-      if (qcarousel.classList.contains('hide'))
-        qcarousel.classList.remove('hide')
-      localStorage.removeItem("gchat-conversation")
-    }
+      if (qcarousel.classList.contains("hide"))
+        qcarousel.classList.remove("hide");
+      localStorage.removeItem("gchat-conversation");
+    };
 
     const handleSellBtn = (e) => {
-      const type = e.target.id;
-      lead.action = type.replace('gchat-', '');
-      addChat({ type: "human", text: lead.action })
+      lead.action = e.target.textContent;
+      addChat({ type: "human", text: lead.action });
       showAddForm();
-      e.target.closest('.ask-additional-btns').classList.add('hide')
-    }
+      e.target.closest(".ask-additional-btns").classList.add("hide");
+    };
 
     openIcon.addEventListener("click", toggle);
     closeIcon.addEventListener("click", closeOpenBar);
