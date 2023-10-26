@@ -12,8 +12,8 @@ const events = (props) => {
     phone: "",
     email: "",
     info: localStorage.getItem("gchat-lead-info") || "",
-    nodeId: null,
   };
+  let prevNode = null;
   let free_q = parseInt(localStorage.getItem("gchat-free_q") || 0);
 
   const myEvent = () => {
@@ -209,12 +209,13 @@ const events = (props) => {
         const res = await axios.post(`/projects/ask/${props.projectId}`, {
           conversation,
           free_q,
+          prevNode
         });
         addChat({
           type: "bot",
           text: res?.data.answer?.content || props.errorMsg,
         });
-        lead.nodeId = res?.data.nodeId;
+        prevNode = res?.data.nodeId;
       } catch (err) {
         console.error(err);
         addChat({
@@ -514,11 +515,13 @@ const events = (props) => {
           props.resetMsg ||
           "Chat has been reset, Now you can start a new conversation",
       });
-      const container = qcarousel.querySelector(".g-questions");
-      const html = renderQ(props.questions);
-      container.innerHTML = html;
-      if (qcarousel.classList.contains("hide"))
-        qcarousel.classList.remove("hide");
+      if (qcarousel) {
+        const container = qcarousel.querySelector(".g-questions");
+        const html = renderQ(props.questions);
+        container.innerHTML = html;
+        if (qcarousel.classList.contains("hide"))
+          qcarousel.classList.remove("hide");
+      }
       localStorage.removeItem("gchat-conversation");
     };
 
@@ -541,9 +544,9 @@ const events = (props) => {
     buyBtn.addEventListener("click", handleSellBtn);
     gdprBtn.addEventListener("click", toggleGdpr);
     gdprClose.addEventListener("click", toggleGdpr);
-    prevPreQuestion?.addEventListener("click", handlePrevQ);
-    nextPreQuestion?.addEventListener("click", handleNextQ);
-    preQuestions?.addEventListener("click", selectQuestion);
+    prevPreQuestion?.addEventListener?.("click", handlePrevQ);
+    nextPreQuestion?.addEventListener?.("click", handleNextQ);
+    preQuestions?.addEventListener?.("click", selectQuestion);
     emailPopup.addEventListener("click", toggleInfoPopup);
     namePopup.addEventListener("click", toggleInfoPopup);
     infoPopup.addEventListener("click", toggleInfoPopup);
