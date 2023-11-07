@@ -15,7 +15,7 @@ const Chat = (config) => {
 
   const UserProfile = () => {
     return `<div class="relative chat-avatar__con">
-          <img src="${avatar}" class="chat__avatar" alt="Assitant Picture" />
+          <img src="${avatar.replace('/upload/', '/upload/t_auto/')}" class="chat__avatar" alt="Assitant Picture" />
         </div>`;
   };
 
