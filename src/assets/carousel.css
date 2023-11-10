@@ -1,9 +1,9 @@
 #chat-container .question-carousel {
   background:  linear-gradient(180deg,#F7F7FC 0%,#FFF .01%,#F7F7FC 100%);
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr;
   align-items: center;
-  padding: 0.8em 0;
+  padding: 0.8em 10px;
 }
 
 @media (max-width: 500px) {
@@ -40,20 +40,20 @@
   scroll-snap-points-x: repeat(100%);
   overflow-x: auto;
   display: flex;
+  gap: 10px;
 }
 
 #chat-container .g-question__con {
   cursor: pointer;
   scroll-snap-align: start;
-  min-width: 100%;
   display: grid;
-  grid-template-columns: 1fr 25px;
+  grid-template-columns: 1fr;
   align-items: center;
   gap: 0.5em;
   background: var(--gchat-color);
   border-radius: 1.5em;
   color: white;
-  padding: 0.4em 1.9em;
+  padding: 0.8em 1.9em;
 }
 
 #chat-container .g-questions::-webkit-scrollbar,
@@ -67,5 +67,4 @@
   font-size: 1.2em;
   padding: 0 0.2em;
   white-space: nowrap;
-  overflow-x: auto;
 }

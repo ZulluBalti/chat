@@ -50,8 +50,6 @@ const events = (props) => {
     const textInput = document.querySelector(`.chat-footer__input`);
     const textSendBtn = document.querySelector(`.chat-footer__send`);
     const chatTyping = document.querySelector(`.chat-typing`);
-    const prevPreQuestion = document.querySelector(`.q-left`);
-    const nextPreQuestion = document.querySelector(`.q-right`);
     const preQuestions = document.querySelector(`.g-questions`);
     const qcarousel = document.querySelector(".question-carousel");
     const reset = document.querySelector("#chat-container .reset__container");
@@ -445,16 +443,6 @@ const events = (props) => {
       askEmailCon.classList.toggle("hide");
     };
 
-    const handlePrevQ = () => {
-      const { width } = preQuestions.getBoundingClientRect();
-      preQuestions.scrollLeft -= width;
-    };
-
-    const handleNextQ = () => {
-      const { width } = preQuestions.getBoundingClientRect();
-      preQuestions.scrollLeft += width;
-    };
-
     const selectQuestion = (e) => {
       if (loading) return;
       const questionPr = e.target.closest(".g-question__con");
@@ -544,8 +532,6 @@ const events = (props) => {
     buyBtn.addEventListener("click", handleSellBtn);
     gdprBtn.addEventListener("click", toggleGdpr);
     gdprClose.addEventListener("click", toggleGdpr);
-    prevPreQuestion?.addEventListener?.("click", handlePrevQ);
-    nextPreQuestion?.addEventListener?.("click", handleNextQ);
     preQuestions?.addEventListener?.("click", selectQuestion);
     emailPopup.addEventListener("click", toggleInfoPopup);
     namePopup.addEventListener("click", toggleInfoPopup);
