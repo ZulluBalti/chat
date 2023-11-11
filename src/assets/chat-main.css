@@ -74,12 +74,6 @@
   border-radius: 50%;
 }
 
-/* #chat-container .avatar__container .online { */
-/*   width: 1.4em; */
-/*   height: 1.4em; */
-/*   right: 1.2em; */
-/* } */
-
 #chat-container .chat-header h2 {
   color: black;
 }
@@ -147,6 +141,7 @@
 #chat-container .chat-text a {
   pointer-events: all;
   color: #efefef;
+  text-decoration: underline;
 }
 
 #chat-container .chat-main__conv::-webkit-scrollbar {

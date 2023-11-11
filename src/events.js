@@ -193,16 +193,65 @@ const events = (props) => {
       return conversation;
     };
 
+    function isInvalidCharacter(url) {
+      const unsafeCharacters = "\"<>@\\^`|\n";
+      return unsafeCharacters.includes(url)
+    }
+
+    const invalidateUrl = (word, c) => {
+      if (!word && c !== "h") return true;
+      if (!word.startsWith("http".slice(0, word.length))) return true;
+
+      if (word.includes("(") || word.includes(")") || word.includes("[") || word.includes("]")) {
+        if (!word.includes("=")) return true;
+      }
+
+      return false
+    }
+
+    function extractUrl(text) {
+      let result = [];
+      for (let i = 0; i < text.length; i++) {
+        let c = text[i];
+        let word = "";
+        while (i <= text.length) {
+          const invalidC = isInvalidCharacter(c);
+          const invalidWord = invalidateUrl(word, c);
+          if (invalidC || invalidWord) {
+            if (invalidWord) word = word.slice(0, word.length - 1)
+            i++; break;
+          }
+
+          if (i >= text.length) break;
+
+          word += c;
+          i++;
+          c = text[i];
+        }
+        i--;
+        result.push(word)
+      }
+      return result
+        .filter(itm => !!itm)
+        .filter(itm => /^(http|https|ftp):\/\/.*/.test(itm))
+        .map(itm => itm.endsWith(".") ? itm.slice(0, itm.length - 1) : itm);
+    }
+
+
     const linkify = text => {
       const answer = [];
       const parts = text.split(" ");
       for (const part of parts) {
-        let partT = part.trim();
+        const partT = part.trim();
         if (/(https?:\/\/[^\s]+)/.test(partT)) {
-          if (partT.at(-1) == ".")
-            partT = partT.slice(0, partT.length - 1)
-
-          answer.push(`<a href="${partT}" target="_blank">${part}</a>`)
+          const urls = extractUrl(partT);
+          let result = part;
+          for (const url of urls) {
+            const str = url.replace(/[-[\]/\{\}\(\)\*\+\?\^\$\.]/g, '\\$&');
+            const exp = new RegExp(`(?<!href="|target="_blank">)${str}`);
+            result = result.replace(exp, `<a href="${url}" target="_blank">${url}</a>`);
+          }
+          answer.push(result);
         } else {
           answer.push(part)
         }
@@ -219,7 +268,7 @@ const events = (props) => {
 
       try {
         let conversation = getConversation();
-        conversation.push({ role: "user", content: txt });
+        conversation.push({ role: "user", content: txt?.trim() });
 
         const res = await axios.post(`/projects/ask/${props.projectId}`, {
           conversation,
@@ -229,7 +278,7 @@ const events = (props) => {
         const text = res?.data.answer?.content || props.errorMsg;
         addChat({
           type: "bot",
-          text: linkify(text)
+          text: linkify(text).trim()
         });
         prevNode = res?.data.nodeId;
       } catch (err) {
