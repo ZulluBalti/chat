@@ -144,6 +144,11 @@
   pointer-events: none;
 }
 
+#chat-container .chat-text a {
+  pointer-events: all;
+  color: #efefef;
+}
+
 #chat-container .chat-main__conv::-webkit-scrollbar {
   width: 5px;
   background: transparent;

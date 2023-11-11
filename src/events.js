@@ -193,6 +193,23 @@ const events = (props) => {
       return conversation;
     };
 
+    const linkify = text => {
+      const answer = [];
+      const parts = text.split(" ");
+      for (const part of parts) {
+        let partT = part.trim();
+        if (/(https?:\/\/[^\s]+)/.test(partT)) {
+          if (partT.at(-1) == ".")
+            partT = partT.slice(0, partT.length - 1)
+
+          answer.push(`<a href="${partT}" target="_blank">${part}</a>`)
+        } else {
+          answer.push(part)
+        }
+      }
+      return answer.join(" ");
+    }
+
     const ask = async (txt) => {
       loading = true;
       addChat({ type: "human", text: txt });
@@ -209,9 +226,10 @@ const events = (props) => {
           free_q,
           prevNode
         });
+        const text = res?.data.answer?.content || props.errorMsg;
         addChat({
           type: "bot",
-          text: res?.data.answer?.content || props.errorMsg,
+          text: linkify(text)
         });
         prevNode = res?.data.nodeId;
       } catch (err) {
