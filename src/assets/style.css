@@ -30,6 +30,11 @@
   text-align: left;
 }
 
+#chat-container h2:after,
+#chat-container h2:before {
+  display: none;
+}
+
 #chat-container.chat-left {
   left: 3em;
 }
