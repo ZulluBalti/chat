@@ -59,7 +59,7 @@ const Chat = async (project) => {
 };
 
 if (import.meta.env.DEV)
-  Chat("654a05da365883ad3f8bf967"); // live nabel
+  Chat("655dc0aa35a4af0e96eaead1"); // live nabel
   // Chat("64f5faa54e42fae842b2510b"); // b_8
 
 

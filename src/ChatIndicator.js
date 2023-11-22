@@ -23,7 +23,7 @@ const Chat = (config) => {
       <div class="chat-icon chat-icon-open">
         <div class="chat-icon__close-mobile">
           ${UserProfile()}
-          <h2>SPUSTIŤ<br />AI CHAT</h2>
+          <h2>${config.smallTitle.replace("\\n", "<br />")}</h2>
         </div>
 
         <div class="chat-icon__close-desktop">
