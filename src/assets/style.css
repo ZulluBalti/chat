@@ -62,16 +62,11 @@
 
 @media (max-width: 500px) {
   #chat-container {
-    bottom: 0em;
     border-radius: 1.6em 1.6em 0 0;
-  }
-
-  #chat-container.chat-left {
-    left: 0em;
-  }
-
-  #chat-container.chat-right {
-    right: 0em;
+    left: 0 !important;
+    bottom: 0 !important;
+    top: unset !important;
+    right: unset !important;
   }
 
   #chat-container.chat-close {
