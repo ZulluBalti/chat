@@ -156,6 +156,7 @@ const events = (props) => {
         textInput.focus();
       }
       container.classList.toggle("chat-close");
+      container.classList.add("chat-small");
 
       chatIcon.classList.remove("chat-icon-open");
       chatIcon.classList.add("chat-icon-close");
@@ -323,6 +324,8 @@ const events = (props) => {
       e.stopPropagation();
       chatIcon.classList.remove("chat-icon-open");
       chatIcon.classList.add("chat-icon-close");
+      // also add it to the top
+      container.classList.add("chat-small")
     };
 
     const showEmailContainer = async () => {

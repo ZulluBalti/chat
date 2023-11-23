@@ -7,7 +7,7 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.chat-container *:not(svg, svg  *) {
+.chat-container *:not(svg, svg *) {
   all: revert;
 }
 
@@ -34,24 +34,20 @@
   display: none;
 }
 
-#chat-container.chat-left {
-  left: 3em;
-  bottom: 3em;
-}
+@media (min-width: 501px) {
+  #chat-container {
+    bottom: 3em;
+  }
 
-#chat-container.chat-right {
-  right: 3em;
-  bottom: 3em;
-}
+  #chat-container.chat-top-left,
+  #chat-container.chat-left {
+    left: 3em;
+  }
 
-#chat-container.chat-top-right {
-  right: 3em;
-  top: 3em;
-}
-
-#chat-container.chat-top-left {
-  left: 3em;
-  top: 3em;
+  #chat-container.chat-top-right,
+  #chat-container.chat-right {
+    right: 3em;
+  }
 }
 
 #chat-container.chat-close {
@@ -63,22 +59,37 @@
 @media (max-width: 500px) {
   #chat-container {
     border-radius: 1.6em 1.6em 0 0;
-    left: 0 !important;
-    bottom: 0 !important;
-    top: unset !important;
-    right: unset !important;
+    top: 0em;
+    left: 0em;
   }
 
   #chat-container.chat-close {
+    left: 1em;
     bottom: 1em;
+    top: unset;
   }
 
   #chat-container.chat-left.chat-close {
     left: 1em;
+    bottom: 1em;
   }
 
   #chat-container.chat-right.chat-close {
+    left: unset;
     right: 1em;
+    bottom: 1em;
+  }
+
+  #chat-container.chat-close.chat-small.chat-top-right {
+    right: 1em;
+    top: 3em;
+    bottom: unset;
+  }
+
+  #chat-container.chat-close.chat-small.chat-top-left {
+    left: 1em;
+    top: 3em;
+    bottom: unset;
   }
 }
 
@@ -99,6 +110,9 @@
 }
 
 #chat-container .gradient-bg {
-  background: linear-gradient(164deg, var(--gchat-accent-color) 0%, var(--gchat-color) 100%);
+  background: linear-gradient(
+    164deg,
+    var(--gchat-accent-color) 0%,
+    var(--gchat-color) 100%
+  );
 }
-
