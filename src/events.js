@@ -512,7 +512,11 @@ const events = (props) => {
       const btn = document.getElementById("lead-submit-txt");
       btn.textContent = props.emailSubmitingBtn;
 
-      addChat({ type: "human", text: lead.email || lead.phone });
+      if (lead.email)
+        addChat({ type: "human", text: lead.email});
+      if (lead.phone)
+        addChat({ type: "human", text: lead.phone });
+
       await handleLeadSubmit(askEmailCon);
     };
 
