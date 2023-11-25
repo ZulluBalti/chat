@@ -173,7 +173,7 @@ const events = (props) => {
     };
 
     const addChat = (item) => {
-      chatHistory.push(item);
+      chatHistory.push({ ...item, text: linkify(item.text).trim() });
       chats.innerHTML = renderChat(chatHistory);
       chats.scrollIntoView(false);
     };
@@ -195,20 +195,25 @@ const events = (props) => {
     };
 
     function isInvalidCharacter(url) {
-      const unsafeCharacters = "\"<>@\\^`|\n";
-      return unsafeCharacters.includes(url)
+      const unsafeCharacters = '"<>@\\^`|\n';
+      return unsafeCharacters.includes(url);
     }
 
     const invalidateUrl = (word, c) => {
       if (!word && c !== "h") return true;
       if (!word.startsWith("http".slice(0, word.length))) return true;
 
-      if (word.includes("(") || word.includes(")") || word.includes("[") || word.includes("]")) {
+      if (
+        word.includes("(") ||
+        word.includes(")") ||
+        word.includes("[") ||
+        word.includes("]")
+      ) {
         if (!word.includes("=")) return true;
       }
 
-      return false
-    }
+      return false;
+    };
 
     function extractUrl(text) {
       let result = [];
@@ -219,8 +224,9 @@ const events = (props) => {
           const invalidC = isInvalidCharacter(c);
           const invalidWord = invalidateUrl(word, c);
           if (invalidC || invalidWord) {
-            if (invalidWord) word = word.slice(0, word.length - 1)
-            i++; break;
+            if (invalidWord) word = word.slice(0, word.length - 1);
+            i++;
+            break;
           }
 
           if (i >= text.length) break;
@@ -230,16 +236,15 @@ const events = (props) => {
           c = text[i];
         }
         i--;
-        result.push(word)
+        result.push(word);
       }
       return result
-        .filter(itm => !!itm)
-        .filter(itm => /^(http|https|ftp):\/\/.*/.test(itm))
-        .map(itm => itm.endsWith(".") ? itm.slice(0, itm.length - 1) : itm);
+        .filter((itm) => !!itm)
+        .filter((itm) => /^(http|https|ftp):\/\/.*/.test(itm))
+        .map((itm) => (itm.endsWith(".") ? itm.slice(0, itm.length - 1) : itm));
     }
 
-
-    const linkify = text => {
+    const linkify = (text) => {
       const answer = [];
       const parts = text.split(" ");
       for (const part of parts) {
@@ -248,17 +253,20 @@ const events = (props) => {
           const urls = extractUrl(partT);
           let result = part;
           for (const url of urls) {
-            const str = url.replace(/[-[\]/\{\}\(\)\*\+\?\^\$\.]/g, '\\$&');
+            const str = url.replace(/[-[\]/\{\}\(\)\*\+\?\^\$\.]/g, "\\$&");
             const exp = new RegExp(`(?<!href="|target="_blank">)${str}`);
-            result = result.replace(exp, `<a href="${url}" target="_blank">${url}</a>`);
+            result = result.replace(
+              exp,
+              `<a href="${url}" target="_blank">${url}</a>`,
+            );
           }
           answer.push(result);
         } else {
-          answer.push(part)
+          answer.push(part);
         }
       }
       return answer.join(" ");
-    }
+    };
 
     const ask = async (txt) => {
       loading = true;
@@ -274,12 +282,12 @@ const events = (props) => {
         const res = await axios.post(`/projects/ask/${props.projectId}`, {
           conversation,
           free_q,
-          prevNode
+          prevNode,
         });
         const text = res?.data.answer?.content || props.errorMsg;
         addChat({
           type: "bot",
-          text: linkify(text).trim()
+          text: text,
         });
         prevNode = res?.data.nodeId;
       } catch (err) {
@@ -325,7 +333,7 @@ const events = (props) => {
       chatIcon.classList.remove("chat-icon-open");
       chatIcon.classList.add("chat-icon-close");
       // also add it to the top
-      container.classList.add("chat-small")
+      container.classList.add("chat-small");
     };
 
     const showEmailContainer = async () => {
