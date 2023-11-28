@@ -157,6 +157,7 @@ const events = (props) => {
       }
       container.classList.toggle("chat-close");
       container.classList.add("chat-small");
+      sessionStorage.setItem("closed", true);
 
       chatIcon.classList.remove("chat-icon-open");
       chatIcon.classList.add("chat-icon-close");
@@ -334,6 +335,7 @@ const events = (props) => {
       chatIcon.classList.add("chat-icon-close");
       // also add it to the top
       container.classList.add("chat-small");
+      sessionStorage.setItem("closed", true);
     };
 
     const showEmailContainer = async () => {

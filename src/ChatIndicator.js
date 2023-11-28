@@ -10,7 +10,7 @@ const Forward = () => `
   <path d="M1.34032 1.07576L17.7417 19.0756L1.01222 36.7709" stroke="white" stroke-width="2"/>
 </svg>`;
 
-const Chat = (config) => {
+const Chat = (config, small) => {
   const { avatar, openTitle, openSubTitle } = config;
 
   const UserProfile = () => {
@@ -20,7 +20,7 @@ const Chat = (config) => {
   };
 
   return `
-      <div class="chat-icon chat-icon-open">
+      <div class="chat-icon chat-icon-${small ?  'close' : 'open'}">
         <div class="chat-icon__close-mobile">
           ${UserProfile()}
           <h2>${config.smallTitle.replace("\\n", "<br />")}</h2>
