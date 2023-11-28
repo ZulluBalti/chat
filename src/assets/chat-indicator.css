@@ -64,6 +64,11 @@
     align-items: center;
   }
 
+  #chat-container .chat-icon-close .chat-icon__close-mobile.center {
+    margin-bottom: 0;
+  }
+
+
   #chat-container .chat-icon-close .chat-icon__close-mobile h2 {
     font-size: 12px;
     line-height: 1.25;

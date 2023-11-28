@@ -11,7 +11,7 @@ const Forward = () => `
 </svg>`;
 
 const Chat = (config, small) => {
-  const { avatar, openTitle, openSubTitle } = config;
+  const { avatar, openTitle, openSubTitle, position } = config;
 
   const UserProfile = () => {
     return `<div class="relative chat-avatar__con">
@@ -21,7 +21,7 @@ const Chat = (config, small) => {
 
   return `
       <div class="chat-icon chat-icon-${small ?  'close' : 'open'}">
-        <div class="chat-icon__close-mobile">
+        <div class="chat-icon__close-mobile ${position}">
           ${UserProfile()}
           <h2>${config.smallTitle.replace("\\n", "<br />")}</h2>
         </div>
