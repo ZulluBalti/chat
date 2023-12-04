@@ -180,12 +180,12 @@ const events = (props) => {
     };
 
     const getConversation = () => {
-      const MAX_CONV = 4;
+      const MAX_CONV = props.history_size * 2 || 4;
 
       let conversation = [];
       const len = chatHistory.length;
 
-      for (let i = len - 2; i > len - MAX_CONV && i > 0; i--) {
+      for (let i = len - 2; i >= len - MAX_CONV && i > 0; i--) {
         const itm = chatHistory[i];
         conversation.unshift({
           role: itm.type === "bot" ? "assistant" : "user",
