@@ -3,14 +3,8 @@
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
-  padding: 0.8em 10px;
 }
 
-@media (max-width: 500px) {
-  #chat-container .question-carousel {
-    padding: 0.8em 0; 
-  }
-}
 
 #chat-container .question-carousel svg {
   stroke: var(--gchat-color);
@@ -24,16 +18,6 @@
   rotate: 180deg;
 }
 
-#chat-container .q-con {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  background: var(--gchat-color);
-  border-radius: 1.5em;
-  color: white;
-  padding: 0.4em 1.9em;
-}
-
 #chat-container .g-questions {
   scroll-behavior: smooth;
   scroll-snap-type: x proximity;
@@ -41,6 +25,13 @@
   overflow-x: auto;
   display: flex;
   gap: 10px;
+  padding: 0.8em 10px;
+}
+
+@media (max-width: 500px) {
+  #chat-container .g-questions {
+    padding: 0.8em 0; 
+  }
 }
 
 #chat-container .g-question__con {
@@ -56,10 +47,12 @@
   padding: 0.8em 1.9em;
 }
 
-#chat-container .g-questions::-webkit-scrollbar,
-#chat-container .g-question::-webkit-scrollbar {
-  display: none;
-  height: 0;
+#chat-container .g-questions::-webkit-scrollbar {
+  height: 5px;
+}
+
+#chat-container .g-questions::-webkit-scrollbar-thumb {
+  background: #aaa;
 }
 
 #chat-container .g-question {
