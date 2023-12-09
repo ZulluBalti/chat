@@ -176,16 +176,17 @@ const events = (props) => {
           document.querySelector("html").classList.add("gchat-no-scroll");
         }
       }
+      showEnd();
       if (e) {
         const prev = sessionStorage.getItem("gchat-open");
         const update = !prev || prev === "false" ? "true" : "false";
         sessionStorage.setItem("gchat-open", update);
-      }
-      showEnd();
-      const lastQ = chatHistory[chatHistory.length - 1];
-      if (lastQ?.type === "human" && lastQ?.is_question) {
-        // ask again
-        ask(lastQ.text, false);
+      } else {
+        const lastQ = chatHistory[chatHistory.length - 1];
+        if (lastQ?.type === "human" && lastQ?.is_question) {
+          // ask again
+          ask(lastQ.text, false);
+        }
       }
     };
 
