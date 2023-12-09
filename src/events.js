@@ -65,6 +65,7 @@ const events = (props) => {
     let simulated = false;
 
     const showEnd = () => {
+      console.log(scrollCon.scrollTop, scrollCon.scrollHeight)
       scrollCon.scrollTop = scrollCon.scrollHeight;
     }
 
@@ -181,6 +182,7 @@ const events = (props) => {
         const update = !prev || prev === "false" ? "true" : "false";
         sessionStorage.setItem("gchat-open", update);
       }
+      showEnd();
     };
 
 
@@ -551,6 +553,10 @@ const events = (props) => {
       const questionPr = e.target.closest(".g-question__con");
       const question = questionPr.querySelector(".g-question");
       ask(question.textContent);
+      const prev_asked = JSON.parse(sessionStorage.getItem("gchat-q__asked")) || [];
+      prev_asked.push(question.textContent);
+
+      sessionStorage.setItem("gchat-q__asked", JSON.stringify(prev_asked))
       questionPr.remove();
       // check if there's none left
       const questions = Array.from(
@@ -614,6 +620,7 @@ const events = (props) => {
           qcarousel.classList.remove("hide");
       }
       sessionStorage.removeItem("gchat-chat");
+      sessionStorage.removeItem("gchat-q__asked")
     };
 
     const handleSellBtn = (e) => {
@@ -647,7 +654,6 @@ const events = (props) => {
     disableSafariZoom();
     if (sessionStorage.getItem("gchat-open") === "true") {
       toggle(false);
-      showEnd();
     }
   };
 
