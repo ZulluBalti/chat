@@ -12,6 +12,7 @@ const events = (props) => {
     phone: "",
     email: "",
     info: localStorage.getItem("gchat-lead-info") || "",
+    action: localStorage.getItem("gchat-action")
   };
   let prevNode = null;
   let free_q = parseInt(localStorage.getItem("gchat-free_q") || 0);
@@ -74,7 +75,7 @@ const events = (props) => {
 
     const simulateChat = () => {
       const forNoneAuthUser = async () => {
-        if (props.firstTextInChat && chatHistory[0]?.text !== props.firstTextInChat) {
+        if (props.firstTextInChat && chatHistory[0]?.text !== props.firstTextInChat?.trim()) {
           await wait(0.5);
           toggleTyping();
           await wait(2);
@@ -82,7 +83,7 @@ const events = (props) => {
           toggleTyping();
         }
 
-        if (props.secondTextInChat && chatHistory[1]?.text !== props.secondTextInChat) {
+        if (props.secondTextInChat && chatHistory[1]?.text !== props.secondTextInChat.trim()) {
           await wait(0.5);
           toggleTyping();
           await wait(2);
@@ -116,8 +117,7 @@ const events = (props) => {
       const forAuthUser = async (user) => {
         const tkn = localStorage.getItem("gchat-token");
         const text = props.welcomeBack?.replace?.(/%USER%/gi, user);
-        const last = chatHistory.length - 1;
-        if (tkn && chatHistory[last]?.text !== text && !prev_chat) {
+        if (tkn && lastRepeat(text) && !prev_chat) {
           toggleTyping();
           await wait(1);
           toggleTyping();
@@ -183,8 +183,16 @@ const events = (props) => {
       }
     };
 
+
+    const lastRepeat = (t, idx = 1) => {
+      const text = linkify(t).trim();
+      const last = chatHistory.length - idx;
+      return chatHistory[last]?.text !== text?.trim();
+    }
+
     const addChat = (item) => {
-      chatHistory.push({ ...item, text: linkify(item.text).trim() });
+      const text = linkify(item.text).trim();
+      chatHistory.push({ ...item, text });
       chats.innerHTML = renderChat(chatHistory);
       showEnd();
       sessionStorage.setItem("gchat-chat", JSON.stringify(chatHistory));
@@ -349,8 +357,7 @@ const events = (props) => {
     };
 
     const showEmailContainer = async () => {
-      const last = chatHistory.length - 1;
-      if (props.textAfterName && chatHistory[last]?.text !== props.textAfterName) {
+      if (props.textAfterName && lastRepeat(props.textAfterName)) {
         await wait(0.5);
         toggleTyping();
         await wait(2);
@@ -366,13 +373,19 @@ const events = (props) => {
     };
 
     const showAddContainer = async () => {
-      toggleTyping();
-      await wait(1);
-      toggleTyping();
-      await wait(1);
-      addChat({ type: "bot", text: props.textBeforeInfo });
+      if (lastRepeat(props.textBeforeInfo) && lastRepeat(props.textBeforeInfo, 2)) {
+        toggleTyping();
+        await wait(1);
+        toggleTyping();
+        await wait(1);
+        addChat({ type: "bot", text: props.textBeforeInfo });
+      }
       await wait(1);
       askAddCon.classList.remove("hide");
+      if (lead.action) {
+        document.querySelector(".ask-additional-btns").classList.add("hide");
+        showAddForm();
+      }
       showEnd();
     };
 
@@ -605,6 +618,7 @@ const events = (props) => {
 
     const handleSellBtn = (e) => {
       lead.action = e.target.textContent;
+      localStorage.setItem("gchat-action", lead.action);
       addChat({ type: "human", text: lead.action });
       showAddForm();
       e.target.closest(".ask-additional-btns").classList.add("hide");
