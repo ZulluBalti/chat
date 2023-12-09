@@ -47,6 +47,7 @@ const events = (props) => {
       `#seller_form .chat-confirm__icon`,
     );
     const mainChat = document.querySelector(`.chat-main`);
+    const scrollCon = document.querySelector(`.chat-main__conv`);
     const textInput = document.querySelector(`.chat-footer__input`);
     const textSendBtn = document.querySelector(`.chat-footer__send`);
     const chatTyping = document.querySelector(`.chat-typing`);
@@ -55,56 +56,55 @@ const events = (props) => {
     const reset = document.querySelector("#chat-container .reset__container");
 
     const chats = document.querySelector(`.chats`);
-    let chatHistory = [];
+    const prev_chat = JSON.parse(sessionStorage.getItem("gchat-chat"));
+    let chatHistory = prev_chat || [];
 
     chats.innerHTML = renderChat(chatHistory);
     let loading = false;
     let simulated = false;
 
+    const showEnd = () => {
+      scrollCon.scrollTop = scrollCon.scrollHeight;
+    }
+
     const toggleTyping = () => {
       chatTyping.classList.toggle("hide");
-      chatTyping.scrollIntoView(true);
+      showEnd();
     };
 
     const simulateChat = () => {
       const forNoneAuthUser = async () => {
-        const conversation = JSON.parse(
-          localStorage.getItem("gchat-conversation"),
-        );
+        if (props.firstTextInChat && chatHistory[0]?.text !== props.firstTextInChat) {
+          await wait(0.5);
+          toggleTyping();
+          await wait(2);
+          addChat({ type: "bot", text: props.firstTextInChat });
+          toggleTyping();
+        }
 
-        if (conversation) {
-          conversation.forEach((itm) => addChat(itm));
-        } else {
-          if (props.firstTextInChat) {
-            await wait(0.5);
-            toggleTyping();
-            await wait(2);
-            addChat({ type: "bot", text: props.firstTextInChat });
-            toggleTyping();
-          }
-
-          if (props.secondTextInChat) {
-            await wait(0.5);
-            toggleTyping();
-            await wait(2);
-            addChat({ type: "bot", text: props.secondTextInChat });
-            toggleTyping();
-          }
+        if (props.secondTextInChat && chatHistory[1]?.text !== props.secondTextInChat) {
+          await wait(0.5);
+          toggleTyping();
+          await wait(2);
+          addChat({ type: "bot", text: props.secondTextInChat });
+          toggleTyping();
         }
 
         await wait(2);
-        if (!conversation && props.leadName) {
+
+        const prev_name = localStorage.getItem("gchat-lead-name");
+        if (!prev_name && props.leadName) {
           askNameCon.classList.toggle("hide");
-          askNameCon.scrollIntoView(true);
+          showEnd();
         } else if (
           props.leadInfo &&
-          free_q + 1 >= props.free_limit &&
+          free_q >= props.free_limit &&
           !lead.info
         ) {
           showAddContainer();
         } else if (
           (props.leadPhone || props.leadEmail) &&
-          free_q + 1 >= props.free_limit
+          free_q >= props.free_limit
         ) {
           showEmailContainer();
         } else {
@@ -114,13 +114,18 @@ const events = (props) => {
       };
 
       const forAuthUser = async (user) => {
-        toggleTyping();
-        await wait(1);
-        toggleTyping();
-        addChat({
-          type: "bot",
-          text: props.welcomeBack?.replace?.(/%USER%/gi, user),
-        });
+        const tkn = localStorage.getItem("gchat-token");
+        const text = props.welcomeBack?.replace?.(/%USER%/gi, user);
+        const last = chatHistory.length - 1;
+        if (tkn && chatHistory[last]?.text !== text && !prev_chat) {
+          toggleTyping();
+          await wait(1);
+          toggleTyping();
+          addChat({
+            type: "bot",
+            text
+          });
+        }
         enableChat();
       };
 
@@ -136,7 +141,7 @@ const events = (props) => {
       else forNoneAuthUser();
     };
 
-    const toggle = async () => {
+    const toggle = async (e) => {
       if (window.innerWidth < 500) {
         if (container.classList.contains("chat-close")) {
           scrollTop =
@@ -157,7 +162,7 @@ const events = (props) => {
       }
       container.classList.toggle("chat-close");
       container.classList.add("chat-small");
-      sessionStorage.setItem("closed", true);
+      sessionStorage.setItem("gchat-closed", true);
 
       chatIcon.classList.remove("chat-icon-open");
       chatIcon.classList.add("chat-icon-close");
@@ -171,12 +176,18 @@ const events = (props) => {
           document.querySelector("html").classList.add("gchat-no-scroll");
         }
       }
+      if (e) {
+        const prev = sessionStorage.getItem("gchat-open");
+        const update = !prev || prev === "false" ? "true" : "false";
+        sessionStorage.setItem("gchat-open", update);
+      }
     };
 
     const addChat = (item) => {
       chatHistory.push({ ...item, text: linkify(item.text).trim() });
       chats.innerHTML = renderChat(chatHistory);
-      chats.scrollIntoView(false);
+      showEnd();
+      sessionStorage.setItem("gchat-chat", JSON.stringify(chatHistory));
     };
 
     const getConversation = () => {
@@ -274,7 +285,7 @@ const events = (props) => {
       addChat({ type: "human", text: txt });
       await wait(0.3);
       toggleTyping();
-      chatTyping.parentElement.scrollBy(0, 100);
+      showEnd();
 
       try {
         let conversation = getConversation();
@@ -302,13 +313,13 @@ const events = (props) => {
       toggleTyping();
       loading = false;
 
-      if (free_q + 1 >= props.free_limit && !props.token) {
+      free_q++;
+      localStorage.setItem("gchat-free_q", free_q);
+
+      if (free_q >= props.free_limit && !props.token) {
         disableChat();
         if (props.leadInfo) showAddContainer();
         else if (props.leadPhone || props.leadEmail) showEmailContainer();
-      } else {
-        free_q++;
-        localStorage.setItem("gchat-free_q", free_q);
       }
     };
 
@@ -333,13 +344,13 @@ const events = (props) => {
       e.stopPropagation();
       chatIcon.classList.remove("chat-icon-open");
       chatIcon.classList.add("chat-icon-close");
-      // also add it to the top
       container.classList.add("chat-small");
-      sessionStorage.setItem("closed", true);
+      sessionStorage.setItem("gchat-closed", true);
     };
 
     const showEmailContainer = async () => {
-      if (props.textAfterName) {
+      const last = chatHistory.length - 1;
+      if (props.textAfterName && chatHistory[last]?.text !== props.textAfterName) {
         await wait(0.5);
         toggleTyping();
         await wait(2);
@@ -351,7 +362,7 @@ const events = (props) => {
       }
       await wait(1);
       askEmailCon.classList.remove("hide");
-      askEmailCon.scrollIntoView(true);
+      showEnd();
     };
 
     const showAddContainer = async () => {
@@ -362,13 +373,13 @@ const events = (props) => {
       addChat({ type: "bot", text: props.textBeforeInfo });
       await wait(1);
       askAddCon.classList.remove("hide");
-      askAddCon.scrollIntoView(true);
+      showEnd();
     };
 
     const showAddForm = async () => {
       await wait(1);
       sellerForm.classList.remove("hide");
-      sellerForm.scrollIntoView(true);
+      showEnd();
     };
 
     const handleAddName = async (e) => {
@@ -390,8 +401,7 @@ const events = (props) => {
         return;
       }
 
-      localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));
-      if (free_q + 1 >= props.free_limit) {
+      if (free_q + 1 > props.free_limit) {
         if (props.leadInfo) return showAddContainer();
         else if (props.leadPhone || props.leadEmail)
           return showEmailContainer();
@@ -410,14 +420,12 @@ const events = (props) => {
       localStorage.setItem("gchat-lead-info", lead.info);
 
       sellerForm.classList.add("hide");
-      // askAddCon.classList.add('hide')
 
       if (!props.leadEmail && !props.leadPhone) {
         await handleLeadSubmit(askAddCon);
         return;
       }
 
-      localStorage.setItem("gchat-conversation", JSON.stringify(chatHistory));
       if (
         (props.leadPhone || props.leadEmail) &&
         free_q + 1 >= props.free_limit
@@ -435,7 +443,7 @@ const events = (props) => {
       qcarousel?.classList?.add("hide");
       textInput.setAttribute("disabled", "disabled");
       textInput.setAttribute("placeholder", props.chatLockPlaceholder);
-      chats.scrollIntoView(true);
+      showEnd();
       reset.classList.add("hide");
     };
 
@@ -449,7 +457,7 @@ const events = (props) => {
       textInput.removeAttribute("disabled");
       textInput.focus();
       textInput.setAttribute("placeholder", props.chatOpenPlaceholder);
-      chats.scrollIntoView(true);
+      showEnd();
       reset.classList.remove("hide");
     };
 
@@ -471,7 +479,7 @@ const events = (props) => {
         });
 
         enableChat();
-        chats.scrollIntoView(false);
+        showEnd();
       } catch (err) {
         console.log(err);
       }
@@ -514,10 +522,8 @@ const events = (props) => {
       const btn = document.getElementById("lead-submit-txt");
       btn.textContent = props.emailSubmitingBtn;
 
-      if (lead.email)
-        addChat({ type: "human", text: lead.email});
-      if (lead.phone)
-        addChat({ type: "human", text: lead.phone });
+      if (lead.email) addChat({ type: "human", text: lead.email });
+      if (lead.phone) addChat({ type: "human", text: lead.phone });
 
       await handleLeadSubmit(askEmailCon);
     };
@@ -594,7 +600,7 @@ const events = (props) => {
         if (qcarousel.classList.contains("hide"))
           qcarousel.classList.remove("hide");
       }
-      localStorage.removeItem("gchat-conversation");
+      sessionStorage.removeItem("gchat-chat");
     };
 
     const handleSellBtn = (e) => {
@@ -625,6 +631,10 @@ const events = (props) => {
     window.addEventListener("resize", updateHeight);
     setCSSVariables();
     disableSafariZoom();
+    if (sessionStorage.getItem("gchat-open") === "true") {
+      toggle(false);
+      showEnd();
+    }
   };
 
   if (document.readyState === "loading")
