@@ -65,7 +65,6 @@ const events = (props) => {
     let simulated = false;
 
     const showEnd = () => {
-      console.log(scrollCon.scrollTop, scrollCon.scrollHeight)
       scrollCon.scrollTop = scrollCon.scrollHeight;
     }
 
@@ -183,6 +182,11 @@ const events = (props) => {
         sessionStorage.setItem("gchat-open", update);
       }
       showEnd();
+      const lastQ = chatHistory[chatHistory.length - 1];
+      if (lastQ?.type === "human" && lastQ?.is_question) {
+        // ask again
+        ask(lastQ.text, false);
+      }
     };
 
 
@@ -290,9 +294,9 @@ const events = (props) => {
       return answer.join(" ");
     };
 
-    const ask = async (txt) => {
+    const ask = async (txt, add = true) => {
       loading = true;
-      addChat({ type: "human", text: txt });
+      add && addChat({ type: "human", text: txt, is_question: true });
       await wait(0.3);
       toggleTyping();
       showEnd();
