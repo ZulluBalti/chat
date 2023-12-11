@@ -2,12 +2,12 @@ import jwtDecode from "jwt-decode";
 import renderer from "./src/renderer";
 import events from "./src/events";
 import axios from "./src/axios";
-import "./src/assets/style.css";
-import "./src/assets/ask-name.css";
-import "./src/assets/carousel.css";
-import "./src/assets/footer.css";
-import "./src/assets/chat-indicator.css";
-import "./src/assets/chat-main.css";
+import main_style from "./src/assets/style.css?inline";
+import name_style from "./src/assets/ask-name.css?inline";
+import carousel_style from "./src/assets/carousel.css?inline";
+import footer_style from "./src/assets/footer.css?inline";
+import chat_ind_style from "./src/assets/chat-indicator.css?inline";
+import chat_style from "./src/assets/chat-main.css?inline";
 
 const getSettings = async (project) => {
   if (!project) return null;
@@ -51,16 +51,33 @@ const Chat = async (project) => {
   config.visited = auth.visited;
   if (!config.enabled) return;
 
-  document.body.insertAdjacentHTML("beforeend", renderer(config));
-  const container = document.getElementById("chat-container");
-  container.classList.add(`chat-${config.position}`);
+  const host = document.createElement("div");
+  host.setAttribute("id", "gchat-host");
+  document.body.appendChild(host);
 
-  events(config);
+  const font = document.createElement("link")
+  font.setAttribute("rel", "stylesheet")
+  font.setAttribute("type", "text/css")
+  font.setAttribute("href", "https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;800&display=swap")
+  document.head.appendChild(font);
+
+  // const shadow = host.attachShadow({ mode: "open" });
+  const shadow = host.attachShadow({ mode: "closed" });
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(`${main_style} ${name_style} ${carousel_style} ${footer_style} ${chat_ind_style} ${chat_style}`);
+
+  shadow.adoptedStyleSheets = [sheet]
+  shadow.innerHTML = renderer(config);
+
+  const container = shadow.getElementById("chat-container");
+  container.classList.add(`chat-${config.position}`);
+  
+  events(config, shadow);
 };
 
 if (import.meta.env.DEV)
-  Chat("656ffb2d3d7414cf8981539f"); 
-  // Chat("655dc0aa35a4af0e96eaead1"); // live nabel
+  Chat("656ffb2d3d7414cf8981539f");
+// Chat("650d9cfe7fb69583f1fc2514"); // live 
 
 
 export default Chat;

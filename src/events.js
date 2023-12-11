@@ -6,7 +6,7 @@ import { renderQ } from "./QuestionCarousel";
 const wait = (sec) =>
   new Promise((resolve) => setTimeout(() => resolve(), sec * 1000));
 
-const events = (props) => {
+const events = (props, shadow) => {
   const lead = {
     name: localStorage.getItem("gchat-lead-name") || "",
     phone: "",
@@ -20,43 +20,43 @@ const events = (props) => {
   const myEvent = () => {
     let scrollTop = 0;
     const root = document.querySelector(":root");
-    const container = document.getElementById(`chat-container`);
-    const openIcon = document.querySelector(`.chat-icon__container`);
-    const chatIcon = document.querySelector(`.chat-icon__container .chat-icon`);
-    const closeIcon = document.querySelector(
+    const container = shadow.getElementById(`chat-container`);
+    const openIcon = shadow.querySelector(`.chat-icon__container`);
+    const chatIcon = shadow.querySelector(`.chat-icon__container .chat-icon`);
+    const closeIcon = shadow.querySelector(
       `.chat-icon__default .chat-actions-close`,
     );
-    const cancelIcon = document.querySelector(`.cancel__container`);
-    const askNameCon = document.querySelector(".chat-confirm.ask-name");
-    const askEmailCon = document.querySelector(".chat-confirm.ask-email");
-    const askAddCon = document.querySelector(".chat-confirm.ask-additional");
-    const addNameForm = document.getElementById(`add-name__form`);
-    const sellerForm = document.getElementById(`seller_form`);
-    const sellBtn = document.getElementById("gchat-sell");
-    const buyBtn = document.getElementById("gchat-buy");
-    const gdprBtn = document.getElementById(`gdpr-btn`);
-    const gdprInfo = document.querySelector(`.gdpr-info`);
-    const gdprClose = document.getElementById(`gdpr-close`);
-    const addEmailForm = document.getElementById(`add-email__form`);
-    const emailPopup = document.querySelector(
+    const cancelIcon = shadow.querySelector(`.cancel__container`);
+    const askNameCon = shadow.querySelector(".chat-confirm.ask-name");
+    const askEmailCon = shadow.querySelector(".chat-confirm.ask-email");
+    const askAddCon = shadow.querySelector(".chat-confirm.ask-additional");
+    const addNameForm = shadow.getElementById(`add-name__form`);
+    const sellerForm = shadow.getElementById(`seller_form`);
+    const sellBtn = shadow.getElementById("gchat-sell");
+    const buyBtn = shadow.getElementById("gchat-buy");
+    const gdprBtn = shadow.getElementById(`gdpr-btn`);
+    const gdprInfo = shadow.querySelector(`.gdpr-info`);
+    const gdprClose = shadow.getElementById(`gdpr-close`);
+    const addEmailForm = shadow.getElementById(`add-email__form`);
+    const emailPopup = shadow.querySelector(
       `#add-email__form .chat-confirm__icon`,
     );
-    const namePopup = document.querySelector(
+    const namePopup = shadow.querySelector(
       `#add-name__form .chat-confirm__icon`,
     );
-    const infoPopup = document.querySelector(
+    const infoPopup = shadow.querySelector(
       `#seller_form .chat-confirm__icon`,
     );
-    const mainChat = document.querySelector(`.chat-main`);
-    const scrollCon = document.querySelector(`.chat-main__conv`);
-    const textInput = document.querySelector(`.chat-footer__input`);
-    const textSendBtn = document.querySelector(`.chat-footer__send`);
-    const chatTyping = document.querySelector(`.chat-typing`);
-    const preQuestions = document.querySelector(`.g-questions`);
-    const qcarousel = document.querySelector(".question-carousel");
-    const reset = document.querySelector("#chat-container .reset__container");
+    const mainChat = shadow.querySelector(`.chat-main`);
+    const scrollCon = shadow.querySelector(`.chat-main__conv`);
+    const textInput = shadow.querySelector(`.chat-footer__input`);
+    const textSendBtn = shadow.querySelector(`.chat-footer__send`);
+    const chatTyping = shadow.querySelector(`.chat-typing`);
+    const preQuestions = shadow.querySelector(`.g-questions`);
+    const qcarousel = shadow.querySelector(".question-carousel");
+    const reset = shadow.querySelector("#chat-container .reset__container");
 
-    const chats = document.querySelector(`.chats`);
+    const chats = shadow.querySelector(`.chats`);
     const prev_chat = JSON.parse(sessionStorage.getItem("gchat-chat"));
     let chatHistory = prev_chat || [];
 
@@ -390,7 +390,7 @@ const events = (props) => {
       await wait(1);
       askAddCon.classList.remove("hide");
       if (lead.action) {
-        document.querySelector(".ask-additional-btns").classList.add("hide");
+        shadow.querySelector(".ask-additional-btns").classList.add("hide");
         showAddForm();
       }
       showEnd();
@@ -432,9 +432,9 @@ const events = (props) => {
 
     const handleAdditionalSubmit = async (e) => {
       e.preventDefault();
-      const what = document.getElementById("gchat-what").value;
-      const where = document.getElementById("gchat-where").value;
-      const capital = document.getElementById("gchat-capital").value;
+      const what = shadow.getElementById("gchat-what").value;
+      const where = shadow.getElementById("gchat-where").value;
+      const capital = shadow.getElementById("gchat-capital").value;
 
       lead.info = `${lead.action}\n${what}\n${where}\n${capital}`;
       localStorage.setItem("gchat-lead-info", lead.info);
@@ -455,8 +455,8 @@ const events = (props) => {
     };
 
     const disableChat = () => {
-      const model = document.querySelector(".chat-footer__model");
-      const lock = document.querySelector(".chat-footer__lock");
+      const model = shadow.querySelector(".chat-footer__model");
+      const lock = shadow.querySelector(".chat-footer__lock");
 
       model.classList.remove("hide");
       lock.classList.remove("hide");
@@ -468,8 +468,8 @@ const events = (props) => {
     };
 
     const enableChat = () => {
-      const model = document.querySelector(".chat-footer__model");
-      const lock = document.querySelector(".chat-footer__lock");
+      const model = shadow.querySelector(".chat-footer__model");
+      const lock = shadow.querySelector(".chat-footer__lock");
 
       model.classList.add("hide");
       lock.classList.add("hide");
@@ -518,12 +518,12 @@ const events = (props) => {
 
     const handleAddEmail = async (e) => {
       e.preventDefault();
-      const error = document.querySelector(".chat-confirm__error");
+      const error = shadow.querySelector(".chat-confirm__error");
       error.textContent = "";
 
       // validation
       if (props.leadPhone) {
-        lead.phone = document.getElementById("lead-phone").value;
+        lead.phone = shadow.getElementById("lead-phone").value;
         const [valid, msg] = validatePhone(lead.phone);
         if (!valid) {
           error.textContent = msg || props.invalidPhone;
@@ -532,14 +532,14 @@ const events = (props) => {
       }
 
       if (props.leadEmail) {
-        lead.email = document.getElementById("lead-email").value?.trim?.();
+        lead.email = shadow.getElementById("lead-email").value?.trim?.();
         if (!isEmail(lead.email)) {
           error.textContent = props.invalidEmail;
           return;
         }
       }
 
-      const btn = document.getElementById("lead-submit-txt");
+      const btn = shadow.getElementById("lead-submit-txt");
       btn.textContent = props.emailSubmitingBtn;
 
       if (lead.email) addChat({ type: "human", text: lead.email });
@@ -565,7 +565,7 @@ const events = (props) => {
       questionPr.remove();
       // check if there's none left
       const questions = Array.from(
-        document.querySelectorAll(".g-question__con"),
+        shadow.querySelectorAll(".g-question__con"),
       );
       if (questions.length === 0) qcarousel.classList.add("hide");
     };
