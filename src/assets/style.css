@@ -33,6 +33,7 @@
   }
 
   #chat-container.chat-top-left,
+  #chat-container.chat-center,
   #chat-container.chat-left {
     left: 3em;
   }
