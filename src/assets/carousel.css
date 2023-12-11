@@ -28,7 +28,7 @@
 
 @media (max-width: 500px) {
   #chat-container .g-questions {
-    padding: 0.8em 0; 
+    padding: 0.8em 5px; 
   }
 }
 
