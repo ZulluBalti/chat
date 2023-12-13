@@ -14,7 +14,7 @@ const events = (props, shadow) => {
     info: localStorage.getItem("gchat-lead-info") || "",
     action: localStorage.getItem("gchat-action")
   };
-  let prevNode = null;
+  let prevNode = localStorage.getItem("gchat-prevNode");
   let free_q = parseInt(localStorage.getItem("gchat-free_q") || 0);
 
   const myEvent = () => {
@@ -317,6 +317,7 @@ const events = (props, shadow) => {
           text: text,
         });
         prevNode = res?.data.nodeId;
+        localStorage.setItem("gchat-prevNode", prevNode);
       } catch (err) {
         console.error(err);
         addChat({
