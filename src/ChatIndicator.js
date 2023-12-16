@@ -19,6 +19,7 @@ const Chat = (config, small) => {
         </div>`;
   };
 
+
   return `
       <div class="chat-icon chat-icon-${small ?  'close' : 'open'}">
         <div class="chat-icon__close-mobile ${position}">

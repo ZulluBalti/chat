@@ -2,6 +2,7 @@ import { renderChat } from "./History";
 import axios from "./axios";
 import isEmail from "validator/es/lib/isEmail";
 import { renderQ } from "./QuestionCarousel";
+import auto_open_tone from './assets/auto_open.mp3';
 
 const wait = (sec) =>
   new Promise((resolve) => setTimeout(() => resolve(), sec * 1000));
@@ -362,6 +363,7 @@ const events = (props, shadow) => {
       chatIcon.classList.add("chat-icon-close");
       container.classList.add("chat-small");
       sessionStorage.setItem("gchat-closed", true);
+      sessionStorage.setItem("gchat-open_indicator", false);
     };
 
     const showEmailContainer = async () => {
@@ -658,8 +660,29 @@ const events = (props, shadow) => {
     window.addEventListener("resize", updateHeight);
     setCSSVariables();
     disableSafariZoom();
-    if (sessionStorage.getItem("gchat-open") === "true") {
+    const session_open = sessionStorage.getItem("gchat-open");
+    const indicator_open = sessionStorage.getItem("gchat-open_indicator");
+
+    if (session_open === "true") {
       toggle(false);
+    }
+
+    if (props.auto_open > 0) {
+      setTimeout(() => {
+        // for computer
+        const tone = new Audio(auto_open_tone);
+        if (window.innerWidth > 500 && session_open === null) {
+          toggle(true);
+          tone.play();
+        } else if (indicator_open === null) {
+          // remove chat-small class from chat-container
+          container.classList.remove('chat-small');
+          chatIcon.classList.remove('chat-icon-close')
+          chatIcon.classList.add('chat-icon-open')
+          sessionStorage.setItem("gchat-open_indicator", true);
+          tone.play();
+        }
+      }, props.auto_open * 1000)
     }
   };
 
