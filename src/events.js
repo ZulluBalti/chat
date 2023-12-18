@@ -671,6 +671,7 @@ const events = (props, shadow) => {
       setTimeout(() => {
         // for computer
         const tone = new Audio(auto_open_tone);
+        if (!container.classList.contains("chat-close")) return;
         if (window.innerWidth > 500 && session_open === null) {
           toggle(true);
           tone.play();
