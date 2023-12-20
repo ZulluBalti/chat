@@ -23,7 +23,7 @@
 #chat-container .chat-main__conv {
   flex-grow: 1;
   overflow-y: auto;
-  background: linear-gradient(180deg, #F7F7FC 0%, #FFF 0.01%, #F7F7FC 100%);
+  background: linear-gradient(180deg, #f7f7fc 0%, #fff 0.01%, #f7f7fc 100%);
   background-attachment: fixed;
 }
 
@@ -138,10 +138,30 @@
   pointer-events: none;
 }
 
+#chat-container .chat-text.blinking::after {
+  width: 10px;
+  content: "";
+  height: 3px;
+  margin-left: 5px;
+  display: inline-block;
+  animation: 0.5s my_blink step-end infinite;
+}
+
+@keyframes my_blink {
+  from,
+  to {
+    background: transparent;
+  }
+  50% {
+    background: white;
+  }
+}
+
 #chat-container .chat-text a {
   pointer-events: all;
   color: #efefef;
   text-decoration: underline;
+  line-break: anywhere;
 }
 
 #chat-container .chat-main__conv::-webkit-scrollbar {

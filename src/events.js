@@ -272,7 +272,7 @@ const events = (props, shadow) => {
         .map((itm) => (itm.endsWith(".") ? itm.slice(0, itm.length - 1) : itm));
     }
 
-    const linkify = (text) => {
+    const linkify = (text = "") => {
       const answer = [];
       const parts = text.split(" ");
       for (const part of parts) {
@@ -296,6 +296,47 @@ const events = (props, shadow) => {
       return answer.join(" ");
     };
 
+    const handleDownloadProgress = (evt, len) => {
+      let response = evt?.event?.currentTarget?.response || "";
+      response = response.slice(len);
+      len += response.length;
+
+      const parts = response.split("}{");
+      for (let part of parts) {
+        part = part.trim();
+        let txt = part;
+        if (txt[0] !== '{') {
+          txt = '{' + txt;
+        }
+        if (txt.at(-1) !== '}')
+          txt = txt + '}';
+
+        const json = JSON.parse(txt);
+        if (json.nodeId) {
+          prevNode = json.nodeId;
+          localStorage.setItem("gchat-prevNode", prevNode);
+          return;
+        }
+
+        const last = chats.querySelector("& > :last-child")
+        if (last.classList.contains("bot")) {
+          const container = last.querySelector(".chat-item");
+          const p = last.querySelector(".chat-text");
+          const prev_content = p.textContent;
+          const content = linkify(prev_content + json?.content).trim();
+          container.innerHTML = `<p class="chat-text blinking">${content}</p>`
+        } else {
+          toggleTyping();
+          addChat({
+            type: "bot",
+            text: json?.content,
+          });
+        }
+      }
+      showEnd();
+      return len;
+    }
+
     const ask = async (txt, add = true) => {
       loading = true;
       add && addChat({ type: "human", text: txt, is_question: true });
@@ -307,28 +348,39 @@ const events = (props, shadow) => {
         let conversation = getConversation();
         conversation.push({ role: "user", content: txt?.trim() });
 
-        const res = await axios.post(`/projects/ask/${props.projectId}`, {
+
+        let len = 0;
+        await axios.post(`/projects/ask/${props.projectId}`, {
           conversation,
           free_q,
           prevNode,
+        }, {
+          onDownloadProgress: (evt) => {
+            len = handleDownloadProgress(evt, len)
+          }
         });
-        const text = res?.data.answer?.content || props.errorMsg;
-        addChat({
-          type: "bot",
-          text: text,
-        });
-        prevNode = res?.data.nodeId;
-        localStorage.setItem("gchat-prevNode", prevNode);
       } catch (err) {
         console.error(err);
-        addChat({
-          type: "bot",
-          text: props.errorMsg,
-        });
+        const last = chats.querySelector("& > :last-child")
+        if (last.classList.contains("bot")) {
+          const p = last.querySelector(".chat-text");
+          p.innerHTML = linkify(props.errorMsg).trim();
+        } else {
+          addChat({
+            type: "bot",
+            text: props.errorMsg,
+          });
+        }
       }
 
-      toggleTyping();
       loading = false;
+
+      const last = chats.querySelector("& > .bot:last-child")
+      const p = last.querySelector(".chat-text")
+      p.classList.remove("blinking")
+      
+      chatHistory.at(-1).text = p.innerHTML;
+      sessionStorage.setItem("gchat-chat", JSON.stringify(chatHistory));
 
       free_q++;
       localStorage.setItem("gchat-free_q", free_q);
