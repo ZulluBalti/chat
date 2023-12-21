@@ -14,7 +14,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "ENV='DEV' && vite",
+    "dev": "vite",
     "build": "vite build",
     "build:stage": "vite build --mode staging",
     "preview": "vite preview",
