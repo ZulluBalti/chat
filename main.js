@@ -74,9 +74,9 @@ const Chat = async (project) => {
   events(config, shadow);
 };
 
-if (import.meta.env.MODE === "developement")
-  Chat("6583fc30ca9fb4b3cccd0340"); // stage
-  // Chat("656ffb2d3d7414cf8981539f");
+if (import.meta.env.MODE === "development")
+  // Chat("6583fc30ca9fb4b3cccd0340"); // stage
+  Chat("656ffb2d3d7414cf8981539f");
   // Chat("650d9cfe7fb69583f1fc2514"); // live 
 
 

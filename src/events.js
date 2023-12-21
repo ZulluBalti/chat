@@ -323,7 +323,7 @@ const events = (props, shadow) => {
           const container = last.querySelector(".chat-item");
           const p = last.querySelector(".chat-text");
           const prev_content = p.textContent;
-          const content = linkify(prev_content + json?.content).trim();
+          const content = linkify(prev_content + json?.content);
           container.innerHTML = `<p class="chat-text blinking">${content}</p>`
         } else {
           toggleTyping();
