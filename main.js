@@ -61,7 +61,6 @@ const Chat = async (project) => {
   font.setAttribute("href", "https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;800&display=swap")
   document.head.appendChild(font);
 
-  // const shadow = host.attachShadow({ mode: "open" });
   const shadow = host.attachShadow({ mode: "closed" });
   const sheet = new CSSStyleSheet();
   sheet.replaceSync(`${main_style} ${name_style} ${carousel_style} ${footer_style} ${chat_ind_style} ${chat_style}`);
@@ -75,9 +74,10 @@ const Chat = async (project) => {
   events(config, shadow);
 };
 
-if (import.meta.env.DEV)
-  Chat("656ffb2d3d7414cf8981539f");
-// Chat("650d9cfe7fb69583f1fc2514"); // live 
+if (import.meta.env.MODE === "developement")
+  Chat("6583fc30ca9fb4b3cccd0340"); // stage
+  // Chat("656ffb2d3d7414cf8981539f");
+  // Chat("650d9cfe7fb69583f1fc2514"); // live 
 
 
 export default Chat;

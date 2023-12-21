@@ -14,10 +14,12 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
+    "dev": "ENV='DEV' && vite",
     "build": "vite build",
+    "build:stage": "vite build --mode staging",
     "preview": "vite preview",
-    "npm:publish": "yarn run build && npm version patch && npm publish"
+    "npm:publish": "yarn run build && npm version patch && npm publish",
+    "npm:publish:beta": "yarn run build:stage && npm version prerelease --preid=beta && npm publish --tag beta"
   },
   "devDependencies": {
     "vite": "^4.3.9"
