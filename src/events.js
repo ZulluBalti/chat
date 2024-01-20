@@ -312,18 +312,22 @@ const events = (props, shadow) => {
           txt = txt + '}';
 
         const json = JSON.parse(txt);
+        const last = chats.querySelector("& > :last-child")
+        const prev_content = last.querySelector(".chat-text")?.innerHTML;
+        const container = last.querySelector(".chat-item");
+
         if (json.nodeId) {
           prevNode = json.nodeId;
           localStorage.setItem("gchat-prevNode", prevNode);
+          // fix that thing :) with links
+          const content = prev_content.replaceAll(/<;/g, "<");
+          container.innerHTML = `<p class="chat-text blinking">${content}</p>`
           return;
         }
 
-        const last = chats.querySelector("& > :last-child")
         if (last.classList.contains("bot")) {
-          const container = last.querySelector(".chat-item");
-          const p = last.querySelector(".chat-text");
-          const prev_content = p.textContent;
-          const content = linkify(prev_content + json?.content);
+          let content = linkify(prev_content + json?.content);
+          content = content.replaceAll("\n", "<br />")
           container.innerHTML = `<p class="chat-text blinking">${content}</p>`
         } else {
           toggleTyping();
@@ -378,7 +382,7 @@ const events = (props, shadow) => {
       const last = chats.querySelector("& > .bot:last-child")
       const p = last.querySelector(".chat-text")
       p.classList.remove("blinking")
-      
+
       chatHistory.at(-1).text = p.innerHTML;
       sessionStorage.setItem("gchat-chat", JSON.stringify(chatHistory));
 
