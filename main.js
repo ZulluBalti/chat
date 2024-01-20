@@ -55,29 +55,38 @@ const Chat = async (project) => {
   host.setAttribute("id", "gchat-host");
   document.body.appendChild(host);
 
-  const font = document.createElement("link")
-  font.setAttribute("rel", "stylesheet")
-  font.setAttribute("type", "text/css")
-  font.setAttribute("href", "https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;800&display=swap")
+  const font = document.createElement("link");
+  font.setAttribute("rel", "stylesheet");
+  font.setAttribute("type", "text/css");
+  font.setAttribute(
+    "href",
+    "https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;800&display=swap",
+  );
   document.head.appendChild(font);
 
   const shadow = host.attachShadow({ mode: "closed" });
   const sheet = new CSSStyleSheet();
-  sheet.replaceSync(`${main_style} ${name_style} ${carousel_style} ${footer_style} ${chat_ind_style} ${chat_style}`);
+  sheet.replaceSync(
+    `${main_style} ${name_style} ${carousel_style} ${footer_style} ${chat_ind_style} ${chat_style}`,
+  );
 
-  shadow.adoptedStyleSheets = [sheet]
+  shadow.adoptedStyleSheets = [sheet];
   shadow.innerHTML = renderer(config);
+
+  // global style
+  const gstyleSheet = document.createElement("style");
+  gstyleSheet.innerText = `.gchat-no-scroll { height: var(--gchat-height) !important; overflow: hidden !important; position: fixed; -webkit-overflow-scrolling: touch; }`;
+  document.head.appendChild(gstyleSheet)
 
   const container = shadow.getElementById("chat-container");
   container.classList.add(`chat-${config.position}`);
-  
+
   events(config, shadow);
 };
 
 if (import.meta.env.MODE === "development")
   // Chat("6583fc30ca9fb4b3cccd0340"); // stage
   Chat("656ffb2d3d7414cf8981539f");
-  // Chat("650d9cfe7fb69583f1fc2514"); // live 
-
+// Chat("650d9cfe7fb69583f1fc2514"); // live
 
 export default Chat;
