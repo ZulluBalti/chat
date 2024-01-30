@@ -16,7 +16,7 @@ const events = (props, shadow) => {
     action: localStorage.getItem("gchat-action")
   };
   let prevNode = localStorage.getItem("gchat-prevNode");
-  let thread_id = localStorage.getItem("gchat-thread_id");
+  let thread_id = sessionStorage.getItem("gchat-thread_id");
   let free_q = parseInt(localStorage.getItem("gchat-free_q") || 0);
 
   const myEvent = () => {
@@ -322,7 +322,7 @@ const events = (props, shadow) => {
           thread_id = json.thread_id;
           localStorage.setItem("gchat-prevNode", prevNode);
           if (thread_id)
-            localStorage.setItem("gchat-thread_id", thread_id);
+            sessionStorage.setItem("gchat-thread_id", thread_id);
           // fix that thing :) with links
           const content = prev_content.replaceAll(/<;/g, "<");
           container.innerHTML = `<p class="chat-text blinking">${content}</p>`
@@ -690,7 +690,7 @@ const events = (props, shadow) => {
       }
       sessionStorage.removeItem("gchat-chat");
       sessionStorage.removeItem("gchat-q__asked")
-      localStorage.removeItem("gchat-thread_id")
+      sessionStorage.removeItem("gchat-thread_id")
       thread_id = null;
     };
 
